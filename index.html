@@ -24,11 +24,6 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-normal-latin.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin.woff2" crossorigin />
 
-  <!-- React + Babel (dev-only tweaks panel) -->
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
-
   <!-- JSON-LD: LocalBusiness -->
   <script type="application/ld+json">
   {
@@ -236,26 +231,14 @@
       opacity: 0;
       animation: fadeUp 0.8s 0.2s forwards;
     }
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(64px, 7vw, 96px);
-      font-weight: 400;
-      line-height: 1.0;
-      color: var(--cream);
-      margin-bottom: 12px;
+    .hero-logo {
+      width: 200px;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      margin-bottom: 32px;
       opacity: 0;
       animation: fadeUp 0.8s 0.4s forwards;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: oklch(92% 0.03 88);
-    }
-    .hero-divider {
-      width: 48px; height: 1px;
-      background: oklch(90% 0.04 88 / 0.6);
-      margin: 32px 0;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.6s forwards;
     }
     .hero-sub {
       font-size: 13px;
@@ -766,7 +749,7 @@
         animation-delay: 0.01ms !important;
         transition-duration: 0.01ms !important;
       }
-      .hero-eyebrow, .hero-title, .hero-divider, .hero-sub,
+      .hero-eyebrow, .hero-logo, .hero-sub,
       .hero-cta, .hero-badge { opacity: 1; transform: none; }
       .reveal { opacity: 1; transform: none; }
     }
@@ -895,9 +878,11 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-left">
-      <span class="hero-eyebrow">Coffee · Frühstück · Mittagessen</span>
-      <h1 class="hero-title">Café<br/><em>Lou</em></h1>
-      <div class="hero-divider"></div>
+      <img
+        src="reference/logo.png"
+        alt="Café Lou — coffee · breakfast · lunch"
+        class="hero-logo"
+      />
       <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück und entspannte Mittagessen — täglich mit Liebe gemacht.</p>
       <div class="hero-cta">
         <a href="#menu" class="btn-primary">Zur Speisekarte</a>
@@ -1114,52 +1099,6 @@
     });
   </script>
 
-  <!-- Tweaks panel (design tool) -->
-  <script type="text/babel" src="tweaks-panel.jsx"></script>
-  <script type="text/babel">
-    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-      "accentColor": "#6b8f6b",
-      "darkNav": false
-    }/*EDITMODE-END*/;
-
-    const { TweaksPanel, TweakSection, TweakColor, TweakToggle, useTweaks } = window;
-
-    function CafeApp() {
-      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-
-      React.useEffect(() => {
-        const root = document.documentElement;
-        root.style.setProperty('--sage', tweaks.accentColor);
-        root.style.setProperty('--accent', tweaks.accentColor);
-      }, [tweaks.accentColor]);
-
-      React.useEffect(() => {
-        const navEl = document.getElementById('main-nav');
-        if (tweaks.darkNav) {
-          navEl.style.background = 'oklch(38% 0.06 145)';
-          navEl.querySelectorAll('a').forEach(a => a.style.color = 'oklch(95% 0.02 88)');
-        } else {
-          navEl.style.background = '';
-          navEl.querySelectorAll('a').forEach(a => a.style.color = '');
-        }
-      }, [tweaks.darkNav]);
-
-      return (
-        <TweaksPanel>
-          <TweakSection label="Markenfarbe">
-            <TweakColor label="Sage Green" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
-          </TweakSection>
-          <TweakSection label="Navigation">
-            <TweakToggle label="Dunkle Navbar" value={tweaks.darkNav} onChange={v => setTweak('darkNav', v)} />
-          </TweakSection>
-        </TweaksPanel>
-      );
-    }
-
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    ReactDOM.createRoot(container).render(<CafeApp />);
-  </script>
 
 </body>
 </html>
