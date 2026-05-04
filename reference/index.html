@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Lou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --cream: oklch(97% 0.014 88);
+      --cream-mid: oklch(93% 0.016 88);
+      --parchment: oklch(88% 0.020 88);
+      --sage: oklch(56% 0.07 145);
+      --sage-dark: oklch(38% 0.06 145);
+      --sage-light: oklch(74% 0.06 145);
+      --sage-pale: oklch(92% 0.04 145);
+      --rose: oklch(56% 0.07 145);
+      --rose-dark: oklch(38% 0.06 145);
+      --espresso: oklch(28% 0.04 145);
+      --charcoal: oklch(32% 0.03 145);
+      --gold: oklch(80% 0.06 88);
+      --text: oklch(22% 0.025 145);
+      --text-light: oklch(50% 0.025 145);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 60px;
+      transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: oklch(97% 0.014 88 / 0.94);
+      backdrop-filter: blur(12px);
+      padding: 16px 60px;
+      border-bottom: 1px solid var(--parchment);
+    }
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--espresso);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--rose);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--rose); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      background: var(--sage);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 140px 80px 80px;
+      position: relative;
+    }
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; right: -1px;
+      width: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+    .hero-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: oklch(90% 0.04 88);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(64px, 7vw, 96px);
+      font-weight: 400;
+      line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: oklch(92% 0.03 88);
+    }
+    .hero-divider {
+      width: 48px; height: 1px;
+      background: oklch(90% 0.04 88 / 0.6);
+      margin: 32px 0;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-sub {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: oklch(90% 0.03 88);
+      line-height: 1.8;
+      max-width: 280px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+    .hero-cta {
+      margin-top: 48px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--rose);
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--rose-dark); transform: translateY(-1px); }
+    .btn-ghost {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: oklch(88% 0.03 88);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--cream); }
+    .btn-ghost::after { content: '→'; font-size: 14px; }
+
+    .hero-right {
+      position: relative;
+      background: var(--sage-pale);
+      overflow: hidden;
+    }
+    .hero-img-placeholder {
+      width: 100%; height: 100%;
+      background: 
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 8px,
+          oklch(84% 0.04 145 / 0.4) 8px,
+          oklch(84% 0.04 145 / 0.4) 9px
+        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hero-img-label {
+      font-family: 'Jost', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 48px; left: 48px;
+      background: var(--cream);
+      padding: 20px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 8px 32px oklch(20% 0.03 60 / 0.12);
+      opacity: 0;
+      animation: fadeUp 0.8s 1.1s forwards;
+    }
+    .hero-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--sage);
+      line-height: 1;
+    }
+    .hero-badge-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ornament */
+    .orn {
+      display: block;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--rose);
+      letter-spacing: 0.3em;
+      margin: 0 auto 40px;
+    }
+
+    /* ─── SECTION COMMONS ─── */
+    section { padding: 120px 60px; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 4vw, 58px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--espresso);
+    }
+    .section-title em { font-style: italic; color: var(--sage); }
+
+    /* ─── STORY ─── */
+    #story {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .story-text { padding-right: 40px; }
+    .story-body {
+      margin-top: 32px;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--charcoal);
+      max-width: 480px;
+    }
+    .story-body p + p { margin-top: 20px; }
+    .story-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 40px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rose);
+      padding-bottom: 4px;
+      transition: gap 0.2s;
+    }
+    .story-link:hover { gap: 18px; }
+    .story-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      height: 560px;
+    }
+    .story-img {
+      background: 
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 8px,
+          oklch(86% 0.04 145 / 0.5) 8px,
+          oklch(86% 0.04 145 / 0.5) 9px
+        );
+      background-color: var(--sage-pale);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 16px;
+    }
+    .story-img:first-child { margin-top: 40px; }
+    .story-img:last-child { margin-bottom: 40px; margin-top: -40px; }
+    .img-caption {
+      font-family: 'Jost', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+
+    /* ─── SPECIALS BANNER ─── */
+    #specials-banner {
+      background: var(--sage-dark);
+      padding: 0;
+      overflow: hidden;
+    }
+    .ticker-wrap {
+      display: flex;
+      overflow: hidden;
+      border-top: 1px solid oklch(100% 0 0 / 0.08);
+      border-bottom: 1px solid oklch(100% 0 0 / 0.08);
+    }
+    .ticker {
+      display: flex;
+      gap: 0;
+      animation: ticker 22s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 22px 40px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+    }
+    .ticker-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--rose);
+      flex-shrink: 0;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── MENU ─── */
+    #menu {
+      background: var(--sage-pale);
+      text-align: center;
+      padding: 120px 60px;
+    }
+    .menu-header { margin-bottom: 64px; }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 56px;
+      border-bottom: 1px solid var(--parchment);
+    }
+    .menu-tab {
+      padding: 12px 32px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .menu-tab.active {
+      color: var(--rose);
+      border-bottom-color: var(--rose);
+    }
+    .menu-tab:hover:not(.active) { color: var(--charcoal); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--cream);
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .menu-card:hover { transform: translateY(-4px); }
+    .menu-card:hover .menu-card-overlay { opacity: 1; }
+    .menu-card-thumb {
+      height: 220px;
+      background: 
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 8px,
+          oklch(86% 0.04 145 / 0.4) 8px,
+          oklch(86% 0.04 145 / 0.4) 9px
+        );
+      background-color: var(--sage-pale);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-thumb-label {
+      font-family: 'Jost', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+    .menu-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: oklch(38% 0.06 145 / 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .menu-card-body {
+      padding: 20px 24px 24px;
+      text-align: left;
+    }
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--espresso);
+      margin-bottom: 6px;
+    }
+    .menu-card-desc {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .menu-card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--sage);
+    }
+    .menu-see-all {
+      margin-top: 48px;
+    }
+
+    /* ─── ORDER ─── */
+    #order {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .order-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      height: 560px;
+    }
+    .order-img {
+      background: 
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 8px,
+          oklch(86% 0.04 145 / 0.5) 8px,
+          oklch(86% 0.04 145 / 0.5) 9px
+        );
+      background-color: var(--sage-pale);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 16px;
+    }
+    .order-img:first-child { margin-top: 40px; }
+    .order-img:last-child { margin-bottom: 40px; margin-top: -40px; }
+    .order-form-wrap { padding-top: 20px; }
+    .order-body {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--charcoal);
+      margin-top: 24px;
+      margin-bottom: 40px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--cream-mid);
+      border: 1px solid var(--parchment);
+      padding: 12px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--rose);
+    }
+    .form-field textarea {
+      height: 96px;
+      resize: none;
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px;
+      background: oklch(56% 0.07 145 / 0.07);
+      border: 1px solid oklch(56% 0.07 145 / 0.25);
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--sage);
+    }
+    .form-success.visible { display: block; }
+
+    /* ─── CONTACTS ─── */
+    #contacts {
+      background: var(--sage-dark);
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 60px;
+    }
+    .contact-block-title {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: oklch(82% 0.05 88);
+      margin-bottom: 20px;
+    }
+    .contact-block-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.6;
+    }
+    .contact-block-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: oklch(78% 0.035 145);
+      margin-top: 8px;
+      line-height: 1.7;
+    }
+    .contact-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+    .contact-logo em { font-style: italic; color: oklch(88% 0.04 88); }
+    .contact-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: oklch(78% 0.035 145);
+      line-height: 1.8;
+      max-width: 260px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: oklch(22% 0.04 145);
+      padding: 28px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-size: 11px;
+      color: oklch(55% 0.03 145);
+      letter-spacing: 0.1em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: oklch(55% 0.03 145);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--sage-light); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--sage-light); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">Café Lou</a>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#order">Reserve</a></li>
+      <li><a href="#contacts">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <span class="hero-eyebrow">Coffee · Breakfast · Lunch</span>
+      <h1 class="hero-title">Café<br/><em>Lou</em></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">Your neighbourhood spot for great coffee, honest breakfasts, and leisurely lunches — made with care, every single day.</p>
+      <div class="hero-cta">
+        <a href="#menu" class="btn-primary">View Menu</a>
+        <a href="#order" class="btn-ghost">Book a Table</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-placeholder">
+        <span class="hero-img-label">hero image</span>
+        <span class="hero-img-label">cafe interior / hero shot</span>
+      </div>
+      <div class="hero-badge">
+        <span class="hero-badge-num">8am</span>
+        <span class="hero-badge-label">Open every morning</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALS TICKER -->
+  <div id="specials-banner">
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker">
+        <span class="ticker-item"><span class="ticker-dot"></span>Freshly baked pastries every morning</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Single-origin filter coffee &amp; seasonal espresso</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Weekend brunch until 3pm</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>House-made granola bowls &amp; avocado toasts</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Freshly baked pastries every morning</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Single-origin filter coffee &amp; seasonal espresso</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Weekend brunch until 3pm</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>House-made granola bowls &amp; avocado toasts</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section id="story">
+    <div class="story-text">
+      <p class="section-label reveal">Our Story</p>
+      <h2 class="section-title reveal reveal-delay-1">A Place You'll<br/><em>Come Back To</em></h2>
+      <div class="story-body reveal reveal-delay-2">
+        <p>Café Lou started as a simple idea: a neighbourhood spot where people could slow down, eat something good, and feel at home. No fuss — just great ingredients, honest cooking, and a warm welcome.</p>
+        <p>We pour single-origin coffee, bake our pastries fresh each morning, and change the lunch menu with the seasons. Come once and you'll know the feeling.</p>
+      </div>
+      <a href="#" class="story-link reveal reveal-delay-3">Our story →</a>
+    </div>
+    <div class="story-images reveal reveal-delay-2">
+      <div class="story-img">
+        <span class="img-caption">interior</span>
+      </div>
+      <div class="story-img">
+        <span class="img-caption">kitchen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="menu-header">
+      <p class="section-label reveal">Our Menu</p>
+      <h2 class="section-title reveal reveal-delay-1">Fresh &amp; Seasonal<br/><em>Menu</em></h2>
+    </div>
+    <div class="menu-tabs reveal reveal-delay-2" id="menu-tabs">
+      <button class="menu-tab active" data-cat="all">All</button>
+      <button class="menu-tab" data-cat="breakfast">Breakfast</button>
+      <button class="menu-tab" data-cat="lunch">Lunch</button>
+      <button class="menu-tab" data-cat="pastries">Pastries</button>
+      <button class="menu-tab" data-cat="drinks">Coffee &amp; Drinks</button>
+    </div>
+    <div class="menu-grid reveal reveal-delay-3" id="menu-grid">
+      <!-- cards injected by JS -->
+    </div>
+    <div class="menu-see-all reveal reveal-delay-4">
+      <a href="#" class="btn-primary">Full Menu</a>
+    </div>
+  </section>
+
+  <!-- ORDER -->
+  <section id="order">
+    <div class="order-images">
+      <div class="order-img reveal">
+        <span class="img-caption">signature sandwich</span>
+      </div>
+      <div class="order-img reveal reveal-delay-1">
+        <span class="img-caption">wood-fire detail</span>
+      </div>
+    </div>
+    <div class="order-form-wrap">
+      <p class="section-label reveal">Book a Table</p>
+      <h2 class="section-title reveal reveal-delay-1">Book a<br/><em>Table</em></h2>
+      <p class="order-body reveal reveal-delay-2">We'd love to have you. Whether it's a weekday breakfast or a long weekend lunch with friends — grab a spot and we'll take care of the rest.</p>
+      <form id="res-form" class="reveal reveal-delay-3">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="r-name">Your Name</label>
+            <input type="text" id="r-name" placeholder="Your name" />
+          </div>
+          <div class="form-field">
+            <label for="r-phone">Phone</label>
+            <input type="tel" id="r-phone" placeholder="+61 400 000 000" />
+          </div>
+          <div class="form-field">
+            <label for="r-email">Email</label>
+            <input type="email" id="r-email" placeholder="hello@example.com" />
+          </div>
+          <div class="form-field">
+            <label for="r-guests">Guests</label>
+            <select id="r-guests">
+              <option>1 guest</option>
+              <option>2 guests</option>
+              <option>3 guests</option>
+              <option>4 guests</option>
+              <option>5+ guests</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label for="r-notes">Special Requests</label>
+            <textarea id="r-notes" placeholder="Dietary requirements, occasion…"></textarea>
+          </div>
+        </div>
+        <div style="margin-top:24px;">
+          <button type="submit" class="btn-primary" style="width:100%;text-align:center;display:block;padding:16px;">Confirm Booking</button>
+        </div>
+      </form>
+      <div class="form-success" id="form-success">
+        Thank you — we look forward to seeing you at Café Lou.
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section id="contacts">
+    <div>
+      <div class="contact-logo">Café <em>Lou</em></div>
+      <p class="contact-desc">Your neighbourhood café for coffee, breakfast &amp; lunch. Good food, good people — every day.</p>
+    </div>
+    <div>
+      <p class="contact-block-title">Address</p>
+      <div class="contact-block-main">Saseler Str. 1 Ecke, Meiendorfer Str. 93, 22145 Hamburg
+</div>
+      <div class="contact-block-sub">Corner of Smith St<br/>Mon–Fri 7:00–15:00 · Sat–Sun 8:00–15:00</div>
+    </div>
+    <div>
+      <p class="contact-block-title">Get in Touch</p>
+      <div class="contact-block-main">+49 40 32848308</div>
+      <div class="contact-block-sub">peter@jacobdigital.de
+Bookings &amp; group enquiries welcome</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© Café Lou 2026 · All rights reserved</span>
+    <div class="footer-links">
+      <a href="#">Instagram</a>
+      <a href="#">Privacy</a>
+      <a href="#">Careers</a>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+
+  <script>
+    // ── Nav scroll ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Menu data ──
+    const menuItems = [
+      { cat: 'breakfast', name: 'Avocado Toast',    desc: 'Sourdough, smashed avo, chilli flakes, lemon', price: '$16', thumb: 'avocado toast' },
+      { cat: 'breakfast', name: 'Granola Bowl',      desc: 'House granola, seasonal fruit, honey yoghurt',  price: '$14', thumb: 'granola bowl' },
+      { cat: 'lunch',     name: 'Lou Sandwich',      desc: 'Roast chicken, aioli, cos, pickled onion, ciabatta', price: '$18', thumb: 'chicken sandwich' },
+      { cat: 'lunch',     name: 'Green Salad',       desc: 'Peas, zucchini, mint, feta, lemon dressing',   price: '$17', thumb: 'green salad' },
+      { cat: 'pastries',  name: 'Butter Croissant',  desc: 'Laminated pastry, baked fresh each morning',   price: '$6',  thumb: 'croissant' },
+      { cat: 'pastries',  name: 'Banana Loaf',       desc: 'House-baked, served with cultured butter',     price: '$7',  thumb: 'banana loaf' },
+      { cat: 'drinks',    name: 'Flat White',         desc: 'Double ristretto, silky steamed milk',         price: '$5',  thumb: 'flat white coffee' },
+      { cat: 'drinks',    name: 'Lou Lemonade',       desc: 'House lemonade, mint, cucumber, sparkling',    price: '$7',  thumb: 'lemonade glass' },
+    ];
+
+    function renderMenu(cat) {
+      const grid = document.getElementById('menu-grid');
+      const items = cat === 'all' ? menuItems : menuItems.filter(i => i.cat === cat);
+      grid.innerHTML = items.map(item => `
+        <div class="menu-card">
+          <div class="menu-card-thumb">
+            <span class="menu-thumb-label">${item.thumb}</span>
+            <div class="menu-card-overlay">View Details</div>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">${item.name}</div>
+            <div class="menu-card-desc">${item.desc}</div>
+            <div class="menu-card-price">${item.price}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderMenu('all');
+
+    document.getElementById('menu-tabs').addEventListener('click', e => {
+      const btn = e.target.closest('.menu-tab');
+      if (!btn) return;
+      document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMenu(btn.dataset.cat);
+    });
+
+    // ── Reservation form ──
+    document.getElementById('res-form').addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById('res-form').style.display = 'none';
+      document.getElementById('form-success').classList.add('visible');
+    });
+  </script>
+
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accentColor": "#6b8f6b",
+      "heroLayout": "split",
+      "fontStyle": "serif",
+      "darkNav": false
+    }/*EDITMODE-END*/;
+
+    const { TweaksPanel, TweakSection, TweakColor, TweakRadio, TweakToggle, useTweaks } = window;
+
+    function CafeApp() {
+      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+      React.useEffect(() => {
+        const root = document.documentElement;
+        // accent color
+        const h = tweaks.accentColor;
+        root.style.setProperty('--sage', h);
+        root.style.setProperty('--rose', h);
+      }, [tweaks.accentColor]);
+
+      React.useEffect(() => {
+        const nav = document.getElementById('main-nav');
+        if (tweaks.darkNav) {
+          nav.style.background = 'oklch(38% 0.06 145)';
+          nav.querySelectorAll('a').forEach(a => a.style.color = 'oklch(95% 0.02 88)');
+          document.querySelector('.nav-logo').style.color = 'oklch(95% 0.02 88)';
+        } else {
+          nav.style.background = '';
+          nav.querySelectorAll('a').forEach(a => a.style.color = '');
+          document.querySelector('.nav-logo').style.color = '';
+        }
+      }, [tweaks.darkNav]);
+
+      return (
+        <TweaksPanel>
+          <TweakSection label="Brand">
+            <TweakColor
+              label="Sage Green"
+              value={tweaks.accentColor}
+              onChange={v => setTweak('accentColor', v)}
+            />
+          </TweakSection>
+          <TweakSection label="Navigation">
+            <TweakToggle
+              label="Dark Navbar"
+              value={tweaks.darkNav}
+              onChange={v => setTweak('darkNav', v)}
+            />
+          </TweakSection>
+          <TweakSection label="Layout">
+            <TweakRadio
+              label="Hero Style"
+              value={tweaks.heroLayout}
+              options={[{ value: 'split', label: 'Split' }, { value: 'full', label: 'Full' }]}
+              onChange={v => {
+                setTweak('heroLayout', v);
+                const hero = document.getElementById('hero');
+                if (v === 'full') {
+                  hero.style.gridTemplateColumns = '1fr';
+                  const right = hero.querySelector('.hero-right');
+                  right.style.position = 'absolute';
+                  right.style.inset = '0';
+                  right.style.zIndex = '0';
+                  right.style.opacity = '0.18';
+                  hero.style.position = 'relative';
+                } else {
+                  hero.style.gridTemplateColumns = '1fr 1fr';
+                  const right = hero.querySelector('.hero-right');
+                  right.style.position = '';
+                  right.style.inset = '';
+                  right.style.zIndex = '';
+                  right.style.opacity = '';
+                  hero.style.position = '';
+                }
+              }}
+            />
+          </TweakSection>
+        </TweaksPanel>
+      );
+    }
+
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    ReactDOM.createRoot(container).render(<CafeApp />);
+  </script>
+
+</body>
+</html>

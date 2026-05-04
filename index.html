@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Lou – Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf</title>
+  <meta name="description" content="Café Lou in Hamburg-Meiendorf: Frischer Kaffee, hausgemachtes Frühstück und Mittagessen – dein Lieblingscafé in der Nachbarschaft. Mo, Mi–Sa 9–17 Uhr, So 9:30–17 Uhr." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://cafe-lou-hamburg.de/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Café Lou – Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf" />
+  <meta property="og:description" content="Dein Lieblingscafé in der Nachbarschaft. Frischer Kaffee, ehrliches Frühstück, entspannte Mittagessen." />
+  <meta property="og:image" content="/reference/cake.jpg" />
+  <meta property="og:url" content="https://cafe-lou-hamburg.de/" />
+  <meta property="og:locale" content="de_DE" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-normal-latin.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin.woff2" crossorigin />
+
+  <!-- React + Babel (dev-only tweaks panel) -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+
+  <!-- JSON-LD: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Café Lou",
+    "url": "https://cafe-lou-hamburg.de/",
+    "telephone": "+494032848308",
+    "email": "peter@jacobdigital.de",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Saseler Str. 1 / Ecke Meiendorfer Str. 93",
+      "postalCode": "22145",
+      "addressLocality": "Hamburg",
+      "addressCountry": "DE"
+    },
+    "servesCuisine": ["Café", "Frühstück", "Mittagessen"],
+    "priceRange": "€",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday"], "opens": "09:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "09:30", "closes": "17:00" }
+    ],
+    "image": "/reference/cake.jpg"
+  }
+  </script>
+
+  <style>
+    /* ─── SELF-HOSTED FONTS ─── */
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('fonts/playfair-normal-latin-ext.woff2') format('woff2');
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                     U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                     U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('fonts/playfair-normal-latin.woff2') format('woff2');
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('fonts/playfair-italic-latin-ext.woff2') format('woff2');
+      font-weight: 400 500;
+      font-style: italic;
+      font-display: swap;
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                     U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                     U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('fonts/playfair-italic-latin.woff2') format('woff2');
+      font-weight: 400 500;
+      font-style: italic;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'DM Sans';
+      src: url('fonts/dm-sans-latin-ext.woff2') format('woff2');
+      font-weight: 300 500;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                     U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                     U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'DM Sans';
+      src: url('fonts/dm-sans-latin.woff2') format('woff2');
+      font-weight: 300 500;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* ─── TOKENS ─── */
+    :root {
+      --cream: oklch(97% 0.014 88);
+      --cream-mid: oklch(93% 0.016 88);
+      --parchment: oklch(88% 0.020 88);
+      --sage: oklch(56% 0.07 145);
+      --sage-dark: oklch(38% 0.06 145);
+      --sage-light: oklch(74% 0.06 145);
+      --sage-pale: oklch(92% 0.04 145);
+      --espresso: oklch(28% 0.04 145);
+      --charcoal: oklch(32% 0.03 145);
+      --gold: oklch(80% 0.06 88);
+      --accent: oklch(56% 0.07 145);
+      --text: oklch(22% 0.025 145);
+      --text-light: oklch(50% 0.025 145);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    #main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 60px;
+      transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+    }
+    #main-nav.scrolled {
+      background: oklch(97% 0.014 88 / 0.94);
+      backdrop-filter: blur(12px);
+      padding: 16px 60px;
+      border-bottom: 1px solid var(--parchment);
+    }
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--espresso);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      background: var(--sage);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 140px 80px 80px;
+      position: relative;
+    }
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; right: -1px;
+      width: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+    .hero-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: oklch(90% 0.04 88);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(64px, 7vw, 96px);
+      font-weight: 400;
+      line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: oklch(92% 0.03 88);
+    }
+    .hero-divider {
+      width: 48px; height: 1px;
+      background: oklch(90% 0.04 88 / 0.6);
+      margin: 32px 0;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-sub {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: oklch(90% 0.03 88);
+      line-height: 1.8;
+      max-width: 300px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+    .hero-cta {
+      margin-top: 48px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--cream);
+      color: var(--espresso);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--parchment); transform: translateY(-1px); }
+    /* Outside hero: sage button */
+    #menu .btn-primary, #contact-cta .btn-primary {
+      background: var(--sage);
+      color: var(--cream);
+    }
+    #menu .btn-primary:hover, #contact-cta .btn-primary:hover {
+      background: var(--sage-dark);
+    }
+    .btn-ghost {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: oklch(88% 0.03 88);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--cream); }
+    .btn-ghost::after { content: '→'; font-size: 14px; }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 48px; left: 48px;
+      background: var(--cream);
+      padding: 20px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 8px 32px oklch(20% 0.03 60 / 0.12);
+      opacity: 0;
+      animation: fadeUp 0.8s 1.1s forwards;
+    }
+    .hero-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--sage);
+      line-height: 1;
+    }
+    .hero-badge-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ─── SECTION COMMONS ─── */
+    section { padding: 120px 60px; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 4vw, 58px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--espresso);
+    }
+    .section-title em { font-style: italic; color: var(--sage); }
+
+    /* ─── TICKER ─── */
+    #specials-banner {
+      background: var(--sage-dark);
+      padding: 0;
+      overflow: hidden;
+    }
+    .ticker-wrap {
+      display: flex;
+      overflow: hidden;
+      border-top: 1px solid oklch(100% 0 0 / 0.08);
+      border-bottom: 1px solid oklch(100% 0 0 / 0.08);
+    }
+    .ticker {
+      display: flex;
+      gap: 0;
+      animation: ticker 22s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 22px 40px;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+    }
+    .ticker-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      flex-shrink: 0;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── STORY ─── */
+    #story {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .story-text { padding-right: 40px; }
+    .story-body {
+      margin-top: 32px;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--charcoal);
+      max-width: 480px;
+    }
+    .story-body p + p { margin-top: 20px; }
+    .story-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 40px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 4px;
+      transition: gap 0.2s;
+    }
+    .story-link:hover { gap: 18px; }
+    .story-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      height: 560px;
+    }
+    .story-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .story-img:first-child { margin-top: 40px; }
+    .story-img:last-child { margin-bottom: 40px; margin-top: -40px; }
+    .story-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* ─── MENU ─── */
+    #menu {
+      background: var(--sage-pale);
+      text-align: center;
+      padding: 120px 60px;
+    }
+    .menu-header { margin-bottom: 64px; }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 56px;
+      border-bottom: 1px solid var(--parchment);
+    }
+    .menu-tab {
+      padding: 12px 32px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .menu-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .menu-tab:hover:not(.active) { color: var(--charcoal); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--cream);
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .menu-card:hover { transform: translateY(-4px); }
+    .menu-card:hover .menu-card-overlay { opacity: 1; }
+    .menu-card-thumb {
+      height: 220px;
+      background-color: var(--sage-pale);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .menu-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .menu-thumb-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+    .menu-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: oklch(38% 0.06 145 / 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .menu-card-body {
+      padding: 20px 24px 24px;
+      text-align: left;
+    }
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--espresso);
+      margin-bottom: 6px;
+    }
+    .menu-card-desc {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .menu-card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--sage);
+    }
+    .menu-see-all { margin-top: 48px; }
+
+    /* ─── CONTACT CTA (Ruf uns an) ─── */
+    #contact-cta {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .cta-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      height: 560px;
+    }
+    .cta-img {
+      overflow: hidden;
+    }
+    .cta-img:first-child { margin-top: 40px; }
+    .cta-img:last-child { margin-bottom: 40px; margin-top: -40px; }
+    .cta-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .cta-content { padding-top: 20px; }
+    .cta-body {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--charcoal);
+      margin-top: 24px;
+      margin-bottom: 40px;
+    }
+    .btn-phone {
+      display: inline-block;
+      padding: 18px 48px;
+      background: var(--sage);
+      color: var(--cream);
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-phone:hover { background: var(--sage-dark); transform: translateY(-2px); }
+    .cta-note {
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+    }
+    .cta-instagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 3px;
+      transition: gap 0.2s;
+    }
+    .cta-instagram:hover { gap: 14px; }
+    .cta-instagram::after { content: '→'; font-size: 13px; }
+
+    /* ─── CONTACTS ─── */
+    #contacts {
+      background: var(--sage-dark);
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 60px;
+    }
+    .contact-block-title {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: oklch(82% 0.05 88);
+      margin-bottom: 20px;
+    }
+    .contact-block-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.7;
+    }
+    .contact-block-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: oklch(78% 0.035 145);
+      margin-top: 8px;
+      line-height: 1.7;
+    }
+    .contact-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+    .contact-logo em { font-style: italic; color: oklch(88% 0.04 88); }
+    .contact-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: oklch(78% 0.035 145);
+      line-height: 1.8;
+      max-width: 260px;
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--cream);
+      padding: 4px 0;
+      border-bottom: 1px solid oklch(100% 0 0 / 0.06);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row.closed { color: oklch(62% 0.04 145); }
+    .hours-day { font-weight: 400; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: oklch(22% 0.04 145);
+      padding: 28px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-size: 11px;
+      color: oklch(55% 0.03 145);
+      letter-spacing: 0.1em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: oklch(55% 0.03 145);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--sage-light); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── ACCESSIBILITY ─── */
+    :focus-visible {
+      outline: 2px solid var(--sage);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    .btn-primary:focus-visible,
+    .btn-phone:focus-visible {
+      outline-color: var(--espresso);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .hero-eyebrow, .hero-title, .hero-divider, .hero-sub,
+      .hero-cta, .hero-badge { opacity: 1; transform: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--sage-light); border-radius: 3px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { height: 50vh; }
+      .hero-left { padding: 120px 40px 60px; }
+      #story, #contact-cta { grid-template-columns: 1fr; gap: 48px; }
+      .story-text { padding-right: 0; }
+      .story-images, .cta-images { height: 320px; }
+      .story-img:first-child, .cta-img:first-child { margin-top: 0; }
+      .story-img:last-child, .cta-img:last-child { margin-bottom: 0; margin-top: 0; }
+      #contacts { grid-template-columns: 1fr; gap: 40px; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      #main-nav { padding: 20px 24px; }
+      #main-nav.scrolled { padding: 14px 24px; }
+      .nav-links { gap: 20px; }
+      section { padding: 80px 24px; }
+      #contacts { padding: 80px 24px; }
+      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 768px) {
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .menu-tabs { gap: 0; overflow-x: auto; }
+      .menu-tab { padding: 10px 16px; font-size: 9px; flex-shrink: 0; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">Café Lou</a>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#story">Unser Café</a></li>
+      <li><a href="#menu">Speisekarte</a></li>
+      <li><a href="#contacts">Öffnungszeiten</a></li>
+      <li><a href="#contacts">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <span class="hero-eyebrow">Coffee · Frühstück · Mittagessen</span>
+      <h1 class="hero-title">Café<br/><em>Lou</em></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück und entspannte Mittagessen — täglich mit Liebe gemacht.</p>
+      <div class="hero-cta">
+        <a href="#menu" class="btn-primary">Zur Speisekarte</a>
+        <a href="#contacts" class="btn-ghost">Öffnungszeiten</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img
+        src="assets/img/hero.png"
+        alt="Frische Suppe, Salat und Brot auf dem Tisch im Café Lou"
+        class="hero-img"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero-badge">
+        <span class="hero-badge-num">9–17</span>
+        <span class="hero-badge-label">Mo & Mi–So geöffnet</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALS TICKER -->
+  <div id="specials-banner" aria-hidden="true">
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker">
+        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section id="story">
+    <div class="story-text">
+      <p class="section-label reveal">Unser Café</p>
+      <h2 class="section-title reveal reveal-delay-1">Ein Ort, zu dem du<br/><em>gerne zurückkommst</em></h2>
+      <div class="story-body reveal reveal-delay-2">
+        <p>Café Lou ist eine einfache Idee: ein Nachbarschaftscafé, in dem man durchatmen, etwas Gutes essen und sich wohlfühlen kann. Ohne Aufwand — einfach gute Zutaten, ehrliche Küche und ein herzliches Willkommen.</p>
+        <p>Wir servieren Single-Origin-Kaffee, backen unser Gebäck täglich frisch und wechseln die Mittagskarte mit den Jahreszeiten. Komm einmal vorbei — du wirst wissen, wovon wir reden.</p>
+      </div>
+      <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="story-link reveal reveal-delay-3">Instagram ansehen</a>
+    </div>
+    <div class="story-images reveal reveal-delay-2">
+      <div class="story-img">
+        <img
+          src="reference/Cafebecher.jpg"
+          alt="Café Lou Take-away Becher mit Logo"
+          loading="lazy"
+        />
+      </div>
+      <div class="story-img">
+        <img
+          src="reference/cake.jpg"
+          alt="Hausgemachter Lotus Cake im Café Lou"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="menu-header">
+      <p class="section-label reveal">Unsere Speisekarte</p>
+      <h2 class="section-title reveal reveal-delay-1">Frisch &amp; Saisonal<br/><em>für jeden Tag</em></h2>
+    </div>
+    <div class="menu-tabs reveal reveal-delay-2" id="menu-tabs">
+      <button class="menu-tab active" data-cat="all">Alle</button>
+      <button class="menu-tab" data-cat="breakfast">Frühstück</button>
+      <button class="menu-tab" data-cat="lunch">Mittagessen</button>
+      <button class="menu-tab" data-cat="pastries">Gebäck</button>
+      <button class="menu-tab" data-cat="drinks">Kaffee &amp; Getränke</button>
+    </div>
+    <div class="menu-grid reveal reveal-delay-3" id="menu-grid">
+      <!-- Karten werden per JS eingefügt -->
+    </div>
+    <div class="menu-see-all reveal reveal-delay-4">
+      <a href="#contacts" class="btn-primary">Tisch reservieren? Ruf uns an</a>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section id="contact-cta">
+    <div class="cta-images">
+      <div class="cta-img reveal">
+        <img
+          src="reference/cake.jpg"
+          alt="Gemütliche Atmosphäre im Café Lou"
+          loading="lazy"
+        />
+      </div>
+      <div class="cta-img reveal reveal-delay-1">
+        <img
+          src="reference/Cafebecher.jpg"
+          alt="Café Lou Kaffee zum Mitnehmen"
+          loading="lazy"
+        />
+      </div>
+    </div>
+    <div class="cta-content">
+      <p class="section-label reveal">Reservierung</p>
+      <h2 class="section-title reveal reveal-delay-1">Einfach<br/><em>anrufen</em></h2>
+      <p class="cta-body reveal reveal-delay-2">Für einen Tisch oder eine Gruppenanfrage — ruf uns einfach an. Wir freuen uns auf deinen Besuch im Café Lou.</p>
+      <div class="reveal reveal-delay-3">
+        <a href="tel:+494032848308" class="btn-phone">+49 40 328 483 08</a>
+        <p class="cta-note">Mo, Mi–Sa 9–17 Uhr · So 9:30–17 Uhr</p>
+      </div>
+      <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="cta-instagram reveal reveal-delay-4">Uns auf Instagram folgen</a>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section id="contacts">
+    <div>
+      <div class="contact-logo">Café <em>Lou</em></div>
+      <p class="contact-desc">Dein Lieblingscafé in Hamburg-Meiendorf. Guter Kaffee, ehrliches Frühstück, warme Mittagessen — jeden Tag mit Herzblut gemacht.</p>
+    </div>
+    <div>
+      <p class="contact-block-title">Öffnungszeiten</p>
+      <div class="contact-block-main">
+        <div class="hours-row"><span class="hours-day">Montag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row closed"><span class="hours-day">Dienstag</span><span>Ruhetag</span></div>
+        <div class="hours-row"><span class="hours-day">Mittwoch</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Donnerstag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Freitag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Samstag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Sonntag</span><span>9:30 – 17:00</span></div>
+      </div>
+    </div>
+    <div>
+      <p class="contact-block-title">Adresse &amp; Kontakt</p>
+      <div class="contact-block-main">
+        Saseler Str. 1<br/>
+        Ecke Meiendorfer Str. 93<br/>
+        22145 Hamburg
+      </div>
+      <div class="contact-block-sub">
+        <a href="tel:+494032848308" style="color:inherit;text-decoration:none;">+49 40 328 483 08</a><br/>
+        <a href="mailto:peter@jacobdigital.de" style="color:inherit;text-decoration:none;">peter@jacobdigital.de</a><br/><br/>
+        <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" style="color:oklch(82% 0.05 88);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;font-size:10px;">Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© Café Lou 2026 · Alle Rechte vorbehalten</span>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener">Instagram</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Menu data
+    const menuItems = [
+      { cat: 'breakfast', name: 'Avocado Toast',      desc: 'Sauerteigbrot, Avocado, Chiliflocken, Zitrone',         price: '12,50 €' },
+      { cat: 'breakfast', name: 'Granola Bowl',        desc: 'Hausgranola, Saisonfrüchte, Honigjoghurt',              price: '9,90 €'  },
+      { cat: 'lunch',     name: 'Lou Sandwich',        desc: 'Hähnchen, Aioli, Blattsalat, eingelegte Zwiebeln, Ciabatta', price: '13,90 €' },
+      { cat: 'lunch',     name: 'Grüner Salat',        desc: 'Erbsen, Zucchini, Minze, Schafskäse, Zitronendressing', price: '11,90 €' },
+      { cat: 'pastries',  name: 'Buttercroissant',     desc: 'Frisch gebacken, täglich morgens',                      price: '3,50 €'  },
+      { cat: 'pastries',  name: 'Hausgemachter Kuchen',desc: 'Tageswechselnd, mit Schlagsahne',                       price: '4,90 €'  },
+      { cat: 'drinks',    name: 'Flat White',          desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',       price: '4,20 €'  },
+      { cat: 'drinks',    name: 'Hauslimonade',        desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                  price: '4,50 €'  },
+    ];
+
+    function renderMenu(cat) {
+      const grid = document.getElementById('menu-grid');
+      const items = cat === 'all' ? menuItems : menuItems.filter(i => i.cat === cat);
+      grid.innerHTML = items.map(item => `
+        <article class="menu-card">
+          <div class="menu-card-thumb">
+            <span class="menu-thumb-label">${item.name}</span>
+            <div class="menu-card-overlay">Details</div>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">${item.name}</div>
+            <div class="menu-card-desc">${item.desc}</div>
+            <div class="menu-card-price">${item.price}</div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    renderMenu('all');
+
+    document.getElementById('menu-tabs').addEventListener('click', e => {
+      const btn = e.target.closest('.menu-tab');
+      if (!btn) return;
+      document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMenu(btn.dataset.cat);
+    });
+  </script>
+
+  <!-- Tweaks panel (design tool) -->
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accentColor": "#6b8f6b",
+      "darkNav": false
+    }/*EDITMODE-END*/;
+
+    const { TweaksPanel, TweakSection, TweakColor, TweakToggle, useTweaks } = window;
+
+    function CafeApp() {
+      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+      React.useEffect(() => {
+        const root = document.documentElement;
+        root.style.setProperty('--sage', tweaks.accentColor);
+        root.style.setProperty('--accent', tweaks.accentColor);
+      }, [tweaks.accentColor]);
+
+      React.useEffect(() => {
+        const navEl = document.getElementById('main-nav');
+        if (tweaks.darkNav) {
+          navEl.style.background = 'oklch(38% 0.06 145)';
+          navEl.querySelectorAll('a').forEach(a => a.style.color = 'oklch(95% 0.02 88)');
+        } else {
+          navEl.style.background = '';
+          navEl.querySelectorAll('a').forEach(a => a.style.color = '');
+        }
+      }, [tweaks.darkNav]);
+
+      return (
+        <TweaksPanel>
+          <TweakSection label="Markenfarbe">
+            <TweakColor label="Sage Green" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
+          </TweakSection>
+          <TweakSection label="Navigation">
+            <TweakToggle label="Dunkle Navbar" value={tweaks.darkNav} onChange={v => setTweak('darkNav', v)} />
+          </TweakSection>
+        </TweaksPanel>
+      );
+    }
+
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    ReactDOM.createRoot(container).render(<CafeApp />);
+  </script>
+
+</body>
+</html>
