@@ -202,7 +202,7 @@
 
     /* ─── HERO ─── */
     #hero {
-      min-height: 100vh;
+      min-height: calc(100vh - 130px); /* viewport minus nav (64px) + ticker (~66px) */
       display: grid;
       grid-template-columns: 1fr 1fr;
       position: relative;
@@ -214,7 +214,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      padding: 140px 80px 80px;
+      padding: 80px 80px 80px;
       position: relative;
     }
     .hero-left::after {
@@ -374,6 +374,7 @@
       background: var(--sage-dark);
       padding: 0;
       overflow: hidden;
+      margin-top: 64px; /* clear fixed nav */
     }
     .ticker-wrap {
       display: flex;
@@ -776,9 +777,10 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-right { height: 50vh; }
-      .hero-left { padding: 120px 40px 60px; }
+      #specials-banner { margin-top: 56px; }
+      #hero { grid-template-columns: 1fr; min-height: calc(100vh - 122px); }
+      .hero-right { height: 45vh; }
+      .hero-left { padding: 56px 40px 48px; }
       #story, #contact-cta { grid-template-columns: 1fr; gap: 48px; }
       .story-text { padding-right: 0; }
       .story-images, .cta-images { height: 320px; }
@@ -873,6 +875,22 @@
     </ul>
   </nav>
 
+  <!-- SPECIALS TICKER -->
+  <div id="specials-banner" aria-hidden="true">
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker">
+        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
+      </div>
+    </div>
+  </div>
+
   <!-- HERO -->
   <section id="hero">
     <div class="hero-left">
@@ -899,22 +917,6 @@
       </div>
     </div>
   </section>
-
-  <!-- SPECIALS TICKER -->
-  <div id="specials-banner" aria-hidden="true">
-    <div class="ticker-wrap">
-      <div class="ticker" id="ticker">
-        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
-      </div>
-    </div>
-  </div>
 
   <!-- STORY -->
   <section id="story">
