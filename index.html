@@ -793,11 +793,66 @@
       #contacts { padding: 80px 24px; }
       footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
     }
+    /* ─── HAMBURGER ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--espresso);
+      transition: transform 0.25s ease, opacity 0.2s;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
     @media (max-width: 768px) {
       .menu-grid { grid-template-columns: 1fr 1fr; }
       .menu-tabs { gap: 0; overflow-x: auto; }
-      .menu-tab { padding: 10px 16px; font-size: 9px; flex-shrink: 0; }
-      .nav-links { display: none; }
+      /* touch targets */
+      .menu-tab { padding: 0 16px; font-size: 9px; flex-shrink: 0; min-height: 44px; }
+      .btn-primary { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+      /* hamburger */
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: var(--cream);
+        padding: 80px 32px 40px;
+        gap: 0;
+        list-style: none;
+        transform: translateY(-100%);
+        transition: transform 0.35s ease;
+        z-index: 99;
+        border-bottom: 1px solid var(--parchment);
+        box-shadow: 0 8px 32px oklch(20% 0.03 60 / 0.1);
+      }
+      .nav-links.open { transform: translateY(0); }
+      .nav-links a {
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        padding: 14px 0;
+        border-bottom: 1px solid oklch(88% 0.02 88);
+        color: var(--espresso);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
     }
   </style>
 </head>
@@ -806,7 +861,10 @@
   <!-- NAV -->
   <nav id="main-nav">
     <a href="#hero" class="nav-logo">Café Lou</a>
-    <ul class="nav-links">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
       <li><a href="#hero">Home</a></li>
       <li><a href="#story">Unser Café</a></li>
       <li><a href="#menu">Speisekarte</a></li>
@@ -988,6 +1046,22 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
+
+    // Hamburger toggle
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+      toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Menü öffnen');
+      });
+    });
 
     // Scroll reveal
     const revealEls = document.querySelectorAll('.reveal');
