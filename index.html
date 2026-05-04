@@ -130,6 +130,8 @@
       --accent: #899D7A;
       --text: oklch(22% 0.025 145);
       --text-light: oklch(50% 0.025 145);
+      --color-bg-soft: #EEF6E8;
+      --color-primary-dark: #2F4A34;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -232,31 +234,25 @@
       animation: fadeUp 0.8s 0.2s forwards;
     }
     .hero-logo {
-      width: 200px;
+      width: 260px;
       height: auto;
       display: block;
       border-radius: 4px;
       margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
     }
     .hero-sub {
       font-size: 13px;
       font-weight: 300;
       letter-spacing: 0.05em;
-      color: oklch(90% 0.03 88);
+      color: #ECE8DC;
       line-height: 1.8;
       max-width: 300px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.7s forwards;
     }
     .hero-cta {
       margin-top: 48px;
       display: flex;
       gap: 16px;
       align-items: center;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.9s forwards;
     }
     .btn-primary {
       display: inline-block;
@@ -286,7 +282,7 @@
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: oklch(88% 0.03 88);
+      color: #ECE8DC;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -406,9 +402,9 @@
     .story-text { padding-right: 40px; }
     .story-body {
       margin-top: 32px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 300;
-      line-height: 1.9;
+      line-height: 1.65;
       color: var(--charcoal);
       max-width: 480px;
     }
@@ -451,7 +447,7 @@
 
     /* ─── MENU ─── */
     #menu {
-      background: var(--sage-pale);
+      background: var(--color-bg-soft);
       text-align: center;
       padding: 120px 60px;
     }
@@ -634,7 +630,7 @@
 
     /* ─── CONTACTS ─── */
     #contacts {
-      background: var(--sage-dark);
+      background: var(--color-primary-dark);
       padding: 100px 60px;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -671,7 +667,7 @@
     }
     .contact-logo em { font-style: italic; color: oklch(88% 0.04 88); }
     .contact-desc {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 300;
       color: oklch(78% 0.035 145);
       line-height: 1.8;
@@ -692,7 +688,7 @@
 
     /* ─── FOOTER ─── */
     footer {
-      background: oklch(22% 0.04 145);
+      background: var(--color-primary-dark);
       padding: 28px 60px;
       display: flex;
       justify-content: space-between;
@@ -700,7 +696,7 @@
     }
     .footer-copy {
       font-size: 11px;
-      color: oklch(55% 0.03 145);
+      color: rgba(255,255,255,0.78);
       letter-spacing: 0.1em;
     }
     .footer-links {
@@ -711,11 +707,11 @@
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: oklch(55% 0.03 145);
+      color: rgba(255,255,255,0.78);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: var(--sage-light); }
+    .footer-links a:hover { color: rgba(255,255,255,0.95); }
 
     /* ─── ANIMATIONS ─── */
     @keyframes fadeUp {
@@ -749,8 +745,7 @@
         animation-delay: 0.01ms !important;
         transition-duration: 0.01ms !important;
       }
-      .hero-eyebrow, .hero-logo, .hero-sub,
-      .hero-cta, .hero-badge { opacity: 1; transform: none; }
+      .hero-badge { opacity: 1; transform: none; }
       .reveal { opacity: 1; transform: none; }
     }
 
@@ -765,12 +760,14 @@
       #hero { grid-template-columns: 1fr; min-height: calc(100vh - 122px); }
       .hero-right { height: 45vh; }
       .hero-left { padding: 56px 40px 48px; }
+      .hero-logo { width: clamp(150px, 30vw, 217px); }
+      .hero-badge { bottom: clamp(24px, 4vw, 48px); left: clamp(20px, 4vw, 48px); }
       #story, #contact-cta { grid-template-columns: 1fr; gap: 48px; }
       .story-text { padding-right: 0; }
       .story-images, .cta-images { height: 320px; }
       .story-img:first-child, .cta-img:first-child { margin-top: 0; }
       .story-img:last-child, .cta-img:last-child { margin-bottom: 0; margin-top: 0; }
-      #contacts { grid-template-columns: 1fr; gap: 40px; }
+      #contacts { gap: 40px; }
       .menu-grid { grid-template-columns: repeat(2, 1fr); }
       #main-nav { padding: 20px 24px; }
       #main-nav.scrolled { padding: 14px 24px; }
@@ -808,11 +805,22 @@
     }
 
     @media (max-width: 768px) {
+      #contacts { grid-template-columns: 1fr; gap: 32px; }
       .menu-grid { grid-template-columns: 1fr 1fr; }
-      .menu-tabs { gap: 0; overflow-x: auto; }
+      .menu-tabs { gap: 0; overflow-x: auto; justify-content: flex-start; }
       /* touch targets */
       .menu-tab { padding: 0 16px; font-size: 9px; flex-shrink: 0; min-height: 44px; }
       .btn-primary { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+      /* typography */
+      .hero-sub { font-size: 15px; }
+      .hero-logo { width: clamp(140px, 55vw, 200px); }
+      .contact-desc { font-size: 15px; }
+      .story-body { font-size: 16px; }
+      .ticker-item { font-size: 14px; }
+      /* CTAs full-width on mobile */
+      .hero-cta { flex-direction: column; align-items: stretch; width: 100%; }
+      .hero-cta .btn-primary { width: 100%; justify-content: center; }
+      .hero-cta .btn-ghost { width: 100%; justify-content: center; display: flex; }
       /* hamburger */
       .nav-toggle { display: flex; }
       .nav-links {
@@ -832,13 +840,27 @@
       }
       .nav-links.open { transform: translateY(0); }
       .nav-links a {
-        font-size: 13px;
-        letter-spacing: 0.15em;
-        padding: 14px 0;
+        font-size: 15px;
+        letter-spacing: 0.12em;
+        padding: 16px 0;
         border-bottom: 1px solid oklch(88% 0.02 88);
         color: var(--espresso);
       }
       .nav-links li:last-child a { border-bottom: none; }
+    }
+
+    @media (max-width: 480px) {
+      /* Single-column menu on small phones */
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-tab { padding: 12px 14px; }
+      /* Hide absolute badge to prevent overlap */
+      .hero-badge { display: none; }
+      /* Tighter section padding */
+      section { padding: 64px 20px; }
+      #contacts { padding: 64px 20px; gap: 36px; }
+      footer { padding: 20px; }
+      /* Hero: less generous left padding */
+      .hero-left { padding: 48px 24px 40px; }
     }
   </style>
 </head>
