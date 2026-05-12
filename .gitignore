@@ -3,3 +3,15 @@ fonts/_google_faces.css
 node_modules/
 .DS_Store
 Thumbs.db
+
+# Impeccable design tool (local only)
+DESIGN.md
+PRODUCT.md
+.agents/
+.impeccable/
+
+# Local dev tooling
+package.json
+package-lock.json
+reference/
+screenshot-*.mjs

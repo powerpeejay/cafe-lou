@@ -1082,14 +1082,14 @@
 
     // Menu data
     const menuItems = [
-      { cat: 'breakfast', name: 'Avocado Toast',      desc: 'Sauerteigbrot, Avocado, Chiliflocken, Zitrone',         price: '12,50 €' },
-      { cat: 'breakfast', name: 'Granola Bowl',        desc: 'Hausgranola, Saisonfrüchte, Honigjoghurt',              price: '9,90 €'  },
-      { cat: 'lunch',     name: 'Lou Sandwich',        desc: 'Hähnchen, Aioli, Blattsalat, eingelegte Zwiebeln, Ciabatta', price: '13,90 €' },
-      { cat: 'lunch',     name: 'Grüner Salat',        desc: 'Erbsen, Zucchini, Minze, Schafskäse, Zitronendressing', price: '11,90 €' },
-      { cat: 'pastries',  name: 'Buttercroissant',     desc: 'Frisch gebacken, täglich morgens',                      price: '3,50 €'  },
-      { cat: 'pastries',  name: 'Hausgemachter Kuchen',desc: 'Tageswechselnd, mit Schlagsahne',                       price: '4,90 €'  },
-      { cat: 'drinks',    name: 'Flat White',          desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',       price: '4,20 €'  },
-      { cat: 'drinks',    name: 'Hauslimonade',        desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                  price: '4,50 €'  },
+      { cat: 'breakfast', name: 'Avocado Toast',      desc: 'Sauerteigbrot, Avocado, Chiliflocken, Zitrone',         price: '12,50 €', img: 'assets/img/01avocado.jpg' },
+      { cat: 'breakfast', name: 'Granola Bowl',        desc: 'Hausgranola, Saisonfrüchte, Honigjoghurt',              price: '9,90 €',  img: 'assets/img/02granola.jpg' },
+      { cat: 'lunch',     name: 'Lou Sandwich',        desc: 'Hähnchen, Aioli, Blattsalat, eingelegte Zwiebeln, Ciabatta', price: '13,90 €', img: 'assets/img/03sandwich.jpg' },
+      { cat: 'lunch',     name: 'Grüner Salat',        desc: 'Erbsen, Zucchini, Minze, Schafskäse, Zitronendressing', price: '11,90 €', img: 'assets/img/04salad.jpg' },
+      { cat: 'pastries',  name: 'Buttercroissant',     desc: 'Frisch gebacken, täglich morgens',                      price: '3,50 €',  img: 'assets/img/croissant.jpg' },
+      { cat: 'pastries',  name: 'Hausgemachter Kuchen',desc: 'Tageswechselnd, mit Schlagsahne',                       price: '4,90 €',  img: 'assets/img/kuchen.jpg' },
+      { cat: 'drinks',    name: 'Flat White',          desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',       price: '4,20 €',  img: 'assets/img/flatwhite.jpg' },
+      { cat: 'drinks',    name: 'Hauslimonade',        desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                  price: '4,50 €',  img: 'assets/img/lemonade.jpg' },
     ];
 
     function renderMenu(cat) {
@@ -1098,8 +1098,9 @@
       grid.innerHTML = items.map(item => `
         <article class="menu-card">
           <div class="menu-card-thumb">
-            <span class="menu-thumb-label">${item.name}</span>
+            ${item.img ? `<img src="${item.img}" alt="${item.name}">` : `<span class="menu-thumb-label">${item.name}</span>`}
             <div class="menu-card-overlay">Details</div>
+
           </div>
           <div class="menu-card-body">
             <div class="menu-card-name">${item.name}</div>
@@ -1122,5 +1123,8 @@
   </script>
 
 
+<!-- impeccable-live-start -->
+<script src="http://localhost:8400/live.js"></script>
+<!-- impeccable-live-end -->
 </body>
 </html>
