@@ -12,7 +12,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Café Lou – Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf" />
   <meta property="og:description" content="Dein Lieblingscafé in der Nachbarschaft. Frischer Kaffee, ehrliches Frühstück, entspannte Mittagessen." />
-  <meta property="og:image" content="/reference/cake.jpg" />
+  <meta property="og:image" content="https://cafe-lou-hamburg.de/reference/cake.jpg" />
+  <meta property="og:image:width" content="640" />
+  <meta property="og:image:height" content="1138" />
   <meta property="og:url" content="https://cafe-lou-hamburg.de/" />
   <meta property="og:locale" content="de_DE" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -32,7 +34,6 @@
     "name": "Café Lou",
     "url": "https://cafe-lou-hamburg.de/",
     "telephone": "+494032848308",
-    "email": "peter@jacobdigital.de",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Saseler Str. 1 / Ecke Meiendorfer Str. 93",
@@ -48,7 +49,40 @@
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "17:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "09:30", "closes": "17:00" }
     ],
-    "image": "/reference/cake.jpg"
+    "image": "https://cafe-lou-hamburg.de/reference/cake.jpg",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "140",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "A.S."},
+        "datePublished": "2026-03-15",
+        "reviewBody": "Was für ein wunderbares Café! Angefangen von dem schönen Ambiente, über das unglaublich leckere Essen bis zum wirklich sehr guten Service war unser Mädelsfrühstück ein voller Erfolg. Wir freuen uns schon aufs nächste Mal!",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "publisher": {"@type": "Organization", "name": "Google"}
+      },
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Anna K."},
+        "datePublished": "2026-01-15",
+        "reviewBody": "Tolles Café mit sehr, sehr leckerem Frühstück. Wir waren diese Woche zum ersten Mal dort und sind direkt drei Tage später wiedergekommen. Das Frühstück ist mit viel Liebe angerichtet, die Getränke lecker und der Service sehr freundlich. Wir sind sehr glücklich endlich so ein tolles Café in Meiendorf zu haben!",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "publisher": {"@type": "Organization", "name": "Google"}
+      },
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Melanie S."},
+        "datePublished": "2025-10-15",
+        "reviewBody": "Endlich ein Kaffee in meiner Nähe. Und das Essen ist tatsächlich sehr lecker! Optisch super angerichtet. Auch die Räumlichkeiten sind clean gehalten, aber gemütlich. Service war auch sehr freundlich. Komme sicher wieder.",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "publisher": {"@type": "Organization", "name": "Google"}
+      }
+    ]
   }
   </script>
 
@@ -127,7 +161,6 @@
       --espresso: oklch(28% 0.04 145);
       --charcoal: oklch(32% 0.03 145);
       --gold: oklch(80% 0.06 88);
-      --accent: #899D7A;
       --text: oklch(22% 0.025 145);
       --text-light: oklch(50% 0.025 145);
       --color-bg-soft: #EEF6E8;
@@ -136,6 +169,42 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
+    /* ─── A11Y UTILITIES ─── */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .skip-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--espresso);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transform: translateY(-110%);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .skip-link:focus-visible {
+      transform: translateY(0);
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
@@ -161,6 +230,10 @@
       border-bottom: 1px solid var(--parchment);
     }
     .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 4px;
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       font-weight: 500;
@@ -191,11 +264,13 @@
       position: absolute;
       bottom: 0; left: 0;
       width: 0; height: 1px;
-      background: var(--accent);
+      background: var(--sage-dark);
       transition: width 0.3s ease;
     }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { color: var(--sage-dark); }
     .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--sage-dark); }
+    .nav-links a.active::after { width: 100%; }
 
     /* ─── HERO ─── */
     #hero {
@@ -241,12 +316,13 @@
       margin-bottom: 32px;
     }
     .hero-sub {
-      font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      color: #ECE8DC;
-      line-height: 1.8;
-      max-width: 300px;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: var(--cream);
+      line-height: 1.75;
+      max-width: 320px;
+      text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
     }
     .hero-cta {
       margin-top: 48px;
@@ -278,18 +354,21 @@
       background: var(--sage-dark);
     }
     .btn-ghost {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #ECE8DC;
+      color: var(--cream);
       text-decoration: none;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: color 0.2s;
+      gap: 10px;
+      min-height: 44px;
+      padding: 12px 0;
+      transition: color 0.2s, transform 0.2s;
+      text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
     }
-    .btn-ghost:hover { color: var(--cream); }
+    .btn-ghost:hover { color: var(--cream); transform: translateX(2px); }
     .btn-ghost::after { content: '→'; font-size: 14px; }
 
     .hero-right {
@@ -319,7 +398,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 36px;
       font-weight: 400;
-      color: var(--sage);
+      color: var(--sage-dark);
       line-height: 1;
     }
     .hero-badge-label {
@@ -337,7 +416,7 @@
       font-weight: 500;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--sage-dark);
       margin-bottom: 16px;
     }
     .section-title {
@@ -414,14 +493,15 @@
       align-items: center;
       gap: 10px;
       margin-top: 40px;
+      min-height: 44px;
+      padding: 10px 0;
       font-size: 10px;
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--sage-dark);
       text-decoration: none;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 4px;
+      border-bottom: 1px solid var(--sage-dark);
       transition: gap 0.2s;
     }
     .story-link:hover { gap: 18px; }
@@ -474,40 +554,50 @@
       transition: color 0.2s, border-color 0.2s;
     }
     .menu-tab.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
+      color: var(--sage-dark);
+      border-bottom-color: var(--sage-dark);
     }
     .menu-tab:hover:not(.active) { color: var(--charcoal); }
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
       max-width: 1200px;
       margin: 0 auto;
     }
     .menu-card {
       background: var(--cream);
       padding: 0;
-      cursor: pointer;
       overflow: hidden;
       position: relative;
-      transition: transform 0.3s;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .menu-card:hover { transform: translateY(-4px); }
-    .menu-card:hover .menu-card-overlay { opacity: 1; }
+    .menu-card:hover { transform: translateY(-3px); }
+    .menu-card:first-child {
+      grid-column: span 2;
+    }
     .menu-card-thumb {
       height: 220px;
+      aspect-ratio: auto;
       background-color: var(--sage-pale);
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      contain: layout paint;
     }
+    .menu-card:first-child .menu-card-thumb { height: 360px; }
     .menu-card-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: saturate(0.88) contrast(0.96);
+      transition: filter 0.4s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .menu-card:hover .menu-card-thumb img {
+      filter: saturate(0.95) contrast(1);
+      transform: scale(1.03);
     }
     .menu-thumb-label {
       font-size: 9px;
@@ -515,25 +605,11 @@
       color: var(--text-light);
       text-transform: uppercase;
     }
-    .menu-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: oklch(38% 0.06 145 / 0.88);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-      color: white;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
     .menu-card-body {
       padding: 20px 24px 24px;
       text-align: left;
     }
+    .menu-card:first-child .menu-card-body { padding: 28px 32px 32px; }
     .menu-card-name {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
@@ -541,6 +617,7 @@
       color: var(--espresso);
       margin-bottom: 6px;
     }
+    .menu-card:first-child .menu-card-name { font-size: 28px; margin-bottom: 10px; }
     .menu-card-desc {
       font-size: 12px;
       font-weight: 300;
@@ -548,40 +625,183 @@
       line-height: 1.6;
       margin-bottom: 14px;
     }
+    .menu-card:first-child .menu-card-desc { font-size: 14px; max-width: 420px; }
     .menu-card-price {
       font-family: 'Playfair Display', serif;
       font-size: 18px;
-      color: var(--sage);
+      color: var(--sage-dark);
     }
+    .menu-card:first-child .menu-card-price { font-size: 22px; }
     .menu-see-all { margin-top: 48px; }
+
+    /* ─── REVIEWS / STIMMEN ─── */
+    #stimmen {
+      background: var(--cream);
+      text-align: center;
+      padding: 120px 60px;
+    }
+    .reviews-header { margin-bottom: 64px; }
+    .reviews-rating {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 32px;
+      padding: 14px 28px;
+      background: var(--cream);
+      border: 1px solid var(--parchment);
+    }
+    .reviews-stars {
+      display: inline-flex;
+      gap: 2px;
+      color: var(--sage);
+      line-height: 0;
+    }
+    .reviews-score {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--espresso);
+      line-height: 1;
+    }
+    .reviews-divider {
+      color: var(--text-light);
+      font-size: 14px;
+      line-height: 1;
+    }
+    .reviews-count {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      list-style: none;
+      text-align: left;
+      padding: 0;
+    }
+    .review-card {
+      background: var(--cream);
+      border: 1px solid var(--parchment);
+      padding: 40px 36px 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    }
+    .review-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--sage);
+    }
+    .review-stars {
+      display: inline-flex;
+      gap: 2px;
+      color: var(--sage);
+      margin-bottom: 24px;
+      line-height: 0;
+    }
+    .review-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--charcoal);
+      margin-bottom: 28px;
+      flex: 1;
+      position: relative;
+      padding-left: 22px;
+    }
+    .review-quote::before {
+      content: "„";
+      position: absolute;
+      left: -10px;
+      top: -32px;
+      font-size: 78px;
+      color: var(--sage);
+      opacity: 0.4;
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+      font-style: normal;
+    }
+    .review-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 4px;
+      border-top: 1px solid var(--parchment);
+      padding: 18px 0 0;
+      background: transparent;
+      text-align: left;
+    }
+    .review-author {
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--espresso);
+    }
+    .review-date {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
+    }
+    .reviews-cta {
+      margin-top: 56px;
+      display: flex;
+      justify-content: center;
+    }
+    #stimmen .btn-primary {
+      background: var(--sage);
+      color: var(--cream);
+    }
+    #stimmen .btn-primary:hover { background: var(--sage-dark); }
+    .reviews-source {
+      margin: 32px auto 0;
+      text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
+      max-width: 50ch;
+    }
 
     /* ─── CONTACT CTA (Ruf uns an) ─── */
     #contact-cta {
       background: var(--cream);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 140px 60px;
+      position: relative;
     }
-    .cta-images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      height: 560px;
+    #contact-cta::before,
+    #contact-cta::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      height: 56px;
+      background: var(--parchment);
+      transform: translateX(-50%);
     }
-    .cta-img {
-      overflow: hidden;
-    }
-    .cta-img:first-child { margin-top: 40px; }
-    .cta-img:last-child { margin-bottom: 40px; margin-top: -40px; }
-    .cta-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    .cta-content { padding-top: 20px; }
+    #contact-cta::before { top: 56px; }
+    #contact-cta::after { bottom: 56px; }
+    .cta-content { max-width: 560px; }
+    .cta-content .section-label { color: var(--sage-dark); }
     .cta-body {
       font-size: 15px;
       font-weight: 300;
@@ -589,6 +809,7 @@
       color: var(--charcoal);
       margin-top: 24px;
       margin-bottom: 40px;
+      max-width: 460px;
     }
     .btn-phone {
       display: inline-block;
@@ -615,14 +836,15 @@
       align-items: center;
       gap: 8px;
       margin-top: 24px;
+      min-height: 44px;
+      padding: 10px 0;
       font-size: 10px;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--sage-dark);
       text-decoration: none;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 3px;
+      border-bottom: 1px solid var(--sage-dark);
       transition: gap 0.2s;
     }
     .cta-instagram:hover { gap: 14px; }
@@ -652,12 +874,45 @@
       line-height: 1.7;
     }
     .contact-block-sub {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       font-size: 12px;
       font-weight: 300;
       color: oklch(78% 0.035 145);
       margin-top: 8px;
       line-height: 1.7;
     }
+    .contact-tel {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 4px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .contact-tel:hover { color: var(--gold); transform: translateX(2px); }
+    .contact-instagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+      padding: 4px 0;
+      margin-top: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: oklch(82% 0.05 88);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-instagram:hover { color: var(--cream); }
     .contact-logo {
       font-family: 'Playfair Display', serif;
       font-size: 32px;
@@ -704,6 +959,10 @@
       gap: 24px;
     }
     .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 4px;
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -762,11 +1021,17 @@
       .hero-left { padding: 56px 40px 48px; }
       .hero-logo { width: clamp(150px, 30vw, 217px); }
       .hero-badge { bottom: clamp(24px, 4vw, 48px); left: clamp(20px, 4vw, 48px); }
-      #story, #contact-cta { grid-template-columns: 1fr; gap: 48px; }
+      #story { grid-template-columns: 1fr; gap: 48px; }
+      #stimmen { padding: 80px 24px; }
+      .reviews-grid { grid-template-columns: 1fr; gap: 24px; }
+      #contact-cta { padding: 96px 24px; }
+      #contact-cta::before, #contact-cta::after { height: 40px; }
+      #contact-cta::before { top: 40px; }
+      #contact-cta::after { bottom: 40px; }
       .story-text { padding-right: 0; }
-      .story-images, .cta-images { height: 320px; }
-      .story-img:first-child, .cta-img:first-child { margin-top: 0; }
-      .story-img:last-child, .cta-img:last-child { margin-bottom: 0; margin-top: 0; }
+      .story-images { height: 320px; }
+      .story-img:first-child { margin-top: 0; }
+      .story-img:last-child { margin-bottom: 0; margin-top: 0; }
       #contacts { gap: 40px; }
       .menu-grid { grid-template-columns: repeat(2, 1fr); }
       #main-nav { padding: 20px 24px; }
@@ -849,9 +1114,16 @@
       .nav-links li:last-child a { border-bottom: none; }
     }
 
+    @media (max-width: 1024px) {
+      .menu-card:first-child .menu-card-thumb { height: 280px; }
+      .menu-card:first-child .menu-card-name { font-size: 24px; }
+    }
+
     @media (max-width: 480px) {
       /* Single-column menu on small phones */
       .menu-grid { grid-template-columns: 1fr; }
+      .menu-card:first-child { grid-column: auto; }
+      .menu-card:first-child .menu-card-thumb { height: 240px; }
       .menu-tab { padding: 12px 14px; }
       /* Hide absolute badge to prevent overlap */
       .hero-badge { display: none; }
@@ -866,6 +1138,8 @@
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
+
   <!-- NAV -->
   <nav id="main-nav">
     <a href="#hero" class="nav-logo">Café Lou</a>
@@ -876,8 +1150,7 @@
       <li><a href="#hero">Home</a></li>
       <li><a href="#story">Unser Café</a></li>
       <li><a href="#menu">Speisekarte</a></li>
-      <li><a href="#contacts">Öffnungszeiten</a></li>
-      <li><a href="#contacts">Kontakt</a></li>
+      <li><a href="#contacts">Besuchen</a></li>
     </ul>
   </nav>
 
@@ -898,14 +1171,17 @@
   </div>
 
   <!-- HERO -->
+  <main id="main">
   <section id="hero">
+    <h1 class="visually-hidden">Café Lou — Kaffee, Frühstück und Mittagessen in Hamburg-Meiendorf</h1>
     <div class="hero-left">
       <img
         src="reference/logo.png"
         alt="Café Lou — coffee · breakfast · lunch"
         class="hero-logo"
+        width="434" height="309"
       />
-      <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück und entspannte Mittagessen — täglich mit Liebe gemacht.</p>
+      <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück, entspannte Mittagessen. Croissants aus dem eigenen Ofen, Suppe ab elf, Kuchen wechselt mit der Woche.</p>
       <div class="hero-cta">
         <a href="#menu" class="btn-primary">Zur Speisekarte</a>
         <a href="#contacts" class="btn-ghost">Öffnungszeiten</a>
@@ -916,12 +1192,13 @@
         src="assets/img/hero.png"
         alt="Frische Suppe, Salat und Brot auf dem Tisch im Café Lou"
         class="hero-img"
+        width="833" height="849"
         loading="eager"
         fetchpriority="high"
       />
       <div class="hero-badge">
         <span class="hero-badge-num">9–17</span>
-        <span class="hero-badge-label">Mo & Mi–So geöffnet</span>
+        <span class="hero-badge-label">Mo, Mi–Sa · So ab 9:30 · Di Ruhetag</span>
       </div>
     </div>
   </section>
@@ -932,8 +1209,8 @@
       <p class="section-label reveal">Unser Café</p>
       <h2 class="section-title reveal reveal-delay-1">Ein Ort, zu dem du<br/><em>gerne zurückkommst</em></h2>
       <div class="story-body reveal reveal-delay-2">
-        <p>Café Lou ist eine einfache Idee: ein Nachbarschaftscafé, in dem man durchatmen, etwas Gutes essen und sich wohlfühlen kann. Ohne Aufwand — einfach gute Zutaten, ehrliche Küche und ein herzliches Willkommen.</p>
-        <p>Wir servieren Single-Origin-Kaffee, backen unser Gebäck täglich frisch und wechseln die Mittagskarte mit den Jahreszeiten. Komm einmal vorbei — du wirst wissen, wovon wir reden.</p>
+        <p>An der Ecke Saseler und Meiendorfer Straße. Guter Kaffee aus sortenreiner Bohne, Gebäck aus dem eigenen Ofen, Mittagskarte mit der Saison. Ein Café für die Nachbarschaft, gemacht für den schnellen Espresso am Morgen wie für das lange Frühstück am Samstag.</p>
+        <p>Komm einmal vorbei. Du wirst wissen, wovon wir reden.</p>
       </div>
       <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="story-link reveal reveal-delay-3">Instagram ansehen</a>
     </div>
@@ -942,6 +1219,7 @@
         <img
           src="reference/Cafebecher.jpg"
           alt="Café Lou Take-away Becher mit Logo"
+          width="640" height="1138"
           loading="lazy"
         />
       </div>
@@ -949,6 +1227,7 @@
         <img
           src="reference/cake.jpg"
           alt="Hausgemachter Lotus Cake im Café Lou"
+          width="640" height="1138"
           loading="lazy"
         />
       </div>
@@ -972,32 +1251,87 @@
       <!-- Karten werden per JS eingefügt -->
     </div>
     <div class="menu-see-all reveal reveal-delay-4">
-      <a href="#contacts" class="btn-primary">Tisch reservieren? Ruf uns an</a>
+      <a href="#contact-cta" class="btn-primary">Tisch reservieren? Ruf uns an</a>
     </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="icon-star" viewBox="0 0 24 24"><polygon fill="currentColor" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></symbol>
+  </svg>
+  <section id="stimmen" aria-labelledby="stimmen-h2">
+    <div class="reviews-header">
+      <p class="section-label reveal">Stimmen</p>
+      <h2 id="stimmen-h2" class="section-title reveal reveal-delay-1">Was die Nachbarschaft<br/><em>sagt</em></h2>
+      <p class="reviews-rating reveal reveal-delay-2" aria-label="Durchschnittliche Bewertung: 4,9 von 5 Sternen aus 140 Bewertungen auf Google">
+        <span class="reviews-stars" aria-hidden="true">
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+        </span>
+        <strong class="reviews-score">4,9</strong>
+        <span class="reviews-divider" aria-hidden="true">·</span>
+        <span class="reviews-count">140 Bewertungen auf Google</span>
+      </p>
+    </div>
+    <ul class="reviews-grid" role="list">
+      <li class="review-card reveal reveal-delay-1">
+        <div class="review-stars" role="img" aria-label="Bewertung: 5 von 5 Sternen">
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+        </div>
+        <blockquote class="review-quote">Was für ein wunderbares Café! Angefangen von dem schönen Ambiente, über das unglaublich leckere Essen bis zum wirklich sehr guten Service war unser Mädelsfrühstück ein voller Erfolg. Wir freuen uns schon aufs nächste Mal!</blockquote>
+        <footer class="review-meta">
+          <cite class="review-author">A.S.</cite>
+          <span class="review-date">März 2026</span>
+        </footer>
+      </li>
+      <li class="review-card reveal reveal-delay-2">
+        <div class="review-stars" role="img" aria-label="Bewertung: 5 von 5 Sternen">
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+        </div>
+        <blockquote class="review-quote">Tolles Café mit sehr, sehr leckerem Frühstück. Wir waren diese Woche zum ersten Mal dort und sind direkt drei Tage später wiedergekommen. Das Frühstück ist mit viel Liebe angerichtet, die Getränke lecker und der Service sehr freundlich. Wir sind sehr glücklich endlich so ein tolles Café in Meiendorf zu haben!</blockquote>
+        <footer class="review-meta">
+          <cite class="review-author">Anna K.</cite>
+          <span class="review-date">Januar 2026</span>
+        </footer>
+      </li>
+      <li class="review-card reveal reveal-delay-3">
+        <div class="review-stars" role="img" aria-label="Bewertung: 5 von 5 Sternen">
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+          <svg width="14" height="14"><use href="#icon-star"/></svg>
+        </div>
+        <blockquote class="review-quote">Endlich ein Kaffee in meiner Nähe. Und das Essen ist tatsächlich sehr lecker! Optisch super angerichtet. Auch die Räumlichkeiten sind clean gehalten, aber gemütlich. Service war auch sehr freundlich. Komme sicher wieder.</blockquote>
+        <footer class="review-meta">
+          <cite class="review-author">Melanie S.</cite>
+          <span class="review-date">Oktober 2025</span>
+        </footer>
+      </li>
+    </ul>
+    <div class="reviews-cta reveal reveal-delay-4">
+      <a class="btn-primary" href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58" target="_blank" rel="noopener">Alle Bewertungen auf Google ansehen</a>
+    </div>
+    <p class="reviews-source">Quelle: Google Maps · gekürzte Namen aus DSGVO-Gründen</p>
   </section>
 
   <!-- CONTACT CTA -->
   <section id="contact-cta">
-    <div class="cta-images">
-      <div class="cta-img reveal">
-        <img
-          src="reference/cake.jpg"
-          alt="Gemütliche Atmosphäre im Café Lou"
-          loading="lazy"
-        />
-      </div>
-      <div class="cta-img reveal reveal-delay-1">
-        <img
-          src="reference/Cafebecher.jpg"
-          alt="Café Lou Kaffee zum Mitnehmen"
-          loading="lazy"
-        />
-      </div>
-    </div>
     <div class="cta-content">
       <p class="section-label reveal">Reservierung</p>
       <h2 class="section-title reveal reveal-delay-1">Einfach<br/><em>anrufen</em></h2>
-      <p class="cta-body reveal reveal-delay-2">Für einen Tisch oder eine Gruppenanfrage — ruf uns einfach an. Wir freuen uns auf deinen Besuch im Café Lou.</p>
+      <p class="cta-body reveal reveal-delay-2">Für einen Tisch oder eine Gruppenanfrage: ruf uns einfach an. Wir freuen uns auf deinen Besuch im Café Lou.</p>
       <div class="reveal reveal-delay-3">
         <a href="tel:+494032848308" class="btn-phone">+49 40 328 483 08</a>
         <p class="cta-note">Mo, Mi–Sa 9–17 Uhr · So 9:30–17 Uhr</p>
@@ -1010,7 +1344,7 @@
   <section id="contacts">
     <div>
       <div class="contact-logo">Café <em>Lou</em></div>
-      <p class="contact-desc">Dein Lieblingscafé in Hamburg-Meiendorf. Guter Kaffee, ehrliches Frühstück, warme Mittagessen — jeden Tag mit Herzblut gemacht.</p>
+      <p class="contact-desc">Dein Lieblingscafé in Hamburg-Meiendorf. Guter Kaffee, ehrliches Frühstück, warme Mittagessen. Jeden Morgen frisch.</p>
     </div>
     <div>
       <p class="contact-block-title">Öffnungszeiten</p>
@@ -1032,12 +1366,13 @@
         22145 Hamburg
       </div>
       <div class="contact-block-sub">
-        <a href="tel:+494032848308" style="color:inherit;text-decoration:none;">+49 40 328 483 08</a><br/>
-        <a href="mailto:peter@jacobdigital.de" style="color:inherit;text-decoration:none;">peter@jacobdigital.de</a><br/><br/>
-        <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" style="color:oklch(82% 0.05 88);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;font-size:10px;">Instagram ↗</a>
+        <a href="tel:+494032848308" class="contact-tel">+49 40 328 483 08</a>
+        <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="contact-instagram">Instagram <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -1080,6 +1415,26 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
+    // Scroll spy — highlight active nav link
+    const sectionToNav = {
+      hero: 'a[href="#hero"]',
+      story: 'a[href="#story"]',
+      menu: 'a[href="#menu"]',
+      stimmen: 'a[href="#menu"]',
+      'contact-cta': 'a[href="#contacts"]',
+      contacts: 'a[href="#contacts"]'
+    };
+    const setActiveNav = (id) => {
+      navLinks.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+      const sel = sectionToNav[id];
+      if (sel) document.querySelector('#nav-links ' + sel)?.classList.add('active');
+    };
+    const spySections = Object.keys(sectionToNav).map(id => document.getElementById(id)).filter(Boolean);
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) setActiveNav(e.target.id); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    spySections.forEach(s => spy.observe(s));
+
     // Menu data
     const menuItems = [
       { cat: 'breakfast', name: 'Avocado Toast',      desc: 'Sauerteigbrot, Avocado, Chiliflocken, Zitrone',         price: '12,50 €', img: 'assets/img/01avocado.jpg' },
@@ -1098,9 +1453,7 @@
       grid.innerHTML = items.map(item => `
         <article class="menu-card">
           <div class="menu-card-thumb">
-            ${item.img ? `<img src="${item.img}" alt="${item.name}">` : `<span class="menu-thumb-label">${item.name}</span>`}
-            <div class="menu-card-overlay">Details</div>
-
+            ${item.img ? `<img src="${item.img}" alt="${item.name}" width="800" height="600" loading="lazy">` : `<span class="menu-thumb-label">${item.name}</span>`}
           </div>
           <div class="menu-card-body">
             <div class="menu-card-name">${item.name}</div>
@@ -1123,8 +1476,5 @@
   </script>
 
 
-<!-- impeccable-live-start -->
-<script src="http://localhost:8400/live.js"></script>
-<!-- impeccable-live-end -->
 </body>
 </html>
