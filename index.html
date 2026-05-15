@@ -8,13 +8,21 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://cafe-lou-hamburg.de/" />
 
+  <!-- Local SEO / Geo -->
+  <meta name="geo.region" content="DE-HH" />
+  <meta name="geo.placename" content="Hamburg-Meiendorf" />
+  <meta name="geo.position" content="53.6395;10.1437" />
+  <meta name="ICBM" content="53.6395, 10.1437" />
+
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Café Lou" />
   <meta property="og:title" content="Café Lou – Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf" />
   <meta property="og:description" content="Dein Lieblingscafé in der Nachbarschaft. Frischer Kaffee, ehrliches Frühstück, entspannte Mittagessen." />
-  <meta property="og:image" content="https://cafe-lou-hamburg.de/reference/cake.jpg" />
-  <meta property="og:image:width" content="640" />
-  <meta property="og:image:height" content="1138" />
+  <meta property="og:image" content="https://cafe-lou-hamburg.de/assets/img/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Café Lou in Hamburg-Meiendorf – Tisch mit Suppe, Salat und Brot" />
   <meta property="og:url" content="https://cafe-lou-hamburg.de/" />
   <meta property="og:locale" content="de_DE" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -37,19 +45,43 @@
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Saseler Str. 1 / Ecke Meiendorfer Str. 93",
-      "postalCode": "22145",
       "addressLocality": "Hamburg",
+      "addressRegion": "HH",
+      "postalCode": "22145",
       "addressCountry": "DE"
     },
-    "servesCuisine": ["Café", "Frühstück", "Mittagessen"],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 53.6395,
+      "longitude": 10.1437
+    },
+    "hasMap": "https://maps.app.goo.gl/7cNtLfxLy16KoQZ58",
+    "sameAs": [
+      "https://www.instagram.com/cafelou.hamburg/",
+      "https://maps.app.goo.gl/7cNtLfxLy16KoQZ58"
+    ],
+    "areaServed": [
+      { "@type": "City", "name": "Hamburg" },
+      { "@type": "AdministrativeArea", "name": "Meiendorf" },
+      { "@type": "AdministrativeArea", "name": "Sasel" },
+      { "@type": "AdministrativeArea", "name": "Rahlstedt" },
+      { "@type": "AdministrativeArea", "name": "Volksdorf" }
+    ],
+    "servesCuisine": ["Café", "Frühstück", "Brunch", "Mittagessen", "Kaffee", "Gebäck"],
     "priceRange": "€",
+    "paymentAccepted": "Bargeld, EC-Karte, Kreditkarte",
+    "currenciesAccepted": "EUR",
     "openingHoursSpecification": [
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday"], "opens": "09:00", "closes": "17:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "17:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "09:30", "closes": "17:00" }
     ],
-    "image": "https://cafe-lou-hamburg.de/reference/cake.jpg",
+    "image": [
+      "https://cafe-lou-hamburg.de/assets/img/og-cover.jpg",
+      "https://cafe-lou-hamburg.de/reference/cake.jpg",
+      "https://cafe-lou-hamburg.de/reference/Cafebecher.jpg"
+    ],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
@@ -313,7 +345,21 @@
       height: auto;
       display: block;
       border-radius: 4px;
-      margin-bottom: 32px;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 1.8vw, 22px);
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--cream);
+      max-width: 380px;
+      margin-bottom: 20px;
+      text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
+    }
+    .hero-title em {
+      font-style: italic;
+      color: oklch(94% 0.04 88);
     }
     .hero-sub {
       font-size: 15px;
@@ -1094,8 +1140,8 @@
         position: fixed;
         top: 0; left: 0; right: 0;
         background: var(--cream);
-        padding: 80px 32px 40px;
-        gap: 0;
+        padding: 104px 36px 56px;
+        gap: 4px;
         list-style: none;
         transform: translateY(-100%);
         transition: transform 0.35s ease;
@@ -1105,9 +1151,9 @@
       }
       .nav-links.open { transform: translateY(0); }
       .nav-links a {
-        font-size: 15px;
-        letter-spacing: 0.12em;
-        padding: 16px 0;
+        font-size: 17px;
+        letter-spacing: 0.14em;
+        padding: 22px 4px;
         border-bottom: 1px solid oklch(88% 0.02 88);
         color: var(--espresso);
       }
@@ -1173,7 +1219,6 @@
   <!-- HERO -->
   <main id="main">
   <section id="hero">
-    <h1 class="visually-hidden">Café Lou — Kaffee, Frühstück und Mittagessen in Hamburg-Meiendorf</h1>
     <div class="hero-left">
       <img
         src="reference/logo.png"
@@ -1181,6 +1226,7 @@
         class="hero-logo"
         width="434" height="309"
       />
+      <h1 class="hero-title">Kaffee, Frühstück &amp; Mittagessen <em>in Hamburg-Meiendorf</em></h1>
       <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück, entspannte Mittagessen. Croissants aus dem eigenen Ofen, Suppe ab elf, Kuchen wechselt mit der Woche.</p>
       <div class="hero-cta">
         <a href="#menu" class="btn-primary">Zur Speisekarte</a>
@@ -1209,7 +1255,7 @@
       <p class="section-label reveal">Unser Café</p>
       <h2 class="section-title reveal reveal-delay-1">Ein Ort, zu dem du<br/><em>gerne zurückkommst</em></h2>
       <div class="story-body reveal reveal-delay-2">
-        <p>An der Ecke Saseler und Meiendorfer Straße. Guter Kaffee aus sortenreiner Bohne, Gebäck aus dem eigenen Ofen, Mittagskarte mit der Saison. Ein Café für die Nachbarschaft, gemacht für den schnellen Espresso am Morgen wie für das lange Frühstück am Samstag.</p>
+        <p>An der Ecke Saseler und Meiendorfer Straße, zwischen Sasel, Rahlstedt und Volksdorf. Guter Kaffee aus sortenreiner Bohne, Gebäck aus dem eigenen Ofen, Mittagskarte mit der Saison. Ein Café für die Nachbarschaft, gemacht für den schnellen Espresso am Morgen wie für das lange Frühstück am Samstag.</p>
         <p>Komm einmal vorbei. Du wirst wissen, wovon wir reden.</p>
       </div>
       <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="story-link reveal reveal-delay-3">Instagram ansehen</a>
