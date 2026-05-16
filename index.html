@@ -1135,9 +1135,25 @@
     @media (max-width: 768px) {
       #contacts { grid-template-columns: 1fr; gap: 32px; }
       .menu-grid { grid-template-columns: 1fr 1fr; }
-      .menu-tabs { gap: 0; overflow-x: auto; justify-content: flex-start; }
-      /* touch targets */
-      .menu-tab { padding: 0 16px; font-size: 9px; flex-shrink: 0; min-height: 44px; }
+      /* Filter-Strip: container border weg (würde beim horizontalen Scroll auseinanderlaufen),
+         nur die per-Tab-Border bleibt → saubere 2px-Linie unter dem aktiven Tab */
+      .menu-tabs {
+        gap: 0;
+        overflow-x: auto;
+        justify-content: flex-start;
+        border-bottom: none;
+        padding: 0 4px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .menu-tabs::-webkit-scrollbar { display: none; }
+      .menu-tab {
+        padding: 0 18px;
+        font-size: 10px;
+        flex-shrink: 0;
+        min-height: 44px;
+        margin-bottom: 0;
+      }
       .btn-primary { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
       /* typography */
       .hero-sub { font-size: 15px; }
@@ -1174,6 +1190,11 @@
         border-bottom: 1px solid oklch(88% 0.02 88);
         color: var(--espresso);
       }
+      /* Kill the desktop ::after underline on mobile — divider line is enough */
+      .nav-links a::after,
+      .nav-links a:hover::after,
+      .nav-links a.active::after { display: none; }
+      .nav-links a.active { color: var(--sage-dark); font-weight: 500; }
       .nav-links li:last-child a { border-bottom: none; }
     }
 
