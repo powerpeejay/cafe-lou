@@ -370,6 +370,83 @@
       max-width: 340px;
       text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
     }
+    .hero-trust {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding: 2px 0;
+      text-decoration: none;
+      color: var(--cream);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      position: relative;
+      width: fit-content;
+    }
+    .hero-trust-stars {
+      color: var(--gold);
+      font-size: 15px;
+      letter-spacing: 1px;
+      line-height: 1;
+      text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
+    }
+    .hero-trust-rating {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 22px;
+      color: oklch(96% 0.04 88);
+      line-height: 1;
+      text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
+    }
+    .hero-trust-sep {
+      color: var(--cream);
+      opacity: 0.5;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .hero-trust-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.88;
+      line-height: 1;
+      text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
+    }
+    .hero-trust-arrow {
+      color: var(--gold);
+      font-size: 14px;
+      line-height: 1;
+      transition: transform 250ms ease-out;
+    }
+    .hero-trust::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      height: 1px;
+      width: 100%;
+      background: var(--gold);
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 250ms ease-out, opacity 200ms ease;
+    }
+    .hero-trust:hover::after,
+    .hero-trust:focus-visible::after {
+      opacity: 0.7;
+      transform: scaleX(1);
+    }
+    .hero-trust:hover .hero-trust-arrow,
+    .hero-trust:focus-visible .hero-trust-arrow {
+      transform: translateX(4px);
+    }
+    .hero-trust:focus-visible {
+      outline: 2px solid oklch(96% 0.04 88);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
     .hero-cta {
       margin-top: 28px;
       display: flex;
@@ -455,6 +532,15 @@
       box-shadow: 0 8px 32px oklch(20% 0.03 60 / 0.18);
       opacity: 0;
       animation: fadeUp 0.8s 1.1s forwards;
+    }
+    .hero-badge-title {
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      opacity: 0.6;
+      margin-bottom: 4px;
     }
     .hero-badge-num {
       font-family: 'Playfair Display', serif;
@@ -1161,6 +1247,11 @@
       .contact-desc { font-size: 15px; }
       .story-body { font-size: 16px; }
       .ticker-item { font-size: 14px; }
+      /* trust line mobile */
+      .hero-trust { gap: 8px; margin-top: 18px; flex-wrap: wrap; row-gap: 4px; }
+      .hero-trust-rating { font-size: 19px; }
+      .hero-trust-label { font-size: 10px; letter-spacing: 0.12em; }
+      .hero-trust-stars { font-size: 14px; }
       /* CTAs full-width on mobile */
       .hero-cta { flex-direction: column; align-items: stretch; width: 100%; }
       .hero-cta .btn-primary { width: 100%; justify-content: center; }
@@ -1266,13 +1357,22 @@
       />
       <h1 class="hero-title">Kaffee, Frühstück &amp; Mittagessen <em>in Hamburg-Meiendorf</em></h1>
       <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück, entspannte Mittagessen. Croissants aus dem eigenen Ofen, Suppe ab elf, Kuchen wechselt mit der Woche.</p>
+      <a
+        href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58"
+        class="hero-trust"
+        target="_blank"
+        rel="noopener"
+        aria-label="4,9 von 5 Sternen, 140 Bewertungen auf Google — auf Google Maps öffnen"
+      >
+        <span class="hero-trust-stars" aria-hidden="true">★★★★★</span>
+        <span class="hero-trust-rating">4,9</span>
+        <span class="hero-trust-sep" aria-hidden="true">·</span>
+        <span class="hero-trust-label">140 Bewertungen auf Google</span>
+        <span class="hero-trust-arrow" aria-hidden="true">→</span>
+      </a>
       <div class="hero-cta">
         <a href="#menu" class="btn-primary">Zur Speisekarte</a>
-        <a href="#contacts" class="btn-ghost">Öffnungszeiten</a>
       </div>
-      <p class="hero-hours" aria-label="Öffnungszeiten">
-        <strong>Mo, Mi–Sa 9–17</strong> · So ab 9:30 · Di Ruhetag
-      </p>
     </div>
     <div class="hero-right">
       <img
@@ -1284,6 +1384,7 @@
         fetchpriority="high"
       />
       <div class="hero-badge">
+        <span class="hero-badge-title">Öffnungszeiten</span>
         <span class="hero-badge-num">9–17</span>
         <span class="hero-badge-label">Mo, Mi–Sa · So ab 9:30 · Di Ruhetag</span>
       </div>
