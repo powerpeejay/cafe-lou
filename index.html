@@ -186,7 +186,7 @@
       --cream: oklch(97% 0.014 88);
       --cream-mid: oklch(93% 0.016 88);
       --parchment: oklch(88% 0.020 88);
-      --sage: #899D7A;
+      --sage: #889B7D;
       --sage-dark: oklch(38% 0.06 145);
       --sage-light: oklch(74% 0.06 145);
       --sage-pale: oklch(92% 0.04 145);
@@ -194,9 +194,13 @@
       --charcoal: oklch(32% 0.03 145);
       --gold: oklch(80% 0.06 88);
       --text: oklch(22% 0.025 145);
-      --text-light: oklch(50% 0.025 145);
+      --text-light: oklch(44% 0.025 145);
       --color-bg-soft: #EEF6E8;
       --color-primary-dark: #2F4A34;
+      --cream-bright: oklch(96% 0.04 88);
+      --gold-warm: oklch(82% 0.05 88);
+      --sage-muted: oklch(78% 0.035 145);
+      --footer-text: rgba(255, 255, 255, 0.78);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -253,7 +257,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 24px 60px;
-      transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+      transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #main-nav.scrolled {
       background: oklch(97% 0.014 88 / 0.94);
@@ -344,7 +348,7 @@
       width: clamp(200px, 18vw, 240px);
       height: auto;
       display: block;
-      border-radius: 4px;
+      border-radius: 0;
       margin-bottom: 16px;
     }
     .hero-title {
@@ -394,7 +398,7 @@
       font-style: italic;
       font-weight: 400;
       font-size: 22px;
-      color: oklch(96% 0.04 88);
+      color: var(--cream-bright);
       line-height: 1;
       text-shadow: 0 1px 2px oklch(20% 0.04 145 / 0.35);
     }
@@ -467,7 +471,7 @@
     }
     .hero-hours strong {
       font-weight: 600;
-      color: oklch(96% 0.04 88);
+      color: var(--cream-bright);
     }
     .btn-primary {
       display: inline-block;
@@ -539,7 +543,6 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--sage-dark);
-      opacity: 0.6;
       margin-bottom: 4px;
     }
     .hero-badge-num {
@@ -1012,7 +1015,7 @@
       font-weight: 500;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: oklch(82% 0.05 88);
+      color: var(--gold-warm);
       margin-bottom: 20px;
     }
     .contact-block-main {
@@ -1028,7 +1031,7 @@
       align-items: flex-start;
       font-size: 12px;
       font-weight: 300;
-      color: oklch(78% 0.035 145);
+      color: var(--sage-muted);
       margin-top: 8px;
       line-height: 1.7;
     }
@@ -1057,7 +1060,7 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: oklch(82% 0.05 88);
+      color: var(--gold-warm);
       text-decoration: none;
       transition: color 0.2s;
     }
@@ -1073,7 +1076,7 @@
     .contact-desc {
       font-size: 14px;
       font-weight: 300;
-      color: oklch(78% 0.035 145);
+      color: var(--sage-muted);
       line-height: 1.8;
       max-width: 260px;
     }
@@ -1100,7 +1103,7 @@
     }
     .footer-copy {
       font-size: 11px;
-      color: rgba(255,255,255,0.78);
+      color: var(--footer-text);
       letter-spacing: 0.1em;
     }
     .footer-links {
@@ -1115,11 +1118,11 @@
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
+      color: var(--footer-text);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: rgba(255,255,255,0.95); }
+    .footer-links a:hover { color: var(--cream); }
 
     /* ─── ANIMATIONS ─── */
     @keyframes fadeUp {
@@ -1129,7 +1132,7 @@
     .reveal {
       opacity: 0;
       transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.visible { opacity: 1; transform: none; }
     .reveal-delay-1 { transition-delay: 0.1s; }
@@ -1271,7 +1274,6 @@
         transition: transform 0.35s ease;
         z-index: 99;
         border-bottom: 1px solid var(--parchment);
-        box-shadow: 0 8px 32px oklch(20% 0.03 60 / 0.1);
       }
       .nav-links.open { transform: translateY(0); }
       .nav-links a {
@@ -1428,14 +1430,14 @@
       <p class="section-label reveal">Unsere Speisekarte</p>
       <h2 class="section-title reveal reveal-delay-1">Frisch &amp; Saisonal<br/><em>für jeden Tag</em></h2>
     </div>
-    <div class="menu-tabs reveal reveal-delay-2" id="menu-tabs">
-      <button class="menu-tab active" data-cat="all">Alle</button>
-      <button class="menu-tab" data-cat="breakfast">Frühstück</button>
-      <button class="menu-tab" data-cat="lunch">Mittagessen</button>
-      <button class="menu-tab" data-cat="pastries">Gebäck</button>
-      <button class="menu-tab" data-cat="drinks">Kaffee &amp; Getränke</button>
+    <div class="menu-tabs reveal reveal-delay-2" id="menu-tabs" role="tablist" aria-label="Speisekarte filtern">
+      <button class="menu-tab active" data-cat="all" id="tab-all" role="tab" aria-selected="true" aria-controls="menu-grid">Alle</button>
+      <button class="menu-tab" data-cat="breakfast" id="tab-breakfast" role="tab" aria-selected="false" aria-controls="menu-grid">Frühstück</button>
+      <button class="menu-tab" data-cat="lunch" id="tab-lunch" role="tab" aria-selected="false" aria-controls="menu-grid">Mittagessen</button>
+      <button class="menu-tab" data-cat="pastries" id="tab-pastries" role="tab" aria-selected="false" aria-controls="menu-grid">Gebäck</button>
+      <button class="menu-tab" data-cat="drinks" id="tab-drinks" role="tab" aria-selected="false" aria-controls="menu-grid">Kaffee &amp; Getränke</button>
     </div>
-    <div class="menu-grid reveal reveal-delay-3" id="menu-grid">
+    <div class="menu-grid reveal reveal-delay-3" id="menu-grid" role="tabpanel" aria-labelledby="tab-all">
       <!-- Karten werden per JS eingefügt -->
     </div>
     <div class="menu-see-all reveal reveal-delay-4">
@@ -1599,7 +1601,12 @@
     // Scroll reveal
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
@@ -1644,7 +1651,7 @@
             ${item.img ? `<img src="${item.img}" alt="${item.name}" width="800" height="600" loading="lazy">` : `<span class="menu-thumb-label">${item.name}</span>`}
           </div>
           <div class="menu-card-body">
-            <div class="menu-card-name">${item.name}</div>
+            <h3 class="menu-card-name">${item.name}</h3>
             <div class="menu-card-desc">${item.desc}</div>
             <div class="menu-card-price">${item.price}</div>
           </div>
@@ -1657,8 +1664,13 @@
     document.getElementById('menu-tabs').addEventListener('click', e => {
       const btn = e.target.closest('.menu-tab');
       if (!btn) return;
-      document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.menu-tab').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById('menu-grid').setAttribute('aria-labelledby', btn.id);
       renderMenu(btn.dataset.cat);
     });
   </script>
