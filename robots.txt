@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cafe-lou-hamburg.de/sitemap.xml
+Sitemap: https://cafe-lou.vercel.app/sitemap.xml
