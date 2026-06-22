@@ -1,0 +1,10 @@
+{
+  "queries": [
+    { "name": "cappuccino",      "query": "cappuccino coffee cup foam art",       "per_page": 2, "orientation": "landscape" },
+    { "name": "latte-macchiato","query": "latte macchiato glass milk coffee",     "per_page": 2, "orientation": "landscape" },
+    { "name": "americano",       "query": "black coffee americano cup",            "per_page": 2, "orientation": "landscape" },
+    { "name": "milchkaffee",     "query": "cafe au lait milk coffee mug",          "per_page": 2, "orientation": "landscape" },
+    { "name": "latte",           "query": "latte coffee cup latte art",            "per_page": 2, "orientation": "landscape" },
+    { "name": "fresh-tea",       "query": "herbal tea cup fresh mint",             "per_page": 2, "orientation": "landscape" }
+  ]
+}

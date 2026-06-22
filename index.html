@@ -593,6 +593,22 @@
       border-top: 1px solid oklch(100% 0 0 / 0.08);
       border-bottom: 1px solid oklch(100% 0 0 / 0.08);
     }
+    .ticker-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage-pale);
+      padding: 0 20px;
+      flex-shrink: 0;
+      border-right: 1px solid oklch(100% 0 0 / 0.12);
+      display: flex;
+      align-items: center;
+      background: var(--sage-dark);
+      position: relative;
+      z-index: 1;
+    }
     .ticker {
       display: flex;
       gap: 0;
@@ -784,7 +800,56 @@
       color: var(--sage-dark);
     }
     .menu-card:first-child .menu-card-price { font-size: 22px; }
-    .menu-see-all { margin-top: 48px; }
+    .menu-see-all { margin-top: 48px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .menu-fullcard-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      border: 1.5px solid var(--sage);
+      border-radius: 2px;
+      color: var(--sage-dark);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .menu-fullcard-btn:hover, .menu-fullcard-btn:focus-visible {
+      background: var(--sage-pale);
+      color: var(--sage-dark);
+      outline: none;
+    }
+    /* Lightbox */
+    .menu-lightbox {
+      position: fixed; inset: 0; z-index: 900;
+      background: rgba(47,74,52,0.88);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .menu-lightbox[hidden] { display: none; }
+    .menu-lightbox-inner {
+      position: relative;
+      max-width: 560px; width: 100%;
+      background: var(--cream);
+      border-radius: 3px;
+      box-shadow: 0 24px 64px rgba(47,74,52,0.4);
+      overflow: hidden;
+    }
+    .menu-lightbox-inner img { display: block; width: 100%; height: auto; }
+    .menu-lightbox-close {
+      position: absolute; top: 12px; right: 14px;
+      background: var(--cream); border: none;
+      width: 36px; height: 36px; border-radius: 50%;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; line-height: 1;
+      color: var(--sage-dark);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(47,74,52,0.2);
+      transition: background 0.15s;
+    }
+    .menu-lightbox-close:hover { background: var(--sage-pale); }
 
     /* ─── REVIEWS / STIMMEN ─── */
     #stimmen {
@@ -1334,15 +1399,16 @@
   <!-- SPECIALS TICKER -->
   <div id="specials-banner" aria-hidden="true">
     <div class="ticker-wrap">
+      <span class="ticker-label">Wochen-Specials</span>
       <div class="ticker" id="ticker">
-        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Frisch gebackene Croissants jeden Morgen</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Single-Origin Filterkaffee &amp; saisonaler Espresso</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Wochenend-Frühstück bis 17 Uhr</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Hausgemachtes Granola &amp; Avocado-Toast</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Süßkartoffel Creme Suppe</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Lou's Bauernfrühstück</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>French Toast Pistachio</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Greek Lou Pancake</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Süßkartoffel Creme Suppe</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Lou's Bauernfrühstück</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>French Toast Pistachio</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Greek Lou Pancake</span>
       </div>
     </div>
   </div>
@@ -1432,18 +1498,32 @@
     </div>
     <div class="menu-tabs reveal reveal-delay-2" id="menu-tabs" role="tablist" aria-label="Speisekarte filtern">
       <button class="menu-tab active" data-cat="all" id="tab-all" role="tab" aria-selected="true" aria-controls="menu-grid">Alle</button>
-      <button class="menu-tab" data-cat="breakfast" id="tab-breakfast" role="tab" aria-selected="false" aria-controls="menu-grid">Frühstück</button>
-      <button class="menu-tab" data-cat="lunch" id="tab-lunch" role="tab" aria-selected="false" aria-controls="menu-grid">Mittagessen</button>
-      <button class="menu-tab" data-cat="pastries" id="tab-pastries" role="tab" aria-selected="false" aria-controls="menu-grid">Gebäck</button>
-      <button class="menu-tab" data-cat="drinks" id="tab-drinks" role="tab" aria-selected="false" aria-controls="menu-grid">Kaffee &amp; Getränke</button>
+      <button class="menu-tab" data-cat="bowls" id="tab-bowls" role="tab" aria-selected="false" aria-controls="menu-grid">Bowls</button>
+      <button class="menu-tab" data-cat="sauerteig" id="tab-sauerteig" role="tab" aria-selected="false" aria-controls="menu-grid">Sauerteigbrote</button>
+      <button class="menu-tab" data-cat="pancakes" id="tab-pancakes" role="tab" aria-selected="false" aria-controls="menu-grid">Pancakes</button>
+      <button class="menu-tab" data-cat="suppen" id="tab-suppen" role="tab" aria-selected="false" aria-controls="menu-grid">Suppen</button>
+      <button class="menu-tab" data-cat="salate" id="tab-salate" role="tab" aria-selected="false" aria-controls="menu-grid">Salate</button>
+      <button class="menu-tab" data-cat="specials" id="tab-specials" role="tab" aria-selected="false" aria-controls="menu-grid">Specials</button>
+      <button class="menu-tab" data-cat="drinks" id="tab-drinks" role="tab" aria-selected="false" aria-controls="menu-grid">Kaffee &amp; Tee</button>
     </div>
-    <div class="menu-grid reveal reveal-delay-3" id="menu-grid" role="tabpanel" aria-labelledby="tab-all">
+    <div class="menu-grid" id="menu-grid" role="tabpanel" aria-labelledby="tab-all">
       <!-- Karten werden per JS eingefügt -->
     </div>
     <div class="menu-see-all reveal reveal-delay-4">
       <a href="#contact-cta" class="btn-primary">Tisch reservieren? Ruf uns an</a>
+      <button class="menu-fullcard-btn" id="menu-fullcard-btn" aria-haspopup="dialog">
+        Vollständige Karte ansehen
+      </button>
     </div>
   </section>
+
+  <!-- Speisekarte Lightbox -->
+  <div class="menu-lightbox" id="menu-lightbox" role="dialog" aria-modal="true" aria-label="Vollständige Speisekarte Café Lou" hidden>
+    <div class="menu-lightbox-inner">
+      <button class="menu-lightbox-close" id="menu-lightbox-close" aria-label="Schließen">&#x2715;</button>
+      <img src="assets/IMG_2159.JPG" alt="Vollständige Speisekarte Café Lou" loading="lazy">
+    </div>
+  </div>
 
   <!-- REVIEWS -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1632,14 +1712,27 @@
 
     // Menu data
     const menuItems = [
-      { cat: 'breakfast', name: 'Avocado Toast',      desc: 'Sauerteigbrot, Avocado, Chiliflocken, Zitrone',         price: '12,50 €', img: 'assets/img/01avocado.jpg' },
-      { cat: 'breakfast', name: 'Granola Bowl',        desc: 'Hausgranola, Saisonfrüchte, Honigjoghurt',              price: '9,90 €',  img: 'assets/img/02granola.jpg' },
-      { cat: 'lunch',     name: 'Lou Sandwich',        desc: 'Hähnchen, Aioli, Blattsalat, eingelegte Zwiebeln, Ciabatta', price: '13,90 €', img: 'assets/img/03sandwich.jpg' },
-      { cat: 'lunch',     name: 'Grüner Salat',        desc: 'Erbsen, Zucchini, Minze, Schafskäse, Zitronendressing', price: '11,90 €', img: 'assets/img/04salad.jpg' },
-      { cat: 'pastries',  name: 'Buttercroissant',     desc: 'Frisch gebacken, täglich morgens',                      price: '3,50 €',  img: 'assets/img/croissant.jpg' },
-      { cat: 'pastries',  name: 'Hausgemachter Kuchen',desc: 'Tageswechselnd, mit Schlagsahne',                       price: '4,90 €',  img: 'assets/img/kuchen.jpg' },
-      { cat: 'drinks',    name: 'Flat White',          desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',       price: '4,20 €',  img: 'assets/img/flatwhite.jpg' },
-      { cat: 'drinks',    name: 'Hauslimonade',        desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                  price: '4,50 €',  img: 'assets/img/lemonade.jpg' },
+      { cat: 'bowls',    name: 'Granola Bowl',             desc: 'Hausgranola, Saisonfrüchte, Joghurt, Honig',                               price: '8,90 €',  img: 'assets/img/02granola.jpg' },
+      { cat: 'bowls',    name: 'Chia Bowl',                desc: 'Chiapudding, Kokosmilch, frische Früchte, Ahornsirup',                     price: '10,50 €', img: 'assets/img/chia-bowl-ai25-studio-studio-4397288.jpg' },
+      { cat: 'sauerteig',name: 'Avocado',                  desc: 'Sauerteigbrot, Avocado, Tomaten, frische Kräuter',                         price: '10,50 €', img: 'assets/img/01avocado.jpg' },
+      { cat: 'sauerteig',name: 'Mediterranes Olivengemüse',desc: 'Sauerteigbrot, Olivengemüse, Feta, frische Kräuter',                      price: '11,50 €', img: 'assets/img/olivengemuese-toast-roman-odintsov-5150307.jpg' },
+      { cat: 'pancakes', name: 'Classic',                  desc: 'Mit Butter und Ahornsirup',                                                price: '11,50 €', img: 'assets/img/pancakes-classic-rain-russell-9572745.jpg' },
+      { cat: 'pancakes', name: 'Sweet Lou',                desc: 'Schoko-Creme, frische Banane & selbst gemachter Ahornsirup',               price: '11,50 €', img: 'assets/img/pancakes-sweet-gamze-nur-30882594.jpg' },
+      { cat: 'suppen',   name: 'Tomatensuppe',             desc: 'Frisch, mit Basilikum und frischen Kräutern',                              price: '8,50 €',  img: 'assets/img/tomatensuppe-adriano-bragi-31779543.jpg' },
+      { cat: 'suppen',   name: 'Karotten-Ingwer-Suppe',   desc: 'Mit Nusscrunch, Olivenöl & frischen Kräutern',                             price: '7,90 €',  img: 'assets/img/karotten-suppe-cottonbro-studio-6853454.jpg' },
+      { cat: 'salate',   name: 'Avocado-Salat',            desc: 'Avocado, Granatapfelkerne, Tomaten, Gurke, Zwiebel & geröstete Kerne',     price: '12,50 €', img: 'assets/img/04salad.jpg' },
+      { cat: 'salate',   name: 'Ziegenkäse-Salat',         desc: 'Karamellisierter Ziegenkäse, Walnüsse, hausgemachtes Dressing',           price: '14,50 €', img: 'assets/img/ziegenkase-salat-roman-odintsov-4869356.jpg' },
+      { cat: 'specials', name: 'Egg Drop Sandwich',        desc: 'Würziges Rührei, Cheddar, Bacon und hausgemachte Guacamole auf Sauerteig', price: '14,90 €', img: 'assets/img/03sandwich.jpg' },
+      { cat: 'specials', name: 'Flammkuchen',              desc: 'Knusprig, Original oder mit Avocado statt Bacon',                         price: '10,90 €', img: 'assets/img/flammkuchen-elsa-silva-35583100.jpg' },
+      { cat: 'drinks',   name: 'Espresso / Doppelter',     desc: 'Single oder Double Shot',                                                  price: '2,50 €',  img: 'assets/img/espresso-21776947.jpg' },
+      { cat: 'drinks',   name: 'Cappuccino',               desc: '',                                                                         price: '3,60 €',  img: 'assets/img/cappuccino-pixabay-459489.jpg' },
+      { cat: 'drinks',   name: 'Latte Macchiato',          desc: '',                                                                         price: '4,30 €',  img: 'assets/img/latte-macchiato-dennis-roubos-6638846.jpg' },
+      { cat: 'drinks',   name: 'Americano',                desc: '',                                                                         price: '3,00 €',  img: 'assets/img/americano-s-c-n-ng-ng-33668755.jpg' },
+      { cat: 'drinks',   name: 'Flat White',               desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',                          price: '4,20 €',  img: 'assets/img/flatwhite.jpg' },
+      { cat: 'drinks',   name: 'Milchkaffee',              desc: '',                                                                         price: '4,30 €',  img: 'assets/img/milchkaffee-laura-cleffmann-21572307.jpg' },
+      { cat: 'drinks',   name: 'Latte',                    desc: '',                                                                         price: '4,50 €',  img: 'assets/img/latte-viktoria-alipatova-2074127.jpg' },
+      { cat: 'drinks',   name: 'Fresh Tea',                desc: '',                                                                         price: '4,50 €',  img: 'assets/img/fresh-tea-lisa-from-pexels-734983.jpg' },
+      { cat: 'drinks',   name: 'Hauslimonade',             desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                                     price: '4,50 €',  img: 'assets/img/lemonade.jpg' },
     ];
 
     function renderMenu(cat) {
@@ -1673,6 +1766,27 @@
       document.getElementById('menu-grid').setAttribute('aria-labelledby', btn.id);
       renderMenu(btn.dataset.cat);
     });
+
+    // Lightbox
+    (function() {
+      const lightbox = document.getElementById('menu-lightbox');
+      const openBtn  = document.getElementById('menu-fullcard-btn');
+      const closeBtn = document.getElementById('menu-lightbox-close');
+      function openLightbox() {
+        lightbox.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+      function closeLightbox() {
+        lightbox.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+        openBtn.focus();
+      }
+      openBtn.addEventListener('click', openLightbox);
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !lightbox.hasAttribute('hidden')) closeLightbox(); });
+    })();
   </script>
 
   <!-- Vercel Web Analytics (cookieless, first-party proxy) -->
