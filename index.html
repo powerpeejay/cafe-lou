@@ -30,9 +30,10 @@
   <!-- Favicon -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
-  <!-- Preload critical fonts -->
+  <!-- Preload critical fonts + hero image -->
   <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-normal-latin.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin.woff2" crossorigin />
+  <link rel="preload" as="image" href="assets/img/hero-800.webp" imagesrcset="assets/img/hero-800.webp 800w, assets/img/hero-1200.webp 1200w" imagesizes="(max-width: 1024px) 100vw, 50vw" fetchpriority="high" />
 
   <!-- JSON-LD: LocalBusiness -->
   <script type="application/ld+json">
@@ -223,6 +224,9 @@
       top: 0;
       left: 0;
       z-index: 200;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
       padding: 12px 20px;
       background: var(--espresso);
       color: var(--cream);
@@ -247,6 +251,7 @@
       color: var(--text);
       overflow-x: hidden;
     }
+    body.nav-locked { overflow: hidden; }
 
     /* ─── NAV ─── */
     #main-nav {
@@ -265,7 +270,10 @@
       padding: 16px 60px;
       border-bottom: 1px solid var(--parchment);
     }
+    .nav-menu-note { display: none; }
     .nav-logo {
+      position: relative;
+      z-index: 101;
       display: inline-flex;
       align-items: center;
       min-height: 44px;
@@ -378,7 +386,8 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin: 22px 0 0;
+      margin: 18px 0 0;
+      min-height: 44px;
       padding: 2px 0;
       text-decoration: none;
       color: var(--cream);
@@ -428,7 +437,7 @@
       content: "";
       position: absolute;
       left: 0;
-      bottom: -2px;
+      bottom: 6px;
       height: 1px;
       width: 100%;
       background: var(--gold);
@@ -1324,27 +1333,46 @@
       .hero-cta { flex-direction: column; align-items: stretch; width: 100%; }
       .hero-cta .btn-primary { width: 100%; justify-content: center; }
       .hero-cta .btn-ghost { width: 100%; justify-content: center; display: flex; }
-      /* hamburger */
-      .nav-toggle { display: flex; }
+      /* Hamburger: Fullscreen-Panel mit gestaffelten Links */
+      .nav-toggle { display: flex; position: relative; z-index: 101; }
+      #main-nav.menu-open { background: var(--cream); }
       .nav-links {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         position: fixed;
-        top: 0; left: 0; right: 0;
+        inset: 0;
+        height: 100dvh;
         background: var(--cream);
-        padding: 104px 36px 56px;
-        gap: 4px;
+        padding: 96px 36px 48px;
+        gap: 0;
         list-style: none;
         transform: translateY(-100%);
-        transition: transform 0.35s ease;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         z-index: 99;
-        border-bottom: 1px solid var(--parchment);
+        visibility: hidden;
       }
-      .nav-links.open { transform: translateY(0); }
+      .nav-links.open { transform: translateY(0); visibility: visible; }
+      /* Links treppen sich rein, sobald das Panel steht */
+      .nav-links li {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .nav-links.open li {
+        opacity: 1;
+        transform: none;
+        transition-delay: calc(0.15s + var(--i, 0) * 0.06s);
+      }
+      .nav-links li:first-child { margin-top: auto; }
       .nav-links a {
-        font-size: 17px;
-        letter-spacing: 0.14em;
-        padding: 22px 4px;
+        display: block;
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        text-transform: none;
+        padding: 18px 4px;
         border-bottom: 1px solid oklch(88% 0.02 88);
         color: var(--espresso);
       }
@@ -1352,8 +1380,19 @@
       .nav-links a::after,
       .nav-links a:hover::after,
       .nav-links a.active::after { display: none; }
-      .nav-links a.active { color: var(--sage-dark); font-weight: 500; }
+      .nav-links a.active { color: var(--sage-dark); }
       .nav-links li:last-child a { border-bottom: none; }
+      /* Öffnungszeiten-Zeile unten im Menü */
+      .nav-menu-note {
+        display: block;
+        margin-top: auto;
+        padding-top: 32px;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-light);
+      }
     }
 
     @media (max-width: 1024px) {
@@ -1389,10 +1428,11 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#story">Unser Café</a></li>
-      <li><a href="#menu">Speisekarte</a></li>
-      <li><a href="#contacts">Besuchen</a></li>
+      <li style="--i:0"><a href="#hero">Home</a></li>
+      <li style="--i:1"><a href="#story">Unser Café</a></li>
+      <li style="--i:2"><a href="#menu">Speisekarte</a></li>
+      <li style="--i:3"><a href="#contacts">Besuchen</a></li>
+      <li class="nav-menu-note" style="--i:4" aria-hidden="true">Mo, Mi–Sa 9–17 Uhr · So ab 9:30 · Di Ruhetag</li>
     </ul>
   </nav>
 
@@ -1418,10 +1458,13 @@
   <section id="hero">
     <div class="hero-left">
       <img
-        src="reference/logo.png"
+        src="assets/img/logo-320.webp"
+        srcset="assets/img/logo-320.webp 320w, assets/img/logo-640.webp 640w"
+        sizes="(max-width: 768px) 55vw, 300px"
         alt="Café Lou — coffee · breakfast · lunch"
         class="hero-logo"
         width="434" height="309"
+        fetchpriority="high"
       />
       <h1 class="hero-title">Kaffee, Frühstück &amp; Mittagessen <em>in Hamburg-Meiendorf</em></h1>
       <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück, entspannte Mittagessen. Croissants aus dem eigenen Ofen, Suppe ab elf, Kuchen wechselt mit der Woche.</p>
@@ -1444,7 +1487,9 @@
     </div>
     <div class="hero-right">
       <img
-        src="assets/img/hero.png"
+        src="assets/img/hero-800.webp"
+        srcset="assets/img/hero-800.webp 800w, assets/img/hero-1200.webp 1200w"
+        sizes="(max-width: 1024px) 100vw, 50vw"
         alt="Frische Suppe, Salat und Brot auf dem Tisch im Café Lou"
         class="hero-img"
         width="833" height="849"
@@ -1473,18 +1518,22 @@
     <div class="story-images reveal reveal-delay-2">
       <div class="story-img">
         <img
-          src="reference/Cafebecher.jpg"
+          src="assets/img/becher-480.webp"
+          srcset="assets/img/becher-480.webp 480w, assets/img/becher-800.webp 800w"
+          sizes="(max-width: 1024px) 46vw, 25vw"
           alt="Café Lou Take-away Becher mit Logo"
           width="640" height="1138"
-          loading="lazy"
+          loading="lazy" decoding="async"
         />
       </div>
       <div class="story-img">
         <img
-          src="reference/cake.jpg"
+          src="assets/img/cake-480.webp"
+          srcset="assets/img/cake-480.webp 480w, assets/img/cake-800.webp 800w"
+          sizes="(max-width: 1024px) 46vw, 25vw"
           alt="Hausgemachter Lotus Cake im Café Lou"
           width="640" height="1138"
-          loading="lazy"
+          loading="lazy" decoding="async"
         />
       </div>
     </div>
@@ -1521,7 +1570,13 @@
   <div class="menu-lightbox" id="menu-lightbox" role="dialog" aria-modal="true" aria-label="Vollständige Speisekarte Café Lou" hidden>
     <div class="menu-lightbox-inner">
       <button class="menu-lightbox-close" id="menu-lightbox-close" aria-label="Schließen">&#x2715;</button>
-      <img src="assets/IMG_2159.JPG" alt="Vollständige Speisekarte Café Lou" loading="lazy">
+      <img
+        src="assets/img/speisekarte-900.webp"
+        srcset="assets/img/speisekarte-900.webp 900w, assets/img/speisekarte-1400.webp 1400w"
+        sizes="(max-width: 640px) 92vw, 560px"
+        alt="Vollständige Speisekarte Café Lou"
+        width="900" height="1200"
+        loading="lazy" decoding="async">
     </div>
   </div>
 
@@ -1662,20 +1717,25 @@
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
-    // Hamburger toggle
+    // Hamburger: Fullscreen-Panel mit Scroll-Lock, Escape und Fokus-Rückgabe
     const toggle = document.getElementById('nav-toggle');
     const navLinks = document.getElementById('nav-links');
-    toggle.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open);
+    function setMenu(open) {
+      navLinks.classList.toggle('open', open);
+      nav.classList.toggle('menu-open', open);
+      document.body.classList.toggle('nav-locked', open);
+      toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
-    });
+    }
+    toggle.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
     navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Menü öffnen');
-      });
+      a.addEventListener('click', () => setMenu(false));
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        setMenu(false);
+        toggle.focus();
+      }
     });
 
     // Scroll reveal
@@ -1710,38 +1770,47 @@
     }, { rootMargin: '-45% 0px -45% 0px' });
     spySections.forEach(s => spy.observe(s));
 
-    // Menu data
+    // Menu data — img ist der Basisname: assets/img/<base>-480.webp / -800.webp
+    const MENU_IMG = 'assets/img/';
     const menuItems = [
-      { cat: 'bowls',    name: 'Granola Bowl',             desc: 'Hausgranola, Saisonfrüchte, Joghurt, Honig',                               price: '8,90 €',  img: 'assets/img/02granola.jpg' },
-      { cat: 'bowls',    name: 'Chia Bowl',                desc: 'Chiapudding, Kokosmilch, frische Früchte, Ahornsirup',                     price: '10,50 €', img: 'assets/img/chia-bowl-ai25-studio-studio-4397288.jpg' },
-      { cat: 'sauerteig',name: 'Avocado',                  desc: 'Sauerteigbrot, Avocado, Tomaten, frische Kräuter',                         price: '10,50 €', img: 'assets/img/01avocado.jpg' },
-      { cat: 'sauerteig',name: 'Mediterranes Olivengemüse',desc: 'Sauerteigbrot, Olivengemüse, Feta, frische Kräuter',                      price: '11,50 €', img: 'assets/img/olivengemuese-toast-roman-odintsov-5150307.jpg' },
-      { cat: 'pancakes', name: 'Classic',                  desc: 'Mit Butter und Ahornsirup',                                                price: '11,50 €', img: 'assets/img/pancakes-classic-rain-russell-9572745.jpg' },
-      { cat: 'pancakes', name: 'Sweet Lou',                desc: 'Schoko-Creme, frische Banane & selbst gemachter Ahornsirup',               price: '11,50 €', img: 'assets/img/pancakes-sweet-gamze-nur-30882594.jpg' },
-      { cat: 'suppen',   name: 'Tomatensuppe',             desc: 'Frisch, mit Basilikum und frischen Kräutern',                              price: '8,50 €',  img: 'assets/img/tomatensuppe-adriano-bragi-31779543.jpg' },
-      { cat: 'suppen',   name: 'Karotten-Ingwer-Suppe',   desc: 'Mit Nusscrunch, Olivenöl & frischen Kräutern',                             price: '7,90 €',  img: 'assets/img/karotten-suppe-cottonbro-studio-6853454.jpg' },
-      { cat: 'salate',   name: 'Avocado-Salat',            desc: 'Avocado, Granatapfelkerne, Tomaten, Gurke, Zwiebel & geröstete Kerne',     price: '12,50 €', img: 'assets/img/04salad.jpg' },
-      { cat: 'salate',   name: 'Ziegenkäse-Salat',         desc: 'Karamellisierter Ziegenkäse, Walnüsse, hausgemachtes Dressing',           price: '14,50 €', img: 'assets/img/ziegenkase-salat-roman-odintsov-4869356.jpg' },
-      { cat: 'specials', name: 'Egg Drop Sandwich',        desc: 'Würziges Rührei, Cheddar, Bacon und hausgemachte Guacamole auf Sauerteig', price: '14,90 €', img: 'assets/img/03sandwich.jpg' },
-      { cat: 'specials', name: 'Flammkuchen',              desc: 'Knusprig, Original oder mit Avocado statt Bacon',                         price: '10,90 €', img: 'assets/img/flammkuchen-elsa-silva-35583100.jpg' },
-      { cat: 'drinks',   name: 'Espresso / Doppelter',     desc: 'Single oder Double Shot',                                                  price: '2,50 €',  img: 'assets/img/espresso-21776947.jpg' },
-      { cat: 'drinks',   name: 'Cappuccino',               desc: '',                                                                         price: '3,60 €',  img: 'assets/img/cappuccino-pixabay-459489.jpg' },
-      { cat: 'drinks',   name: 'Latte Macchiato',          desc: '',                                                                         price: '4,30 €',  img: 'assets/img/latte-macchiato-dennis-roubos-6638846.jpg' },
-      { cat: 'drinks',   name: 'Americano',                desc: '',                                                                         price: '3,00 €',  img: 'assets/img/americano-s-c-n-ng-ng-33668755.jpg' },
-      { cat: 'drinks',   name: 'Flat White',               desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',                          price: '4,20 €',  img: 'assets/img/flatwhite.jpg' },
-      { cat: 'drinks',   name: 'Milchkaffee',              desc: '',                                                                         price: '4,30 €',  img: 'assets/img/milchkaffee-laura-cleffmann-21572307.jpg' },
-      { cat: 'drinks',   name: 'Latte',                    desc: '',                                                                         price: '4,50 €',  img: 'assets/img/latte-viktoria-alipatova-2074127.jpg' },
-      { cat: 'drinks',   name: 'Fresh Tea',                desc: '',                                                                         price: '4,50 €',  img: 'assets/img/fresh-tea-lisa-from-pexels-734983.jpg' },
-      { cat: 'drinks',   name: 'Hauslimonade',             desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                                     price: '4,50 €',  img: 'assets/img/lemonade.jpg' },
+      { cat: 'bowls',    name: 'Granola Bowl',             desc: 'Hausgranola, Saisonfrüchte, Joghurt, Honig',                               price: '8,90 €',  img: 'granola' },
+      { cat: 'bowls',    name: 'Chia Bowl',                desc: 'Chiapudding, Kokosmilch, frische Früchte, Ahornsirup',                     price: '10,50 €', img: 'chia-bowl' },
+      { cat: 'sauerteig',name: 'Avocado',                  desc: 'Sauerteigbrot, Avocado, Tomaten, frische Kräuter',                         price: '10,50 €', img: 'avocado' },
+      { cat: 'sauerteig',name: 'Mediterranes Olivengemüse',desc: 'Sauerteigbrot, Olivengemüse, Feta, frische Kräuter',                      price: '11,50 €', img: 'olivengemuese' },
+      { cat: 'pancakes', name: 'Classic',                  desc: 'Mit Butter und Ahornsirup',                                                price: '11,50 €', img: 'pancakes-classic' },
+      { cat: 'pancakes', name: 'Sweet Lou',                desc: 'Schoko-Creme, frische Banane & selbst gemachter Ahornsirup',               price: '11,50 €', img: 'pancakes-sweet' },
+      { cat: 'suppen',   name: 'Tomatensuppe',             desc: 'Frisch, mit Basilikum und frischen Kräutern',                              price: '8,50 €',  img: 'tomatensuppe' },
+      { cat: 'suppen',   name: 'Karotten-Ingwer-Suppe',   desc: 'Mit Nusscrunch, Olivenöl & frischen Kräutern',                             price: '7,90 €',  img: 'karottensuppe' },
+      { cat: 'salate',   name: 'Avocado-Salat',            desc: 'Avocado, Granatapfelkerne, Tomaten, Gurke, Zwiebel & geröstete Kerne',     price: '12,50 €', img: 'avocado-salat' },
+      { cat: 'salate',   name: 'Ziegenkäse-Salat',         desc: 'Karamellisierter Ziegenkäse, Walnüsse, hausgemachtes Dressing',           price: '14,50 €', img: 'ziegenkaese' },
+      { cat: 'specials', name: 'Egg Drop Sandwich',        desc: 'Würziges Rührei, Cheddar, Bacon und hausgemachte Guacamole auf Sauerteig', price: '14,90 €', img: 'egg-drop' },
+      { cat: 'specials', name: 'Flammkuchen',              desc: 'Knusprig, Original oder mit Avocado statt Bacon',                         price: '10,90 €', img: 'flammkuchen' },
+      { cat: 'drinks',   name: 'Espresso / Doppelter',     desc: 'Single oder Double Shot',                                                  price: '2,50 €',  img: 'espresso' },
+      { cat: 'drinks',   name: 'Cappuccino',               desc: '',                                                                         price: '3,60 €',  img: 'cappuccino' },
+      { cat: 'drinks',   name: 'Latte Macchiato',          desc: '',                                                                         price: '4,30 €',  img: 'latte-macchiato' },
+      { cat: 'drinks',   name: 'Americano',                desc: '',                                                                         price: '3,00 €',  img: 'americano' },
+      { cat: 'drinks',   name: 'Flat White',               desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',                          price: '4,20 €',  img: 'flatwhite' },
+      { cat: 'drinks',   name: 'Milchkaffee',              desc: '',                                                                         price: '4,30 €',  img: 'milchkaffee' },
+      { cat: 'drinks',   name: 'Latte',                    desc: '',                                                                         price: '4,50 €',  img: 'latte' },
+      { cat: 'drinks',   name: 'Fresh Tea',                desc: '',                                                                         price: '4,50 €',  img: 'fresh-tea' },
+      { cat: 'drinks',   name: 'Hauslimonade',             desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                                     price: '4,50 €',  img: 'limonade' },
     ];
 
     function renderMenu(cat) {
       const grid = document.getElementById('menu-grid');
       const items = cat === 'all' ? menuItems : menuItems.filter(i => i.cat === cat);
-      grid.innerHTML = items.map(item => `
+      grid.innerHTML = items.map((item, idx) => {
+        const featured = idx === 0 && cat === 'all';
+        const sizes = featured
+          ? '(max-width: 480px) 92vw, (max-width: 1024px) 60vw, 800px'
+          : '(max-width: 480px) 92vw, (max-width: 1024px) 46vw, 400px';
+        const img = item.img
+          ? `<img src="${MENU_IMG}${item.img}-480.webp" srcset="${MENU_IMG}${item.img}-480.webp 480w, ${MENU_IMG}${item.img}-800.webp 800w" sizes="${sizes}" alt="${item.name}" width="800" height="600" loading="lazy" decoding="async">`
+          : `<span class="menu-thumb-label">${item.name}</span>`;
+        return `
         <article class="menu-card">
           <div class="menu-card-thumb">
-            ${item.img ? `<img src="${item.img}" alt="${item.name}" width="800" height="600" loading="lazy">` : `<span class="menu-thumb-label">${item.name}</span>`}
+            ${img}
           </div>
           <div class="menu-card-body">
             <h3 class="menu-card-name">${item.name}</h3>
@@ -1749,7 +1818,7 @@
             <div class="menu-card-price">${item.price}</div>
           </div>
         </article>
-      `).join('');
+      `;}).join('');
     }
 
     renderMenu('all');

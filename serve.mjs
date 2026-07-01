@@ -17,6 +17,7 @@ const MIME = {
   '.png':  'image/png',
   '.jpg':  'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.woff2':'font/woff2',
   '.woff': 'font/woff',
   '.json': 'application/json',
@@ -25,6 +26,7 @@ const MIME = {
 createServer(async (req, res) => {
   let path = req.url.split('?')[0];
   if (path === '/' || path === '') path = '/index.html';
+  if (path.endsWith('/')) path += 'index.html';
 
   const file = join(__dir, path);
   const ext  = extname(file).toLowerCase();
