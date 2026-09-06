@@ -202,6 +202,7 @@
       --gold-warm: oklch(82% 0.05 88);
       --sage-muted: oklch(78% 0.035 145);
       --footer-text: rgba(255, 255, 255, 0.78);
+      --scrim: rgba(47, 74, 52, 0.94);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -750,7 +751,7 @@
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .menu-card:hover { transform: translateY(-3px); }
-    .menu-card:first-child {
+    .menu-card--featured {
       grid-column: span 2;
     }
     .menu-card-thumb {
@@ -764,7 +765,7 @@
       overflow: hidden;
       contain: layout paint;
     }
-    .menu-card:first-child .menu-card-thumb { height: 360px; }
+    .menu-card--featured .menu-card-thumb { height: 360px; }
     .menu-card-thumb img {
       width: 100%;
       height: 100%;
@@ -776,17 +777,11 @@
       filter: saturate(0.95) contrast(1);
       transform: scale(1.03);
     }
-    .menu-thumb-label {
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      color: var(--text-light);
-      text-transform: uppercase;
-    }
     .menu-card-body {
       padding: 20px 24px 24px;
       text-align: left;
     }
-    .menu-card:first-child .menu-card-body { padding: 28px 32px 32px; }
+    .menu-card--featured .menu-card-body { padding: 28px 32px 32px; }
     .menu-card-name {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
@@ -794,7 +789,7 @@
       color: var(--espresso);
       margin-bottom: 6px;
     }
-    .menu-card:first-child .menu-card-name { font-size: 28px; margin-bottom: 10px; }
+    .menu-card--featured .menu-card-name { font-size: 28px; margin-bottom: 10px; }
     .menu-card-desc {
       font-size: 12px;
       font-weight: 300;
@@ -802,13 +797,13 @@
       line-height: 1.6;
       margin-bottom: 14px;
     }
-    .menu-card:first-child .menu-card-desc { font-size: 14px; max-width: 420px; }
+    .menu-card--featured .menu-card-desc { font-size: 14px; max-width: 420px; }
     .menu-card-price {
       font-family: 'Playfair Display', serif;
       font-size: 18px;
       color: var(--sage-dark);
     }
-    .menu-card:first-child .menu-card-price { font-size: 22px; }
+    .menu-card--featured .menu-card-price { font-size: 22px; }
     .menu-see-all { margin-top: 48px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
     .menu-fullcard-btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -829,36 +824,167 @@
       color: var(--sage-dark);
       outline: none;
     }
-    /* Lightbox */
+    /* ─── VOLLSTÄNDIGE KARTE (Dialog) ─── */
     .menu-lightbox {
       position: fixed; inset: 0; z-index: 900;
-      background: rgba(47,74,52,0.88);
+      background: var(--scrim);
       display: flex; align-items: center; justify-content: center;
       padding: 24px;
     }
     .menu-lightbox[hidden] { display: none; }
     .menu-lightbox-inner {
       position: relative;
-      max-width: 560px; width: 100%;
+      width: 100%; max-width: 780px;
+      max-height: calc(100vh - 48px);
       background: var(--cream);
-      border-radius: 3px;
-      box-shadow: 0 24px 64px rgba(47,74,52,0.4);
+      border: 1px solid var(--parchment);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
     }
-    .menu-lightbox-inner img { display: block; width: 100%; height: auto; }
-    .menu-lightbox-close {
-      position: absolute; top: 12px; right: 14px;
-      background: var(--cream); border: none;
-      width: 36px; height: 36px; border-radius: 50%;
-      font-family: 'Playfair Display', serif;
-      font-size: 22px; line-height: 1;
+    .fm-head {
+      flex: none;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 24px;
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--parchment);
+      background: var(--cream);
+    }
+    .fm-head-label {
+      display: block;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--sage-dark);
+      margin-bottom: 8px;
+    }
+    .fm-head-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3vw, 30px);
+      font-weight: 400; line-height: 1.15;
+      color: var(--espresso);
+    }
+    .menu-lightbox-close {
+      flex: none;
+      width: 44px; height: 44px;
+      background: transparent;
+      border: 1px solid var(--parchment);
+      border-radius: 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px; line-height: 1;
+      color: var(--charcoal);
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 8px rgba(47,74,52,0.2);
-      transition: background 0.15s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .menu-lightbox-close:hover { background: var(--sage-pale); }
+    .menu-lightbox-close:hover,
+    .menu-lightbox-close:focus-visible { background: var(--sage-pale); color: var(--espresso); border-color: var(--sage-dark); }
+    .fm-body {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 32px 32px;
+    }
+    .fm-section { padding-top: 36px; }
+    .fm-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 400; line-height: 1.2;
+      color: var(--espresso);
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--parchment);
+    }
+    .fm-section-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--sage-dark);
+    }
+    .fm-section-intro {
+      font-size: 16px; font-weight: 300; line-height: 1.6;
+      color: var(--text-light);
+      max-width: 62ch;
+      margin-top: 12px;
+    }
+    .fm-list { list-style: none; margin-top: 20px; }
+    .fm-item + .fm-item { margin-top: 22px; }
+    .fm-item-head { display: flex; align-items: baseline; gap: 10px; }
+    .fm-item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px; font-weight: 400; line-height: 1.3;
+      color: var(--espresso);
+    }
+    .fm-leader {
+      flex: 1 1 auto;
+      min-width: 16px;
+      border-bottom: 1px dotted var(--parchment);
+      transform: translateY(-4px);
+    }
+    .fm-item-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px; font-weight: 400;
+      color: var(--sage-dark);
+      white-space: nowrap;
+    }
+    .fm-item-desc {
+      font-size: 16px; font-weight: 300; line-height: 1.6;
+      color: var(--text);
+      max-width: 60ch;
+      margin-top: 4px;
+    }
+    .fm-item-note {
+      font-size: 15px; font-weight: 500; line-height: 1.5;
+      color: var(--sage-dark);
+      margin-top: 6px;
+    }
+    .fm-variants { list-style: none; margin-top: 8px; }
+    .fm-variant {
+      display: flex; align-items: baseline; gap: 10px;
+      font-size: 16px; font-weight: 300;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+    }
+    .fm-variant + .fm-variant { margin-top: 4px; }
+    .fm-variant::before {
+      content: '';
+      position: absolute; left: 0; top: 0.6em;
+      width: 4px; height: 4px;
+      background: var(--sage-dark);
+    }
+    .fm-variant-price {
+      font-family: 'Playfair Display', serif;
+      color: var(--sage-dark);
+      white-space: nowrap;
+    }
+    .fm-extras {
+      margin-top: 24px;
+      padding: 20px 24px;
+      background: var(--color-bg-soft);
+    }
+    .fm-extras-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 12px;
+    }
+    .fm-foot {
+      flex: none;
+      padding: 16px 32px;
+      border-top: 1px solid var(--parchment);
+      background: var(--cream);
+      font-size: 15px; font-weight: 300; line-height: 1.5;
+      color: var(--text-light);
+    }
+    @media (max-width: 640px) {
+      .menu-lightbox { padding: 0; }
+      .menu-lightbox-inner { max-width: none; max-height: 100vh; height: 100vh; border: none; }
+      .fm-head { padding: 20px 20px 16px; }
+      .fm-body { padding: 4px 20px 28px; }
+      .fm-foot { padding: 14px 20px; }
+      .fm-section-title { font-size: 24px; }
+      .fm-item-name { font-size: 19px; }
+    }
 
     /* ─── REVIEWS / STIMMEN ─── */
     #stimmen {
@@ -1396,15 +1522,15 @@
     }
 
     @media (max-width: 1024px) {
-      .menu-card:first-child .menu-card-thumb { height: 280px; }
-      .menu-card:first-child .menu-card-name { font-size: 24px; }
+      .menu-card--featured .menu-card-thumb { height: 280px; }
+      .menu-card--featured .menu-card-name { font-size: 24px; }
     }
 
     @media (max-width: 480px) {
       /* Single-column menu on small phones */
       .menu-grid { grid-template-columns: 1fr; }
-      .menu-card:first-child { grid-column: auto; }
-      .menu-card:first-child .menu-card-thumb { height: 240px; }
+      .menu-card--featured { grid-column: auto; }
+      .menu-card--featured .menu-card-thumb { height: 240px; }
       .menu-tab { padding: 12px 14px; }
       /* Hide absolute badge to prevent overlap */
       .hero-badge { display: none; }
@@ -1552,7 +1678,7 @@
       <button class="menu-tab" data-cat="pancakes" id="tab-pancakes" role="tab" aria-selected="false" aria-controls="menu-grid">Pancakes</button>
       <button class="menu-tab" data-cat="suppen" id="tab-suppen" role="tab" aria-selected="false" aria-controls="menu-grid">Suppen</button>
       <button class="menu-tab" data-cat="salate" id="tab-salate" role="tab" aria-selected="false" aria-controls="menu-grid">Salate</button>
-      <button class="menu-tab" data-cat="specials" id="tab-specials" role="tab" aria-selected="false" aria-controls="menu-grid">Specials</button>
+      <button class="menu-tab" data-cat="herzhaft" id="tab-herzhaft" role="tab" aria-selected="false" aria-controls="menu-grid">Herzhaft</button>
       <button class="menu-tab" data-cat="drinks" id="tab-drinks" role="tab" aria-selected="false" aria-controls="menu-grid">Kaffee &amp; Tee</button>
     </div>
     <div class="menu-grid" id="menu-grid" role="tabpanel" aria-labelledby="tab-all">
@@ -1565,20 +1691,6 @@
       </button>
     </div>
   </section>
-
-  <!-- Speisekarte Lightbox -->
-  <div class="menu-lightbox" id="menu-lightbox" role="dialog" aria-modal="true" aria-label="Vollständige Speisekarte Café Lou" hidden>
-    <div class="menu-lightbox-inner">
-      <button class="menu-lightbox-close" id="menu-lightbox-close" aria-label="Schließen">&#x2715;</button>
-      <img
-        src="assets/img/speisekarte-900.webp"
-        srcset="assets/img/speisekarte-900.webp 900w, assets/img/speisekarte-1400.webp 1400w"
-        sizes="(max-width: 640px) 92vw, 560px"
-        alt="Vollständige Speisekarte Café Lou"
-        width="900" height="1200"
-        loading="lazy" decoding="async">
-    </div>
-  </div>
 
   <!-- REVIEWS -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1710,6 +1822,23 @@
   </footer>
 
   <!-- SCRIPTS -->
+  <!-- Vollständige Speisekarte (Dialog) -->
+  <div class="menu-lightbox" id="menu-lightbox" role="dialog" aria-modal="true" aria-labelledby="fullmenu-title" hidden>
+    <div class="menu-lightbox-inner">
+      <div class="fm-head">
+        <div>
+          <span class="fm-head-label">Café Lou</span>
+          <h2 class="fm-head-title" id="fullmenu-title">Vollständige Karte</h2>
+        </div>
+        <button class="menu-lightbox-close" id="menu-lightbox-close" aria-label="Karte schließen">&#x2715;</button>
+      </div>
+      <div class="fm-body" id="fullmenu-body" tabindex="0">
+        <!-- Wird aus menuSections gerendert -->
+      </div>
+      <p class="fm-foot">Alle Preise in Euro, inkl. MwSt. Fragen zu Allergenen und Zutaten beantworten wir gern vor Ort.</p>
+    </div>
+  </div>
+
   <script>
     // Nav scroll
     const nav = document.getElementById('main-nav');
@@ -1770,58 +1899,225 @@
     }, { rootMargin: '-45% 0px -45% 0px' });
     spySections.forEach(s => spy.observe(s));
 
-    // Menu data — img ist der Basisname: assets/img/<base>-480.webp / -800.webp
+    /* ─── SPEISEKARTE: EINE EINZIGE DATENQUELLE ───────────────────────────
+       Übernommen von der physischen Karte im Café (Stand: Juli 2026).
+       Sowohl die Foto-Karten im Grid als auch die vollständige Karte im
+       Dialog werden aus DIESEM Array gerendert. Beide können deshalb nicht
+       mehr auseinanderlaufen.
+
+       item.img      Basisname in assets/img/<base>-480.webp / -800.webp.
+                     NUR Gerichte mit img erscheinen als Foto-Karte im Grid.
+       item.tab      Grid-Kategorie, falls abweichend von der Sektions-ID.
+       item.cardName Anzeigename im Grid, wo die Sektions-Überschrift fehlt.
+       item.note     Zusatzzeile (z. B. vegetarische Variante).
+       item.variants Untervarianten mit eigenem Preis.
+       ──────────────────────────────────────────────────────────────────── */
     const MENU_IMG = 'assets/img/';
-    const menuItems = [
-      { cat: 'bowls',    name: 'Granola Bowl',             desc: 'Hausgranola, Saisonfrüchte, Joghurt, Honig',                               price: '8,90 €',  img: 'granola' },
-      { cat: 'bowls',    name: 'Chia Bowl',                desc: 'Chiapudding, Kokosmilch, frische Früchte, Ahornsirup',                     price: '10,50 €', img: 'chia-bowl' },
-      { cat: 'sauerteig',name: 'Avocado',                  desc: 'Sauerteigbrot, Avocado, Tomaten, frische Kräuter',                         price: '10,50 €', img: 'avocado' },
-      { cat: 'sauerteig',name: 'Mediterranes Olivengemüse',desc: 'Sauerteigbrot, Olivengemüse, Feta, frische Kräuter',                      price: '11,50 €', img: 'olivengemuese' },
-      { cat: 'pancakes', name: 'Classic',                  desc: 'Mit Butter und Ahornsirup',                                                price: '11,50 €', img: 'pancakes-classic' },
-      { cat: 'pancakes', name: 'Sweet Lou',                desc: 'Schoko-Creme, frische Banane & selbst gemachter Ahornsirup',               price: '11,50 €', img: 'pancakes-sweet' },
-      { cat: 'suppen',   name: 'Tomatensuppe',             desc: 'Frisch, mit Basilikum und frischen Kräutern',                              price: '8,50 €',  img: 'tomatensuppe' },
-      { cat: 'suppen',   name: 'Karotten-Ingwer-Suppe',   desc: 'Mit Nusscrunch, Olivenöl & frischen Kräutern',                             price: '7,90 €',  img: 'karottensuppe' },
-      { cat: 'salate',   name: 'Avocado-Salat',            desc: 'Avocado, Granatapfelkerne, Tomaten, Gurke, Zwiebel & geröstete Kerne',     price: '12,50 €', img: 'avocado-salat' },
-      { cat: 'salate',   name: 'Ziegenkäse-Salat',         desc: 'Karamellisierter Ziegenkäse, Walnüsse, hausgemachtes Dressing',           price: '14,50 €', img: 'ziegenkaese' },
-      { cat: 'specials', name: 'Egg Drop Sandwich',        desc: 'Würziges Rührei, Cheddar, Bacon und hausgemachte Guacamole auf Sauerteig', price: '14,90 €', img: 'egg-drop' },
-      { cat: 'specials', name: 'Flammkuchen',              desc: 'Knusprig, Original oder mit Avocado statt Bacon',                         price: '10,90 €', img: 'flammkuchen' },
-      { cat: 'drinks',   name: 'Espresso / Doppelter',     desc: 'Single oder Double Shot',                                                  price: '2,50 €',  img: 'espresso' },
-      { cat: 'drinks',   name: 'Cappuccino',               desc: '',                                                                         price: '3,60 €',  img: 'cappuccino' },
-      { cat: 'drinks',   name: 'Latte Macchiato',          desc: '',                                                                         price: '4,30 €',  img: 'latte-macchiato' },
-      { cat: 'drinks',   name: 'Americano',                desc: '',                                                                         price: '3,00 €',  img: 'americano' },
-      { cat: 'drinks',   name: 'Flat White',               desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',                          price: '4,20 €',  img: 'flatwhite' },
-      { cat: 'drinks',   name: 'Milchkaffee',              desc: '',                                                                         price: '4,30 €',  img: 'milchkaffee' },
-      { cat: 'drinks',   name: 'Latte',                    desc: '',                                                                         price: '4,50 €',  img: 'latte' },
-      { cat: 'drinks',   name: 'Fresh Tea',                desc: '',                                                                         price: '4,50 €',  img: 'fresh-tea' },
-      { cat: 'drinks',   name: 'Hauslimonade',             desc: 'Zitrone, Minze, Gurke, Sprudelwasser',                                     price: '4,50 €',  img: 'limonade' },
+    const menuSections = [
+      {
+        id: 'sauerteig',
+        title: 'Sauerteigbrote',
+        note: 'geröstet & belegt',
+        intro: 'Mit einem kleinen Beilagensalat serviert. Saucen, Aufstriche und Gemüsezubereitungen sind hausgemacht, täglich frisch zubereitet.',
+        items: [
+          { name: 'Avocado',                   desc: 'Hummus, Granatapfelkerne, Sprossen, Kresse',                                      price: '10,90 €', img: 'avocado' },
+          { name: 'Rührei',                    desc: 'Mit Butter, Frühlingszwiebeln, Tomaten, Rucola-Pesto',                            price: '10,50 €' },
+          { name: 'Geräucherter Lachs',        desc: 'Frischkäse, Dill, Gurkenröllchen, Honig-Senf-Sauce',                              price: '12,90 €' },
+          { name: 'Hokkaido-Kürbis & Karotte', desc: 'Grob gestampft, eingelegte karamellisierte Zwiebeln, Kerne, frische Kräuter',     price: '11,50 €' },
+          { name: 'Mediterranes Ofengemüse',   desc: 'Basilikumöl, Guacamole, frische Kräuter, Rucola',                                 price: '11,50 €', img: 'olivengemuese' },
+          { name: 'Feta crumble',              desc: 'Warmer Chili-Honig, Walnüsse und frische Kräuter',                                price: '11,90 €' },
+        ],
+        extras: {
+          title: 'Upgrades für Brote',
+          items: [
+            { name: 'Rührei',                  price: '3,90 €' },
+            { name: 'Avocado',                 price: '2,90 €' },
+            { name: 'Bacon',                   price: '3,00 €' },
+            { name: 'Feta',                    price: '3,00 €' },
+            { name: 'Mediterranes Ofengemüse', price: '3,50 €' },
+            { name: 'Hummus oder Guacamole',   price: '2,50 €' },
+          ],
+        },
+      },
+      {
+        id: 'herzhaft',
+        title: 'Sandwiches & Toast',
+        items: [
+          { name: 'Cheesy Toast',       desc: 'Cheddar und Gouda zwischen geröstetem Sauerteigbrot mit Gewürzgurke und Guacamole', price: '12,90 €' },
+          { name: 'Egg Drop Sandwich',  desc: 'Fluffiges Rührei, Cheddar, Bacon und Spicy Mayo zwischen zwei Scheiben Brioche',    price: '14,90 €', img: 'egg-drop',
+            note: 'Auch vegetarisch: mit Avocado statt Bacon' },
+        ],
+      },
+      {
+        id: 'bowls',
+        title: 'Bowls',
+        items: [
+          { name: 'Granola Bowl',      desc: 'Griechischer Joghurt, hausgemachtes Granola, Früchte, Kokoschips, Honig', price: '8,90 €', img: 'granola' },
+          { name: 'Chia Bowl',         desc: 'Chiasamen, Haferflocken, Früchte, Nusscrunch, Zimt, Ahornsirup',          price: '8,90 €', img: 'chia-bowl' },
+          { name: 'Cremiger Milchreis', desc: 'Mit Mandelmilch, mit Kardamom verfeinert',
+            variants: [
+              { name: 'Klassisch mit Zimt & Zucker',   price: '6,90 €' },
+              { name: 'Hausgemachtes Feigenkompott',   price: '8,90 €' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'pancakes',
+        title: 'Pancakes',
+        intro: 'Frisch & fluffig. Wir backen unsere XL-Pancakes à la minute, daher bitten wir um ein wenig Zeit bei der Zubereitung.',
+        items: [
+          { name: 'Classic',   cardName: 'Pancakes Classic',   desc: 'Mit Butter & echtem Ahornsirup',                        price: '8,50 €',  img: 'pancakes-classic' },
+          { name: 'Sweet Lou', cardName: 'Pancakes Sweet Lou', desc: 'Schoko-Creme, frische Banane & gerösteter Nuss-Crunch', price: '10,50 €', img: 'pancakes-sweet' },
+        ],
+      },
+      {
+        id: 'suppen',
+        title: 'Suppen',
+        intro: 'Hausgemachte, frische Suppen. Täglich frisch aus besten Zutaten gekocht, serviert mit Brot.',
+        items: [
+          { name: 'Tomatensuppe',            desc: 'Basilikumöl, Croutons & frische Kräuter',   price: '7,50 €', img: 'tomatensuppe' },
+          { name: 'Karotten-Ingwer-Suppe',   desc: 'Nusscrunch, Olivenöl & frische Kräuter',    price: '7,50 €', img: 'karottensuppe' },
+        ],
+      },
+      {
+        id: 'salate',
+        title: 'Salate',
+        intro: 'Mit grünem Salat der Saison und hausgemachtem Dressing, serviert mit Brot.',
+        items: [
+          { name: 'Avocado-Salat',    desc: 'Avocado, Granatapfelkerne, Tomaten, Gurke, Zwiebel & geröstete Kerne',                    price: '12,50 €', img: 'avocado-salat' },
+          { name: 'Ziegenkäse-Salat', desc: 'Leicht karamellisierter Ziegenkäse, Tomaten, Gurke & Walnüsse, mit hausgemachtem Dressing', price: '14,50 €', img: 'ziegenkaese' },
+        ],
+      },
+      {
+        id: 'flammkuchen',
+        title: 'Flammkuchen',
+        note: 'ab 12:00 Uhr',
+        intro: 'Knusprig-dünner Boden aus dem Steinofen, frisch belegt auf einer Basis aus Crème fraîche.',
+        items: [
+          { name: 'Original',    cardName: 'Flammkuchen Original', desc: 'Speck & rote Zwiebel',                                          price: '10,90 €', img: 'flammkuchen', tab: 'herzhaft' },
+          { name: 'Vegetarisch', desc: 'Feta, Tomaten, Zwiebeln, Oliven, Peperoni, Lauchzwiebeln, Rucola',                                price: '12,90 €' },
+          { name: 'Lachs',       desc: 'Räucherlachs, Lauchzwiebeln, frische Kräuter & Dill',                                            price: '14,50 €' },
+        ],
+      },
+      {
+        id: 'specials',
+        title: 'Specials',
+        items: [
+          { name: 'Hausgemachte Süßkartoffel-Cremesuppe', desc: 'Mit griechischem Joghurt',                                                                        price: '7,50 €' },
+          { name: 'Lou’s Bauernfrühstück',           desc: 'Knusprige Kartoffelwürfel mit cremigem Rührei und Bacon, dazu Brot und hausgemachte Limettencreme', price: '13,90 €' },
+          { name: 'French Toast Pistachio',               desc: 'Brioche French Toast mit Pistazien-Mascarpone-Creme, Pistaziencreme, Beerenkompott und frischen Früchten', price: '12,50 €' },
+          { name: 'Greek Lou Pancake',                    desc: 'XL Pancake mit cremigem griechischem Joghurt, Honig und Zimt, getoppt mit Mandeln und frischen Früchten',  price: '10,90 €' },
+        ],
+      },
+      {
+        id: 'drinks',
+        title: 'Kaffee & Tee',
+        items: [
+          { name: 'Espresso / Doppelter', desc: 'Single oder Double Shot',                          price: '2,50 €', img: 'espresso' },
+          { name: 'Cappuccino',           desc: '',                                                price: '3,60 €', img: 'cappuccino' },
+          { name: 'Latte Macchiato',      desc: '',                                                price: '4,30 €', img: 'latte-macchiato' },
+          { name: 'Americano',            desc: '',                                                price: '3,00 €', img: 'americano' },
+          { name: 'Flat White',           desc: 'Doppelter Ristretto, cremig aufgeschäumte Milch',  price: '4,20 €', img: 'flatwhite' },
+          { name: 'Milchkaffee',          desc: '',                                                price: '4,30 €', img: 'milchkaffee' },
+          { name: 'Latte',                desc: '',                                                price: '4,50 €', img: 'latte' },
+          { name: 'Fresh Tea',            desc: '',                                                price: '4,50 €', img: 'fresh-tea' },
+          { name: 'Hauslimonade',         desc: 'Zitrone, Minze, Gurke, Sprudelwasser',            price: '4,50 €', img: 'limonade' },
+        ],
+      },
     ];
+
+    // Foto-Karten fürs Grid: alle Gerichte mit Bild, flach mit Kategorie.
+    const gridItems = menuSections.flatMap(sec =>
+      sec.items
+        .filter(item => item.img)
+        .map(item => ({ ...item, cat: item.tab || sec.id }))
+    );
+
+    const esc = str => String(str).replace(/[&<>"]/g, c => (
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]
+    ));
 
     function renderMenu(cat) {
       const grid = document.getElementById('menu-grid');
-      const items = cat === 'all' ? menuItems : menuItems.filter(i => i.cat === cat);
+      const items = cat === 'all' ? gridItems : gridItems.filter(i => i.cat === cat);
       grid.innerHTML = items.map((item, idx) => {
+        // Die grosse Auftakt-Karte gibt es nur in der Gesamtansicht. Sie haengt
+        // an einer Klasse, nicht an :first-child, damit gefilterte Tabs mit
+        // zwei Eintraegen nicht in ein leeres drittes Raster laufen.
         const featured = idx === 0 && cat === 'all';
         const sizes = featured
           ? '(max-width: 480px) 92vw, (max-width: 1024px) 60vw, 800px'
           : '(max-width: 480px) 92vw, (max-width: 1024px) 46vw, 400px';
-        const img = item.img
-          ? `<img src="${MENU_IMG}${item.img}-480.webp" srcset="${MENU_IMG}${item.img}-480.webp 480w, ${MENU_IMG}${item.img}-800.webp 800w" sizes="${sizes}" alt="${item.name}" width="800" height="600" loading="lazy" decoding="async">`
-          : `<span class="menu-thumb-label">${item.name}</span>`;
+        const name = esc(item.cardName || item.name);
         return `
-        <article class="menu-card">
+        <article class="menu-card${featured ? ' menu-card--featured' : ''}">
           <div class="menu-card-thumb">
-            ${img}
+            <img src="${MENU_IMG}${item.img}-480.webp"
+                 srcset="${MENU_IMG}${item.img}-480.webp 480w, ${MENU_IMG}${item.img}-800.webp 800w"
+                 sizes="${sizes}" alt="${name}" width="800" height="600"
+                 loading="lazy" decoding="async">
           </div>
           <div class="menu-card-body">
-            <h3 class="menu-card-name">${item.name}</h3>
-            <div class="menu-card-desc">${item.desc}</div>
-            <div class="menu-card-price">${item.price}</div>
+            <h3 class="menu-card-name">${name}</h3>
+            <div class="menu-card-desc">${esc(item.desc)}</div>
+            <div class="menu-card-price">${esc(item.price)}</div>
           </div>
         </article>
       `;}).join('');
     }
 
     renderMenu('all');
+
+    // Vollständige Karte im Dialog: gleiche Datenquelle wie das Grid.
+    function renderFullMenu() {
+      const body = document.getElementById('fullmenu-body');
+      if (body.dataset.rendered) return;
+
+      const renderItem = item => `
+        <li class="fm-item">
+          <div class="fm-item-head">
+            <h4 class="fm-item-name">${esc(item.name)}</h4>
+            <span class="fm-leader" aria-hidden="true"></span>
+            ${item.price ? `<span class="fm-item-price">${esc(item.price)}</span>` : ''}
+          </div>
+          ${item.desc ? `<p class="fm-item-desc">${esc(item.desc)}</p>` : ''}
+          ${item.note ? `<p class="fm-item-note">${esc(item.note)}</p>` : ''}
+          ${item.variants ? `
+            <ul class="fm-variants">
+              ${item.variants.map(v => `
+                <li class="fm-variant">
+                  <span>${esc(v.name)}</span>
+                  <span class="fm-leader" aria-hidden="true"></span>
+                  <span class="fm-variant-price">${esc(v.price)}</span>
+                </li>`).join('')}
+            </ul>` : ''}
+        </li>`;
+
+      body.innerHTML = menuSections.map(sec => `
+        <section class="fm-section">
+          <h3 class="fm-section-title">
+            ${esc(sec.title)}
+            ${sec.note ? `<span class="fm-section-note">${esc(sec.note)}</span>` : ''}
+          </h3>
+          ${sec.intro ? `<p class="fm-section-intro">${esc(sec.intro)}</p>` : ''}
+          <ul class="fm-list">${sec.items.map(renderItem).join('')}</ul>
+          ${sec.extras ? `
+            <div class="fm-extras">
+              <p class="fm-extras-title">${esc(sec.extras.title)}</p>
+              <ul class="fm-variants">
+                ${sec.extras.items.map(x => `
+                  <li class="fm-variant">
+                    <span>${esc(x.name)}</span>
+                    <span class="fm-leader" aria-hidden="true"></span>
+                    <span class="fm-variant-price">${esc(x.price)}</span>
+                  </li>`).join('')}
+              </ul>
+            </div>` : ''}
+        </section>`).join('');
+
+      body.dataset.rendered = 'true';
+    }
 
     document.getElementById('menu-tabs').addEventListener('click', e => {
       const btn = e.target.closest('.menu-tab');
@@ -1841,25 +2137,61 @@
       const lightbox = document.getElementById('menu-lightbox');
       const openBtn  = document.getElementById('menu-fullcard-btn');
       const closeBtn = document.getElementById('menu-lightbox-close');
+      const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      // Alles ausserhalb des Dialogs: Nav, Ticker, Main, Footer.
+      const outside = [...document.body.children].filter(el => el !== lightbox);
+
+      function isOpen() { return !lightbox.hasAttribute('hidden'); }
+
+      function setOutsideInert(state) {
+        outside.forEach(el => { el.inert = state; });
+      }
+
       function openLightbox() {
+        renderFullMenu();
         lightbox.removeAttribute('hidden');
         document.body.style.overflow = 'hidden';
+        // Der Rest der Seite ist waehrend des Dialogs wirklich unerreichbar,
+        // nicht nur laut aria-modal.
+        setOutsideInert(true);
         closeBtn.focus();
       }
+
       function closeLightbox() {
         lightbox.setAttribute('hidden', '');
         document.body.style.overflow = '';
+        setOutsideInert(false);
         openBtn.focus();
       }
+
+      // Fokus bleibt im Dialog: Tab am Ende springt an den Anfang, Shift+Tab
+      // am Anfang ans Ende.
+      function trapFocus(e) {
+        if (e.key !== 'Tab') return;
+        const nodes = [...lightbox.querySelectorAll(FOCUSABLE)]
+          .filter(el => el.offsetParent !== null || el === document.activeElement);
+        if (!nodes.length) return;
+        const first = nodes[0];
+        const last  = nodes[nodes.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+
       openBtn.addEventListener('click', openLightbox);
       closeBtn.addEventListener('click', closeLightbox);
       lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !lightbox.hasAttribute('hidden')) closeLightbox(); });
+      document.addEventListener('keydown', e => {
+        if (!isOpen()) return;
+        if (e.key === 'Escape') closeLightbox();
+        else trapFocus(e);
+      });
     })();
   </script>
-
-  <!-- Vercel Web Analytics (cookieless, first-party proxy) -->
-  <script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>
