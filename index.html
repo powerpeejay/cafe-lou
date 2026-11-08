@@ -1568,6 +1568,38 @@
     @media (max-width:480px){.lou-dock{left:16px;right:16px;width:auto;transform:translateY(140%)}.lou-dock.is-in{transform:none}
       .lou-dock-status{flex:1}.lou-call span{display:none}.lou-dock a{padding:0 14px}}
     @media (prefers-reduced-motion:reduce){.nav-logo-mark{transition:none;transform:none!important}.lou-dock{transition:opacity .2s}.lou-dock[data-open="1"] .lou-dot{animation:none}}
+
+    /* Hero v2: full-bleed photo, breathing steam */
+    #hero.hero-v2{display:block;position:relative;min-height:calc(100svh - 122px);overflow:hidden;background:var(--color-primary-dark);isolation:isolate}
+    .hv-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+    .hv-frame{position:absolute;left:50%;top:50%;width:max(100%,calc((100svh - 122px)*1.777));aspect-ratio:1672/941;transform:translate(-50%,-50%);animation:hvZoom 28s cubic-bezier(.45,0,.55,1) infinite alternate;transform-origin:50% 45%}
+    @keyframes hvZoom{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.06)}}
+    .hv-img{display:block;width:100%;height:100%}
+    .hv-steam{position:absolute;left:38%;top:0;width:20%;height:46%;
+      background:url(assets/img/cafe-1672.webp) 0 0/500% auto no-repeat;background-position:47.5% 0;
+      filter:url(#hv-steam-f);
+      -webkit-mask:radial-gradient(50% 55% at 50% 52%,#000 55%,transparent 100%);mask:radial-gradient(50% 55% at 50% 52%,#000 55%,transparent 100%)}
+    .hv-wisp{position:absolute;left:47%;top:30%;width:5%;height:18%;border-radius:50%;
+      background:radial-gradient(closest-side,rgba(255,250,240,.32),transparent);filter:blur(10px);opacity:0;
+      animation:hvRise 9s ease-out infinite}
+    .hv-wisp-2{left:50%;width:4%;animation-delay:4.5s;animation-duration:10s}
+    @keyframes hvRise{0%{opacity:0;transform:translate(0,0) scale(.7)}25%{opacity:1}100%{opacity:0;transform:translate(-30%,-140%) scale(1.5,1.8)}}
+    #hero.hero-v2::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+      background:linear-gradient(to right,rgba(47,74,52,.82) 0%,rgba(47,74,52,.55) 32%,transparent 58%),linear-gradient(to top,rgba(47,74,52,.6),transparent 45%)}
+    .hv-copy{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:calc(100svh - 122px);max-width:620px;padding:64px clamp(24px,5vw,80px) clamp(56px,10vh,104px);color:var(--cream)}
+    .hv-title{font:400 clamp(38px,4vw,58px)/1.08 'Playfair Display',serif;margin:0 0 20px;color:var(--cream);text-shadow:0 2px 18px rgba(30,45,32,.35)}
+    .hv-sub{font:300 18px/1.6 'DM Sans',sans-serif;margin:0 0 24px;max-width:30rem;color:oklch(95% 0.02 88)}
+    .hero-v2 .hero-trust{color:var(--cream);margin-bottom:28px}
+    .hero-v2 .hero-cta{display:flex;margin-top:0}
+    @media (max-width:768px){
+      #hero.hero-v2,.hv-copy{min-height:calc(100svh - 105px)}
+      .hv-frame{width:max(100%,calc((100svh - 105px)*1.777))}
+      #hero.hero-v2::before{background:linear-gradient(to top,rgba(47,74,52,.92) 0%,rgba(47,74,52,.7) 38%,transparent 66%)}
+      .hv-copy{padding:48px 24px 120px}
+      .hv-title{font-size:clamp(32px,9vw,40px)}
+      .hv-sub{font-size:16px}
+    }
+    @media (prefers-reduced-motion:reduce){.hv-frame{animation:none}.hv-wisp{display:none}.hv-steam{filter:none;display:none}}
   </style>
 </head>
 <body>
@@ -1608,52 +1640,42 @@
 
   <!-- HERO -->
   <main id="main">
-  <section id="hero">
-    <div class="hero-left">
-      <img
-        src="assets/img/logo-320.webp"
-        srcset="assets/img/logo-320.webp 320w, assets/img/logo-640.webp 640w"
-        sizes="(max-width: 768px) 55vw, 300px"
-        alt="Café Lou — coffee · breakfast · lunch"
-        class="hero-logo"
-        width="434" height="309"
-        fetchpriority="high"
-      />
-      <h1 class="hero-title">Kaffee, Frühstück &amp; Mittagessen <em>in Hamburg-Meiendorf</em></h1>
-      <p class="hero-sub">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück, entspannte Mittagessen. Croissants aus dem eigenen Ofen, Suppe ab elf, Kuchen wechselt mit der Woche.</p>
-      <a
-        href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58"
-        class="hero-trust"
-        target="_blank"
-        rel="noopener"
-        aria-label="4,9 von 5 Sternen, 140 Bewertungen auf Google — auf Google Maps öffnen"
-      >
-        <span class="hero-trust-stars" aria-hidden="true">★★★★★</span>
-        <span class="hero-trust-rating">4,9</span>
-        <span class="hero-trust-sep" aria-hidden="true">·</span>
-        <span class="hero-trust-label">140 Bewertungen auf Google</span>
-        <span class="hero-trust-arrow" aria-hidden="true">→</span>
-      </a>
-      <div class="hero-cta">
-        <a href="#menu" class="btn-primary">Zur Speisekarte</a>
+  <section id="hero" class="hero-v2">
+    <div class="hv-media" aria-hidden="true">
+      <div class="hv-frame">
+        <img class="hv-img" src="assets/img/cafe-1672.webp" srcset="assets/img/cafe-960.webp 960w, assets/img/cafe-1672.webp 1672w" sizes="100vw" alt="" width="1672" height="941" fetchpriority="high" decoding="async"/>
+        <div class="hv-steam"></div>
+        <div class="hv-wisp hv-wisp-1"></div>
+        <div class="hv-wisp hv-wisp-2"></div>
       </div>
     </div>
-    <div class="hero-right">
-      <img
-        src="assets/img/hero-800.webp"
-        srcset="assets/img/hero-800.webp 800w, assets/img/hero-1200.webp 1200w"
-        sizes="(max-width: 1024px) 100vw, 50vw"
-        alt="Frische Suppe, Salat und Brot auf dem Tisch im Café Lou"
-        class="hero-img"
-        width="833" height="849"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <div class="hero-badge">
-        <span class="hero-badge-title">Öffnungszeiten</span>
-        <span class="hero-badge-num">9–17</span>
-        <span class="hero-badge-label">Mo, Mi–Sa · So ab 9:30 · Di Ruhetag</span>
-      </div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="hv-steam-f" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="4" result="n">
+          <animate attributeName="baseFrequency" dur="14s" values="0.012 0.03;0.016 0.022;0.012 0.03" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </svg>
+    <div class="hv-copy">
+      <h1 class="hv-title">Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf</h1>
+      <p class="hv-sub">Dein Stammcafé in Meiendorf. Croissants aus dem eigenen Ofen, Suppe ab elf, Kuchen wechselt mit der Woche.</p>
+        <a
+          href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58"
+          class="hero-trust"
+          target="_blank"
+          rel="noopener"
+          aria-label="4,9 von 5 Sternen, 140 Bewertungen auf Google — auf Google Maps öffnen"
+        >
+          <span class="hero-trust-stars" aria-hidden="true">★★★★★</span>
+          <span class="hero-trust-rating">4,9</span>
+          <span class="hero-trust-sep" aria-hidden="true">·</span>
+          <span class="hero-trust-label">140 Bewertungen auf Google</span>
+          <span class="hero-trust-arrow" aria-hidden="true">→</span>
+        </a>
+        <div class="hero-cta">
+          <a href="#menu" class="btn-primary">Zur Speisekarte</a>
+        </div>
     </div>
   </section>
 
