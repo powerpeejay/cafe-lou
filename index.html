@@ -1563,40 +1563,6 @@
     @media (max-width:480px){.lou-dock{left:16px;right:16px;width:auto;transform:translateY(140%)}.lou-dock.is-in{transform:none}
       .lou-dock-status{flex:1}.lou-call span{display:none}.lou-dock a{padding:0 14px}}
     @media (prefers-reduced-motion:reduce){.lou-dock{transition:opacity .2s}.lou-dock[data-open="1"] .lou-dot{animation:none}}
-
-    /* Ein Tag bei Lou: scroll = clock */
-    #tag{--p:0;position:relative;height:420vh;background:color-mix(in oklch,var(--cream) calc(100% - var(--p)*100%),oklch(86% 0.07 75) calc(var(--p)*100%))}
-    .tag-stage{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,5vw,80px);align-items:center;padding:clamp(72px,10vh,110px) clamp(20px,6vw,96px) clamp(130px,17vh,160px);overflow:hidden}
-    .tag-copy{position:relative;z-index:2;max-width:30rem}
-    .tag-h{font:400 clamp(20px,2vw,26px)/1.3 'Playfair Display',serif;color:var(--text-light);margin:0 0 8px}
-    .tag-clock{font:400 clamp(84px,13vw,200px)/.9 'Playfair Display',serif;color:var(--espresso);font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.03em;margin:0}
-    .tag-stops{position:relative;margin-top:clamp(20px,4vh,40px);min-height:9.5em}
-    .tag-stop{position:absolute;inset:0 auto auto 0;opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}
-    .tag-stop.on{opacity:1;transform:none}
-    .tag-stop h3{font:400 clamp(26px,2.6vw,36px)/1.15 'Playfair Display',serif;color:var(--espresso);margin:0 0 10px}
-    .tag-stop p{font:300 17px/1.6 'DM Sans',sans-serif;color:var(--text);margin:0;max-width:26rem}
-    .tag-photos{position:relative;height:min(72vh,640px);border-radius:4px 120px 4px 4px;overflow:hidden;box-shadow:0 2px 6px rgba(47,74,52,.12),0 30px 60px -20px rgba(47,74,52,.45)}
-    .tag-photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity .7s ease,transform 1.4s cubic-bezier(.22,1,.36,1)}
-    .tag-photos img.on{opacity:1;transform:scale(1)}
-    .tag-photos::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(47,74,52,.45),transparent 45%);pointer-events:none}
-    .tag-rail{position:absolute;left:clamp(28px,6vw,96px);right:clamp(28px,6vw,96px);bottom:clamp(92px,12vh,108px);height:2px;background:rgba(47,74,52,.15);z-index:3}
-    .tag-rail-fill{position:absolute;inset:0;transform-origin:left;transform:scaleX(var(--p));background:var(--color-primary-dark)}
-    .tag-rail span{position:absolute;top:10px;font:500 12px/1 'DM Sans',sans-serif;color:var(--text-light);transform:translateX(-50%)}
-    .tag-now{position:absolute;bottom:12px;transform:translateX(-50%);display:none;white-space:nowrap;font:500 13px/1 'DM Sans',sans-serif;color:var(--cream);background:var(--color-primary-dark);padding:7px 11px;border-radius:999px}
-    .tag-now::after{content:"";position:absolute;left:50%;bottom:-4px;width:9px;height:9px;background:inherit;transform:translateX(-50%) rotate(45deg)}
-    .tag-now.show{display:block}
-    @media (max-width:820px){
-      .tag-stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:stretch;align-items:start;gap:14px;padding-top:80px;padding-bottom:150px}
-      .tag-clock{font-size:clamp(64px,20vw,100px)}
-      .tag-stops{min-height:9em;margin-top:12px}
-      .tag-stop h3{font-size:24px}.tag-stop p{font-size:16px}
-      .tag-photos{height:100%;border-radius:4px 64px 4px 4px}
-    }
-    @media (prefers-reduced-motion:reduce){
-      #tag{height:auto}.tag-stage{position:static;height:auto;display:block}
-      .tag-clock,.tag-photos,.tag-rail{display:none}
-      .tag-stops{min-height:0}.tag-stop{position:static;opacity:1;transform:none;margin-bottom:28px}
-    }
   </style>
 </head>
 <body>
@@ -1717,35 +1683,6 @@
           width="640" height="1138"
           loading="lazy" decoding="async"
         />
-      </div>
-    </div>
-  </section>
-
-  <!-- EIN TAG BEI LOU -->
-  <section id="tag" aria-labelledby="tag-h">
-    <div class="tag-stage">
-      <div class="tag-copy">
-        <h2 class="tag-h" id="tag-h">Ein Tag bei Lou</h2>
-        <p class="tag-clock" id="tag-clock" aria-hidden="true">9:00</p>
-        <div class="tag-stops">
-          <article class="tag-stop on" data-t="540"><h3>Der Ofen ist warm.</h3><p>Um neun riecht die Meiendorfer Straße nach Butter. Croissants kommen aus dem eigenen Ofen, der erste Espresso läuft durch.</p></article>
-          <article class="tag-stop" data-t="600"><h3>Frühstück ohne Eile.</h3><p>Sauerteigbrot mit Avocado, Bowls, Pancakes. Frühstück gibt es den ganzen Tag, auch für Langschläfer.</p></article>
-          <article class="tag-stop" data-t="660"><h3>Ab elf: Suppe.</h3><p>Die Mittagskarte wechselt mit der Saison. Heute vielleicht Karotte, dazu frisches Brot.</p></article>
-          <article class="tag-stop" data-t="840"><h3>Kuchenzeit.</h3><p>Der Kuchen wechselt jede Woche. Wer nachmittags kommt, hat die Auswahl, solange er reicht.</p></article>
-          <article class="tag-stop" data-t="960"><h3>Noch ein Flat White.</h3><p>Offen bis 17 Uhr. Dienstag ist Ruhetag, sonntags geht es um halb zehn los.</p></article>
-        </div>
-      </div>
-      <div class="tag-photos">
-        <img class="on" src="assets/img/espresso-800.webp" alt="Frisch gezogener Espresso im Café Lou" loading="lazy" decoding="async"/>
-        <img class="" src="assets/img/avocado-800.webp" alt="Sauerteigbrot mit Avocado zum Frühstück" loading="lazy" decoding="async"/>
-        <img class="" src="assets/img/karottensuppe-800.webp" alt="Karottensuppe als Mittagessen im Café Lou" loading="lazy" decoding="async"/>
-        <img class="" src="assets/img/cake-800.webp" alt="Hausgemachter Kuchen am Nachmittag" loading="lazy" decoding="async"/>
-        <img class="" src="assets/img/latte-800.webp" alt="Milchkaffee am späten Nachmittag" loading="lazy" decoding="async"/>
-      </div>
-      <div class="tag-rail" aria-hidden="true">
-        <div class="tag-rail-fill"></div>
-        <span style="left:0">9</span><span style="left:25%">11</span><span style="left:50%">13</span><span style="left:75%">15</span><span style="left:100%">17</span>
-        <div class="tag-now" id="tag-now">Du bist hier</div>
       </div>
     </div>
   </section>
@@ -2307,24 +2244,6 @@
       if(c)new IntersectionObserver(function(e){cv=e[0].isIntersecting;show()},{threshold:.3}).observe(c);
       addEventListener('resize',show);
     }else d.classList.add('is-in');
-  })();
-  </script>
-  <script>
-  (function(){
-    var sec=document.getElementById('tag');if(!sec)return;
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-    var clock=document.getElementById('tag-clock'),stops=[].slice.call(sec.querySelectorAll('.tag-stop')),imgs=[].slice.call(sec.querySelectorAll('.tag-photos img')),now=document.getElementById('tag-now'),cur=0,raf=0;
-    imgs.forEach(function(im){im.loading='eager'});
-    function frame(){raf=0;var r=sec.getBoundingClientRect(),span=sec.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/span));
-      sec.style.setProperty('--p',p.toFixed(4));
-      var m=Math.round((540+p*480)/15)*15;clock.textContent=Math.floor(m/60)+':'+String(m%60).padStart(2,'0');
-      var k=0;stops.forEach(function(s,i){if(m>=+s.dataset.t)k=i});
-      if(k!==cur){cur=k;stops.forEach(function(s,i){s.classList.toggle('on',i===k)});imgs.forEach(function(im,i){im.classList.toggle('on',i===k)})}}
-    addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(frame)},{passive:true});addEventListener('resize',frame);frame();
-    try{var pr=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
-      var g=function(t){return pr.find(function(x){return x.type===t}).value},mm=+g('hour')*60+ +g('minute');
-      if(new URLSearchParams(location.search).has('tagdemo'))mm=760;
-      if((g('weekday')!=='Tue'||mm===760)&&mm>=540&&mm<1020){now.style.left=((mm-540)/480*100)+'%';now.textContent='Du bist hier: '+Math.floor(mm/60)+':'+String(mm%60).padStart(2,'0');now.classList.add('show')}}catch(e){}
   })();
   </script>
 </body>
