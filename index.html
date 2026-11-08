@@ -278,15 +278,25 @@
       display: inline-flex;
       align-items: center;
       min-height: 44px;
-      padding: 10px 4px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--espresso);
+      padding: 4px;
+      border-radius: 4px;
       text-decoration: none;
     }
+    .nav-logo-mark {
+      display: block;
+      width: 71px; height: 34px;
+      background: var(--espresso);
+      -webkit-mask: url(assets/img/logo-mask.webp) center / contain no-repeat;
+      mask: url(assets/img/logo-mask.webp) center / contain no-repeat;
+      opacity: 0;
+      transform: translateY(10px) scale(.9);
+      transition: opacity .35s ease, transform .55s cubic-bezier(.34,1.56,.64,1);
+    }
+    #main-nav.logo-in .nav-logo-mark,
+    #main-nav.menu-open .nav-logo-mark { opacity: 1; transform: none; }
+    .nav-logo:hover .nav-logo-mark { transform: rotate(-4deg) scale(1.04); }
+    .nav-logo:active .nav-logo-mark { transform: scale(.95); }
+    .nav-logo:focus-visible { outline: 2px solid var(--sage-dark); outline-offset: 2px; }
     .nav-links {
       display: flex;
       gap: 36px;
@@ -294,10 +304,9 @@
     }
     .nav-links a {
       font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      letter-spacing: 0;
       color: var(--charcoal);
       text-decoration: none;
       position: relative;
@@ -308,7 +317,7 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0;
-      width: 0; height: 1px;
+      width: 0; height: 2px;
       background: var(--sage-dark);
       transition: width 0.3s ease;
     }
@@ -1562,7 +1571,7 @@
     .lou-call{background:rgba(255,255,255,.1);color:var(--cream)}
     @media (max-width:480px){.lou-dock{left:16px;right:16px;width:auto;transform:translateY(140%)}.lou-dock.is-in{transform:none}
       .lou-dock-status{flex:1}.lou-call span{display:none}.lou-dock a{padding:0 14px}}
-    @media (prefers-reduced-motion:reduce){.lou-dock{transition:opacity .2s}.lou-dock[data-open="1"] .lou-dot{animation:none}}
+    @media (prefers-reduced-motion:reduce){.nav-logo-mark{transition:opacity .2s;transform:none!important}.lou-dock{transition:opacity .2s}.lou-dock[data-open="1"] .lou-dot{animation:none}}
   </style>
 </head>
 <body>
@@ -1571,7 +1580,7 @@
 
   <!-- NAV -->
   <nav id="main-nav">
-    <a href="#hero" class="nav-logo">Café Lou</a>
+    <a href="#hero" class="nav-logo" aria-label="Café Lou, zum Seitenanfang"><span class="nav-logo-mark" aria-hidden="true"></span></a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
       <span></span><span></span><span></span>
     </button>
@@ -2220,6 +2229,14 @@
     <a class="lou-call" href="tel:+494032848308" aria-label="Café Lou anrufen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>Anrufen</span></a>
     <a class="lou-route" href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58" target="_blank" rel="noopener">Route</a>
   </aside>
+  <script>
+  (function(){
+    var nav=document.getElementById('main-nav'),hl=document.querySelector('.hero-logo');
+    if(!nav)return;
+    if(!hl||!('IntersectionObserver' in window)){nav.classList.add('logo-in');return}
+    new IntersectionObserver(function(e){nav.classList.toggle('logo-in',!e[0].isIntersecting)},{rootMargin:'-70px 0px 0px 0px'}).observe(hl);
+  })();
+  </script>
   <script>
   (function(){
     var d=document.getElementById('lou-dock'),st=document.getElementById('lou-state'),dt=document.getElementById('lou-detail');
