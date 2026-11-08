@@ -1541,6 +1541,28 @@
       /* Hero: less generous left padding */
       .hero-left { padding: 48px 24px 40px; }
     }
+
+    /* ── Lou-Leiste: live open status dock ── */
+    .lou-dock{position:fixed;z-index:90;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translate(-50%,140%);opacity:0;
+      display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border-radius:999px;background:var(--color-primary-dark);color:var(--cream);
+      box-shadow:0 2px 4px rgba(47,74,52,.25),0 12px 32px -8px rgba(47,74,52,.55),0 0 0 1px rgba(255,255,255,.06) inset;
+      transition:transform .6s cubic-bezier(.34,1.56,.64,1),opacity .4s ease;width:max-content;max-width:calc(100vw - 32px)}
+    .lou-dock.is-in{transform:translate(-50%,0);opacity:1}
+    .lou-dock-status{display:flex;align-items:center;gap:10px;font:400 15px/1.2 'DM Sans',sans-serif;padding-right:8px;min-width:0}
+    .lou-dock-status strong{font-weight:500;display:block}
+    .lou-dock-status small{display:block;font-size:13px;color:var(--sage-muted);white-space:nowrap}
+    .lou-dot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--gold)}
+    .lou-dock[data-open="1"] .lou-dot{background:oklch(80% 0.14 145);box-shadow:0 0 0 0 oklch(80% 0.14 145 / .6);animation:louPulse 2.4s ease-out infinite}
+    @keyframes louPulse{to{box-shadow:0 0 0 10px oklch(80% 0.14 145 / 0)}}
+    .lou-dock a{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:999px;
+      font:500 14px/1 'DM Sans',sans-serif;text-decoration:none;transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+    .lou-dock a:hover{transform:translateY(-2px)} .lou-dock a:active{transform:scale(.96)}
+    .lou-dock a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+    .lou-route{background:var(--sage);color:#fff}
+    .lou-call{background:rgba(255,255,255,.1);color:var(--cream)}
+    @media (max-width:480px){.lou-dock{left:16px;right:16px;width:auto;transform:translateY(140%)}.lou-dock.is-in{transform:none}
+      .lou-dock-status{flex:1}.lou-call span{display:none}.lou-dock a{padding:0 14px}}
+    @media (prefers-reduced-motion:reduce){.lou-dock{transition:opacity .2s}.lou-dock[data-open="1"] .lou-dot{animation:none}}
   </style>
 </head>
 <body>
@@ -2193,5 +2215,36 @@
     })();
   </script>
 
+  <aside class="lou-dock" id="lou-dock" aria-label="Öffnungsstatus und Anfahrt">
+    <div class="lou-dock-status" aria-live="polite"><span class="lou-dot" aria-hidden="true"></span><span><strong id="lou-state">Mo, Mi–Sa 9–17 Uhr</strong><small id="lou-detail">So ab 9:30 · Di Ruhetag</small></span></div>
+    <a class="lou-call" href="tel:+494032848308" aria-label="Café Lou anrufen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>Anrufen</span></a>
+    <a class="lou-route" href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58" target="_blank" rel="noopener">Route</a>
+  </aside>
+  <script>
+  (function(){
+    var d=document.getElementById('lou-dock'),st=document.getElementById('lou-state'),dt=document.getElementById('lou-detail');
+    var H={0:[570,1020],1:[540,1020],3:[540,1020],4:[540,1020],5:[540,1020],6:[540,1020]};
+    var N=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+    function f(m){return Math.floor(m/60)+':'+String(m%60).padStart(2,'0')}
+    function upd(){
+      var p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+      var g=function(t){return p.find(function(x){return x.type===t}).value};
+      var day=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(g('weekday')),m=+g('hour')*60+ +g('minute'),h=H[day];
+      if(h&&m>=h[0]&&m<h[1]){var r=h[1]-m;d.dataset.open='1';st.textContent='Jetzt geöffnet';
+        dt.textContent=r<=60?'Nur noch '+r+' Min – bis 17 Uhr':'Heute bis 17 Uhr';return}
+      d.dataset.open='0';st.textContent='Gerade geschlossen';
+      if(h&&m<h[0]){dt.textContent='Öffnet heute um '+f(h[0]);return}
+      for(var i=1;i<8;i++){var n=(day+i)%7;if(H[n]){dt.textContent='Öffnet '+(i===1?'morgen':N[n])+' um '+f(H[n][0]);return}}
+    }
+    try{upd();setInterval(upd,60000)}catch(e){}
+    var hv=true,cv=false,hero=document.getElementById('hero'),c=document.getElementById('contacts');
+    function show(){d.classList.toggle('is-in',!cv&&(!hv||innerWidth<=768))}
+    if('IntersectionObserver' in window){
+      if(hero)new IntersectionObserver(function(e){hv=e[0].isIntersecting;show()},{threshold:.35}).observe(hero);
+      if(c)new IntersectionObserver(function(e){cv=e[0].isIntersecting;show()},{threshold:.3}).observe(c);
+      addEventListener('resize',show);
+    }else d.classList.add('is-in');
+  })();
+  </script>
 </body>
 </html>
