@@ -1620,7 +1620,8 @@
     .today-addr:hover{color:var(--espresso)}
     .today-addr:focus-visible{outline:2px solid var(--sage-dark);outline-offset:2px}
     @media (max-width:768px){
-      .today{flex-direction:column;align-items:flex-start;gap:4px;padding:20px 20px 16px}
+      /* Mobil zeigt das Dock unten Status und Route dauerhaft, der Block wäre doppelt */
+      .today{display:none}
       .today-live{flex-wrap:wrap;row-gap:2px}
       .today-addr{min-height:44px}
     }
