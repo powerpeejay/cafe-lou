@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Café Lou – Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf</title>
   <meta name="description" content="Café Lou in Hamburg-Meiendorf: Frischer Kaffee, hausgemachtes Frühstück und Mittagessen – dein Lieblingscafé in der Nachbarschaft. Mo, Mi–Sa 9–17 Uhr, So 9:30–17 Uhr." />
-  <meta name="robots" content="index, follow" />
+  <!-- DEMO: vor Livegang auf "index, follow" zurückstellen -->
+  <meta name="robots" content="noindex, nofollow" />
   <link rel="canonical" href="https://cafe-lou.vercel.app/" />
 
   <!-- Local SEO / Geo -->
@@ -1600,6 +1601,114 @@
       .hv-sub{font-size:16px}
     }
     @media (prefers-reduced-motion:reduce){.hv-frame{animation:none}.hv-wisp{display:none}.hv-steam{filter:none;display:none}}
+
+    /* ═══ Mobile-Review 2026-11: Heute-Block, kompakte Karte, Swipe-Reviews, Lesbarkeit, Motion ═══ */
+    :root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}
+
+    /* 1 · Heute-Block direkt unter dem Hero */
+    .today{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 32px;
+      padding:20px clamp(24px,5vw,80px);background:var(--sage-pale);border-bottom:1px solid var(--parchment);color:var(--espresso)}
+    .today p{margin:0}
+    .today-live{display:flex;align-items:center;gap:10px;font:400 16px/1.3 'DM Sans',sans-serif}
+    .today-live strong{font-weight:500}
+    .today-live span:last-child{color:var(--text-light)}
+    .today-dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--gold)}
+    .today[data-open="1"] .today-dot{background:oklch(62% 0.14 145)}
+    .today-hours{font:300 15px/1.4 'DM Sans',sans-serif;color:var(--charcoal)}
+    .today-addr{display:inline-flex;align-items:center;min-height:44px;font:400 15px/1.3 'DM Sans',sans-serif;color:var(--sage-dark);
+      text-decoration:underline;text-decoration-color:var(--sage);text-underline-offset:4px;transition:color .2s}
+    .today-addr:hover{color:var(--espresso)}
+    .today-addr:focus-visible{outline:2px solid var(--sage-dark);outline-offset:2px}
+    @media (max-width:768px){
+      .today{flex-direction:column;align-items:flex-start;gap:4px;padding:20px 20px 16px}
+      .today-live{flex-wrap:wrap;row-gap:2px}
+      .today-addr{min-height:44px}
+    }
+
+    /* Hero-CTA: groesser, plus Route */
+    .hero-v2 .hero-cta{gap:12px 28px;align-items:center;flex-wrap:wrap}
+    .btn-primary{font-size:13px;letter-spacing:.16em;min-height:48px;display:inline-flex;align-items:center;justify-content:center;
+      transition:background .2s ease,color .2s ease,transform 160ms var(--ease-out)}
+    .btn-ghost{font-size:13px;letter-spacing:.16em;min-height:48px;transition:color .2s ease,transform 160ms var(--ease-out)}
+    .btn-primary:active,.btn-ghost:active,.btn-phone:active,.menu-fullcard-btn:active,.menu-tab:active{transform:scale(.97)}
+    @media (max-width:768px){.hero-v2 .hero-cta .btn-ghost{justify-content:center;border:1px solid oklch(97% 0.014 88 / .5)}}
+
+    /* 3 · Lesbarkeit & Kontrast */
+    .section-label,.ticker-label,.reviews-count,.cta-instagram,.story-link,.reviews-source,.cta-note,.review-date{font-size:12px}
+    .menu-tab{font-size:12px;min-height:44px}
+    .menu-card-desc{font-size:14px}
+    .hero-trust-label{font-size:11px}
+    .nav-menu-note{font-size:12px}
+    .contact-block-title,.contact-instagram,.footer-copy,.footer-links a{font-size:12px}
+    .hours-row{font-size:15px}
+    #menu .btn-primary,#contact-cta .btn-primary,#stimmen .btn-primary,.btn-phone{background:var(--sage-dark);color:var(--cream)}
+    #menu .btn-primary:hover,#contact-cta .btn-primary:hover,#stimmen .btn-primary:hover,.btn-phone:hover{background:var(--espresso)}
+    .btn-phone{transition:background .2s ease,transform 160ms var(--ease-out)}
+    /* Touch-Targets Desktop-Nav */
+    .nav-links a{display:inline-flex;align-items:center;min-height:44px;padding-bottom:0}
+    .nav-links a::after{width:100%;transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease-out)}
+    .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+
+    /* 2 · Mobile Speisekarte: kompakte Zeilen statt Foto-Turm */
+    @media (max-width:640px){
+      .menu-tabs{scroll-snap-type:x proximity;scroll-padding-inline:24px;
+        -webkit-mask:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 40px),transparent);
+                mask:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 40px),transparent);padding:0 24px}
+      .menu-tab{scroll-snap-align:start;padding:0 14px}
+      #menu{padding-left:16px;padding-right:16px}
+      .menu-grid{grid-template-columns:1fr;gap:0;background:var(--cream);border-radius:2px;
+        box-shadow:0 1px 2px rgba(47,74,52,.06),0 8px 24px -12px rgba(47,74,52,.18)}
+      .menu-card,.menu-card--featured{grid-column:auto;display:grid;grid-template-columns:76px 1fr auto;align-items:center;gap:0 14px;
+        padding:14px 16px;border-bottom:1px solid var(--parchment);background:transparent}
+      .menu-card:last-child{border-bottom:none}
+      .menu-card:hover{transform:none}
+      .menu-card-thumb,.menu-card--featured .menu-card-thumb{width:76px;height:76px;border-radius:2px}
+      .menu-card-body,.menu-card--featured .menu-card-body{display:contents}
+      .menu-card-name,.menu-card--featured .menu-card-name{grid-column:2;font-size:18px;line-height:1.25;margin:0 0 4px;align-self:end}
+      .menu-card-desc,.menu-card--featured .menu-card-desc{grid-column:2;grid-row:2;font-size:14px;line-height:1.45;margin:0;align-self:start;max-width:none}
+      .menu-card-thumb{grid-row:1 / span 2}
+      .menu-card-price,.menu-card--featured .menu-card-price{grid-column:3;grid-row:1 / span 2;font-size:17px;white-space:nowrap;align-self:center}
+      .menu-see-all{flex-direction:column;align-items:stretch;margin-top:32px}
+      .menu-see-all > *{justify-content:center;min-height:48px}
+    }
+
+    /* 4 · Bewertungen als Swipe-Leiste */
+    @media (max-width:768px){
+      #stimmen{padding-left:0;padding-right:0}
+      #stimmen .reviews-header,#stimmen > :not(.reviews-grid){padding-left:20px;padding-right:20px}
+      .reviews-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;
+        padding:4px 20px 16px;scrollbar-width:none;overscroll-behavior-x:contain}
+      .reviews-grid::-webkit-scrollbar{display:none}
+      .review-card{flex:0 0 calc(100% - 48px);scroll-snap-align:start;padding:28px 24px 24px}
+      .review-card:hover{transform:none}
+    }
+
+    /* 5 · Motion */
+    #main-nav{transition:background .3s ease,border-color .3s ease}
+    #main-nav.scrolled{padding-top:10px;padding-bottom:10px}
+    .nav-logo-mark{transition:transform 200ms var(--ease-out)}
+    .nav-logo:active .nav-logo-mark{transform:scale(.97)}
+    .menu-card,.review-card{transition:transform 250ms var(--ease-out),border-color .2s ease}
+    .menu-card-thumb img{transition:transform 300ms var(--ease-out)}
+    .menu-card:hover .menu-card-thumb img{filter:saturate(0.88) contrast(0.96)}
+    .lou-dock{transition:transform 400ms var(--ease-drawer),opacity 250ms ease}
+    .lou-dock a{transition:transform 160ms var(--ease-out),opacity .2s ease}
+    .lou-dock a:hover{transform:none}
+    @media (hover:none){
+      .menu-card:hover,.review-card:hover,.btn-primary:hover,.btn-phone:hover,.btn-ghost:hover{transform:none}
+      .menu-card:hover .menu-card-thumb img{transform:none}
+      .nav-logo:hover .nav-logo-mark{transform:none}
+    }
+    @media (hover:hover) and (pointer:fine){.lou-dock a:hover{transform:translateY(-2px)}}
+    .lou-dock a:active{transform:scale(.97)}
+    /* Platz fuer das Dock + iPhone-Home-Indicator */
+    @media (max-width:768px){
+      footer{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+      .lou-dock{bottom:calc(12px + env(safe-area-inset-bottom))}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .menu-card,.review-card,.menu-card-thumb img,.btn-primary,.btn-ghost,.btn-phone,.lou-dock a,.nav-links a::after{transition-property:opacity,color,background-color}
+    }
   </style>
 </head>
 <body>
@@ -1675,9 +1784,17 @@
         </a>
         <div class="hero-cta">
           <a href="#menu" class="btn-primary">Zur Speisekarte</a>
+          <a href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58" target="_blank" rel="noopener" class="btn-ghost">Route planen</a>
         </div>
     </div>
   </section>
+
+  <!-- HEUTE: Was, Wann, Wo direkt unter dem Hero -->
+  <div class="today" aria-label="Öffnungszeiten und Adresse">
+    <p class="today-live"><span class="today-dot" aria-hidden="true"></span><strong id="today-state">Mo, Mi–Sa 9–17 Uhr</strong> <span id="today-detail">So ab 9:30 · Di Ruhetag</span></p>
+    <p class="today-hours">Mo, Mi–Sa 9–17 Uhr · So 9:30–17 Uhr · Di Ruhetag</p>
+    <a class="today-addr" href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58" target="_blank" rel="noopener">Saseler Str. 1, Ecke Meiendorfer Str. 93 · <span style="white-space:nowrap">22145 Hamburg</span></a>
+  </div>
 
   <!-- STORY -->
   <section id="story">
@@ -1734,7 +1851,7 @@
       <!-- Karten werden per JS eingefügt -->
     </div>
     <div class="menu-see-all reveal reveal-delay-4">
-      <a href="#contact-cta" class="btn-primary">Tisch reservieren? Ruf uns an</a>
+      <a href="tel:+494032848308" class="btn-primary">Anrufen &amp; reservieren</a>
       <button class="menu-fullcard-btn" id="menu-fullcard-btn" aria-haspopup="dialog">
         Vollständige Karte ansehen
       </button>
@@ -1819,7 +1936,7 @@
       <h2 class="section-title reveal reveal-delay-1">Einfach<br/><em>anrufen</em></h2>
       <p class="cta-body reveal reveal-delay-2">Für einen Tisch oder eine Gruppenanfrage: ruf uns einfach an. Wir freuen uns auf deinen Besuch im Café Lou.</p>
       <div class="reveal reveal-delay-3">
-        <a href="tel:+494032848308" class="btn-phone">+49 40 328 483 08</a>
+        <a href="tel:+494032848308" class="btn-phone">040 32848308</a>
         <p class="cta-note">Mo, Mi–Sa 9–17 Uhr · So 9:30–17 Uhr</p>
       </div>
       <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="cta-instagram reveal reveal-delay-4">Uns auf Instagram folgen</a>
@@ -1852,7 +1969,7 @@
         22145 Hamburg
       </div>
       <div class="contact-block-sub">
-        <a href="tel:+494032848308" class="contact-tel">+49 40 328 483 08</a>
+        <a href="tel:+494032848308" class="contact-tel">040 32848308</a>
         <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="contact-instagram">Instagram <span aria-hidden="true">↗</span></a>
       </div>
     </div>
@@ -2116,7 +2233,17 @@
       `;}).join('');
     }
 
-    renderMenu('all');
+    // Mobil: mit einer Kategorie starten statt 20+ Gerichten am Stück
+    const startCat = matchMedia('(max-width: 640px)').matches ? 'bowls' : 'all';
+    if (startCat !== 'all') {
+      document.querySelectorAll('.menu-tab').forEach(b => {
+        const on = b.dataset.cat === startCat;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', String(on));
+      });
+      document.getElementById('menu-grid').setAttribute('aria-labelledby', 'tab-' + startCat);
+    }
+    renderMenu(startCat);
 
     // Vollständige Karte im Dialog: gleiche Datenquelle wie das Grid.
     function renderFullMenu() {
@@ -2179,6 +2306,7 @@
       btn.setAttribute('aria-selected', 'true');
       document.getElementById('menu-grid').setAttribute('aria-labelledby', btn.id);
       renderMenu(btn.dataset.cat);
+      btn.scrollIntoView({ inline: 'center', block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     });
 
     // Lightbox
@@ -2263,7 +2391,8 @@
       if(h&&m<h[0]){dt.textContent='Öffnet heute um '+f(h[0]);return}
       for(var i=1;i<8;i++){var n=(day+i)%7;if(H[n]){dt.textContent='Öffnet '+(i===1?'morgen':N[n])+' um '+f(H[n][0]);return}}
     }
-    try{upd();setInterval(upd,60000)}catch(e){}
+    function mirror(){var ts=document.getElementById('today-state'),td=document.getElementById('today-detail'),t=document.querySelector('.today');if(!ts)return;ts.textContent=st.textContent;td.textContent=dt.textContent;t.dataset.open=d.dataset.open}
+    try{upd();mirror();setInterval(function(){upd();mirror()},60000)}catch(e){}
     var hv=true,cv=false,hero=document.getElementById('hero'),c=document.getElementById('contacts');
     function show(){d.classList.toggle('is-in',!cv&&(!hv||innerWidth<=768))}
     if('IntersectionObserver' in window){
