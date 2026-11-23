@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Café Lou – Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf</title>
+  <meta name="description" content="Café Lou in Hamburg-Meiendorf: Frischer Kaffee, hausgemachtes Frühstück und Mittagessen – dein Lieblingscafé in der Nachbarschaft. Mo, Mi–Sa 9–17 Uhr, So 9:30–17 Uhr." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://cafe-lou.vercel.app/v2/" />
+
+  <!-- Local SEO / Geo -->
+  <meta name="geo.region" content="DE-HH" />
+  <meta name="geo.placename" content="Hamburg-Meiendorf" />
+  <meta name="geo.position" content="53.6395;10.1437" />
+  <meta name="ICBM" content="53.6395, 10.1437" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Café Lou" />
+  <meta property="og:title" content="Café Lou – Kaffee, Frühstück &amp; Mittagessen in Hamburg-Meiendorf" />
+  <meta property="og:description" content="Dein Lieblingscafé in der Nachbarschaft. Frischer Kaffee, ehrliches Frühstück, entspannte Mittagessen." />
+  <meta property="og:image" content="https://cafe-lou.vercel.app/v2/assets/img/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Café Lou in Hamburg-Meiendorf – Tisch mit Suppe, Salat und Brot" />
+  <meta property="og:url" content="https://cafe-lou.vercel.app/v2/" />
+  <meta property="og:locale" content="de_DE" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Kritische Ressourcen -->
+  <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-normal-latin.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/dm-sans-latin.woff2" crossorigin />
+  <link rel="preload" as="image" href="assets/img/hero-800.webp" imagesrcset="assets/img/hero-800.webp 800w, assets/img/hero-1200.webp 1200w" imagesizes="(max-width: 1024px) 100vw, 50vw" fetchpriority="high" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/main.js" defer></script>
+
+  <!-- JSON-LD: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Café Lou",
+    "url": "https://cafe-lou.vercel.app/",
+    "telephone": "+494032848308",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Saseler Str. 1 / Ecke Meiendorfer Str. 93",
+      "addressLocality": "Hamburg",
+      "addressRegion": "HH",
+      "postalCode": "22145",
+      "addressCountry": "DE"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 53.6395, "longitude": 10.1437 },
+    "hasMap": "https://maps.app.goo.gl/7cNtLfxLy16KoQZ58",
+    "sameAs": [
+      "https://www.instagram.com/cafelou.hamburg/",
+      "https://maps.app.goo.gl/7cNtLfxLy16KoQZ58"
+    ],
+    "areaServed": [
+      { "@type": "City", "name": "Hamburg" },
+      { "@type": "AdministrativeArea", "name": "Meiendorf" },
+      { "@type": "AdministrativeArea", "name": "Sasel" },
+      { "@type": "AdministrativeArea", "name": "Rahlstedt" },
+      { "@type": "AdministrativeArea", "name": "Volksdorf" }
+    ],
+    "servesCuisine": ["Café", "Frühstück", "Brunch", "Mittagessen", "Kaffee", "Gebäck"],
+    "priceRange": "€",
+    "paymentAccepted": "Bargeld, EC-Karte, Kreditkarte",
+    "currenciesAccepted": "EUR",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday"], "opens": "09:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "09:30", "closes": "17:00" }
+    ],
+    "image": ["https://cafe-lou.vercel.app/v2/assets/img/og-cover.jpg"],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "140",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "A.S."},
+        "datePublished": "2026-03-15",
+        "reviewBody": "Was für ein wunderbares Café! Angefangen von dem schönen Ambiente, über das unglaublich leckere Essen bis zum wirklich sehr guten Service war unser Mädelsfrühstück ein voller Erfolg. Wir freuen uns schon aufs nächste Mal!",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "publisher": {"@type": "Organization", "name": "Google"}
+      },
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Anna K."},
+        "datePublished": "2026-01-15",
+        "reviewBody": "Tolles Café mit sehr, sehr leckerem Frühstück. Wir waren diese Woche zum ersten Mal dort und sind direkt drei Tage später wiedergekommen. Das Frühstück ist mit viel Liebe angerichtet, die Getränke lecker und der Service sehr freundlich. Wir sind sehr glücklich endlich so ein tolles Café in Meiendorf zu haben!",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "publisher": {"@type": "Organization", "name": "Google"}
+      },
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Melanie S."},
+        "datePublished": "2025-10-15",
+        "reviewBody": "Endlich ein Kaffee in meiner Nähe. Und das Essen ist tatsächlich sehr lecker! Optisch super angerichtet. Auch die Räumlichkeiten sind clean gehalten, aber gemütlich. Service war auch sehr freundlich. Komme sicher wieder.",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "publisher": {"@type": "Organization", "name": "Google"}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
+
+  <!-- NAV -->
+  <nav id="main-nav" aria-label="Hauptnavigation">
+    <a href="#hero" class="nav-logo">Café Lou</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li style="--i:0"><a href="#hero">Home</a></li>
+      <li style="--i:1"><a href="#story">Unser Café</a></li>
+      <li style="--i:2"><a href="#menu">Speisekarte</a></li>
+      <li style="--i:3"><a href="#contacts">Besuchen</a></li>
+      <li class="nav-menu-note" style="--i:4" aria-hidden="true">Mo, Mi–Sa 9–17 Uhr · So ab 9:30 · Di Ruhetag</li>
+    </ul>
+    <span class="nav-progress" aria-hidden="true"></span>
+  </nav>
+
+  <!-- SPECIALS TICKER -->
+  <div id="specials-banner" aria-hidden="true">
+    <div class="ticker-wrap">
+      <span class="ticker-label">Wochen-Specials</span>
+      <div class="ticker">
+        <span class="ticker-item"><span class="ticker-dot"></span>Süßkartoffel Creme Suppe</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Lou's Bauernfrühstück</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>French Toast Pistachio</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Greek Lou Pancake</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Süßkartoffel Creme Suppe</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Lou's Bauernfrühstück</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>French Toast Pistachio</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Greek Lou Pancake</span>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow hero-enter" style="--i:0">Hamburg-Meiendorf · Seit 2025</p>
+      <img
+        src="assets/img/logo-320.webp"
+        srcset="assets/img/logo-320.webp 320w, assets/img/logo-640.webp 640w"
+        sizes="(max-width: 768px) 55vw, 300px"
+        alt="Café Lou — coffee · breakfast · lunch"
+        class="hero-logo hero-enter" style="--i:1"
+        width="434" height="309"
+        fetchpriority="high"
+      />
+      <h1 class="hero-title hero-enter" style="--i:2">Kaffee, Frühstück &amp; Mittagessen <em>in Hamburg-Meiendorf</em></h1>
+      <p class="hero-sub hero-enter" style="--i:3">Dein Stammcafé in Meiendorf. Guter Kaffee, ehrliches Frühstück, entspannte Mittagessen. Croissants aus dem eigenen Ofen, Suppe ab elf, Kuchen wechselt mit der Woche.</p>
+      <a
+        href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58"
+        class="hero-trust hero-enter" style="--i:4"
+        target="_blank"
+        rel="noopener"
+        aria-label="4,9 von 5 Sternen, 140 Bewertungen auf Google — auf Google Maps öffnen"
+      >
+        <span class="hero-trust-stars" aria-hidden="true">★★★★★</span>
+        <span class="hero-trust-rating">4,9</span>
+        <span class="hero-trust-sep" aria-hidden="true">·</span>
+        <span class="hero-trust-label">140 Bewertungen auf Google</span>
+        <span class="hero-trust-arrow" aria-hidden="true">→</span>
+      </a>
+      <div class="hero-cta hero-enter" style="--i:5">
+        <a href="#menu" class="btn-primary">Zur Speisekarte</a>
+      </div>
+      <p class="hero-hours hero-enter" style="--i:6">Heute geöffnet? <strong>Mo, Mi–Sa 9–17 · So ab 9:30 · Di Ruhetag</strong></p>
+    </div>
+    <div class="hero-right">
+      <img
+        src="assets/img/hero-800.webp"
+        srcset="assets/img/hero-800.webp 800w, assets/img/hero-1200.webp 1200w"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        alt="Frische Suppe, Salat und Brot auf dem Tisch im Café Lou"
+        class="hero-img"
+        width="833" height="849"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero-badge">
+        <span class="hero-badge-title">Öffnungszeiten</span>
+        <span class="hero-badge-num">9–17</span>
+        <span class="hero-badge-label">Mo, Mi–Sa · So ab 9:30 · Di Ruhetag</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section id="story">
+    <div class="story-text">
+      <p class="section-label reveal">Unser Café</p>
+      <h2 class="section-title reveal" style="--i:1">Ein Ort, zu dem du<br/><em>gerne zurückkommst</em></h2>
+      <div class="story-body reveal" style="--i:2">
+        <p>An der Ecke Saseler und Meiendorfer Straße, zwischen Sasel, Rahlstedt und Volksdorf. Guter Kaffee aus sortenreiner Bohne, Gebäck aus dem eigenen Ofen, Mittagskarte mit der Saison. Ein Café für die Nachbarschaft, gemacht für den schnellen Espresso am Morgen wie für das lange Frühstück am Samstag.</p>
+        <p>Komm einmal vorbei. Du wirst wissen, wovon wir reden.</p>
+      </div>
+      <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="story-link reveal" style="--i:3">Instagram ansehen</a>
+    </div>
+    <div class="story-images reveal" style="--i:2">
+      <div class="story-img">
+        <img
+          src="assets/img/becher-480.webp"
+          srcset="assets/img/becher-480.webp 480w, assets/img/becher-800.webp 800w"
+          sizes="(max-width: 1024px) 46vw, 25vw"
+          alt="Café Lou Take-away Becher mit Logo"
+          width="640" height="1138"
+          loading="lazy" decoding="async"
+        />
+      </div>
+      <div class="story-img">
+        <img
+          src="assets/img/cake-480.webp"
+          srcset="assets/img/cake-480.webp 480w, assets/img/cake-800.webp 800w"
+          sizes="(max-width: 1024px) 46vw, 25vw"
+          alt="Hausgemachter Lotus Cake im Café Lou"
+          width="640" height="1138"
+          loading="lazy" decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ORT: das echte Café -->
+  <section id="ort">
+    <div class="ort-photo reveal">
+      <img
+        src="assets/img/interieur-tafel-800.webp"
+        srcset="assets/img/interieur-tafel-800.webp 800w, assets/img/interieur-tafel-1400.webp 1400w"
+        sizes="(max-width: 1024px) 92vw, 42vw"
+        alt="Kaffeetheke im Café Lou mit Preistafel und Korblampe"
+        width="800" height="1067"
+        loading="lazy" decoding="async"
+      />
+    </div>
+    <div class="ort-text">
+      <p class="section-label reveal">Der Ort</p>
+      <h2 class="ort-title reveal" style="--i:1">Eine Ecke, die nach<br/><em>Kaffee riecht</em></h2>
+      <p class="ort-body reveal" style="--i:2">Helle Wände, Holz, eine Korblampe über der Theke. Die Preise stehen an der Wand, der Kuchen in der Vitrine, und was die Woche bringt, steht auf der kleinen schwarzen Tafel. Mehr braucht es nicht.</p>
+      <ul class="ort-facts reveal" style="--i:3">
+        <li><span class="ort-fact-key">Adresse</span>Saseler Str. 1, Ecke Meiendorfer Str. 93, 22145 Hamburg</li>
+        <li><span class="ort-fact-key">Offen</span>Mo, Mi–Sa 9–17 Uhr · So ab 9:30 · Dienstag Ruhetag</li>
+        <li><span class="ort-fact-key">Tisch</span>Einfach anrufen: +49 40 328 483 08</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="menu-header">
+      <p class="section-label reveal">Unsere Speisekarte</p>
+      <h2 class="section-title reveal" style="--i:1">Frisch &amp; Saisonal<br/><em>für jeden Tag</em></h2>
+    </div>
+    <div class="menu-tabs reveal" style="--i:2" id="menu-tabs" role="tablist" aria-label="Speisekarte filtern">
+      <button class="menu-tab active" data-cat="all" id="tab-all" role="tab" aria-selected="true" aria-controls="menu-grid">Alle</button>
+      <button class="menu-tab" data-cat="bowls" id="tab-bowls" role="tab" aria-selected="false" aria-controls="menu-grid">Bowls</button>
+      <button class="menu-tab" data-cat="sauerteig" id="tab-sauerteig" role="tab" aria-selected="false" aria-controls="menu-grid">Sauerteigbrote</button>
+      <button class="menu-tab" data-cat="pancakes" id="tab-pancakes" role="tab" aria-selected="false" aria-controls="menu-grid">Pancakes</button>
+      <button class="menu-tab" data-cat="suppen" id="tab-suppen" role="tab" aria-selected="false" aria-controls="menu-grid">Suppen</button>
+      <button class="menu-tab" data-cat="salate" id="tab-salate" role="tab" aria-selected="false" aria-controls="menu-grid">Salate</button>
+      <button class="menu-tab" data-cat="specials" id="tab-specials" role="tab" aria-selected="false" aria-controls="menu-grid">Specials</button>
+      <button class="menu-tab" data-cat="drinks" id="tab-drinks" role="tab" aria-selected="false" aria-controls="menu-grid">Kaffee &amp; Tee</button>
+    </div>
+    <div class="menu-grid" id="menu-grid" role="tabpanel" aria-labelledby="tab-all">
+      <!-- Karten werden per JS eingefügt -->
+    </div>
+    <div class="menu-see-all reveal">
+      <a href="#contact-cta" class="btn-primary btn-sage">Tisch reservieren? Ruf uns an</a>
+      <button class="menu-fullcard-btn" id="menu-fullcard-btn" aria-haspopup="dialog">
+        Vollständige Karte ansehen
+      </button>
+    </div>
+  </section>
+
+  <!-- Speisekarte Lightbox -->
+  <div class="menu-lightbox" id="menu-lightbox" role="dialog" aria-modal="true" aria-label="Vollständige Speisekarte Café Lou" hidden>
+    <div class="menu-lightbox-inner">
+      <button class="menu-lightbox-close" id="menu-lightbox-close" aria-label="Schließen">&#x2715;</button>
+      <img
+        src="assets/img/speisekarte-900.webp"
+        srcset="assets/img/speisekarte-900.webp 900w, assets/img/speisekarte-1400.webp 1400w"
+        sizes="(max-width: 640px) 92vw, 560px"
+        alt="Vollständige Speisekarte Café Lou"
+        width="900" height="1200"
+        loading="lazy" decoding="async"
+      >
+    </div>
+  </div>
+
+  <!-- STIMMEN -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="icon-star" viewBox="0 0 24 24"><polygon fill="currentColor" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></symbol>
+  </svg>
+  <section id="stimmen" aria-labelledby="stimmen-h2">
+    <div class="reviews-header">
+      <p class="section-label reveal">Stimmen</p>
+      <h2 id="stimmen-h2" class="section-title reveal" style="--i:1">Was die Nachbarschaft<br/><em>sagt</em></h2>
+      <p class="reviews-rating reveal" style="--i:2" aria-label="Durchschnittliche Bewertung: 4,9 von 5 Sternen aus 140 Bewertungen auf Google">
+        <span class="reviews-stars" aria-hidden="true">
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+          <svg width="18" height="18"><use href="#icon-star"/></svg>
+        </span>
+        <strong class="reviews-score">4,9</strong>
+        <span class="reviews-divider" aria-hidden="true">·</span>
+        <span class="reviews-count">140 Bewertungen auf Google</span>
+      </p>
+    </div>
+    <div class="reviews-layout">
+      <article class="review-lead reveal">
+        <blockquote class="review-quote">Tolles Café mit sehr, sehr leckerem Frühstück. Wir waren diese Woche zum ersten Mal dort und sind direkt drei Tage später wiedergekommen. Wir sind sehr glücklich, endlich so ein tolles Café in Meiendorf zu haben!</blockquote>
+        <footer class="review-meta">
+          <cite class="review-author">Anna K.</cite>
+          <span class="review-date">Januar 2026</span>
+        </footer>
+      </article>
+      <div class="reviews-side">
+        <article class="review-small reveal" style="--i:1">
+          <div class="review-stars" role="img" aria-label="Bewertung: 5 von 5 Sternen">
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+          </div>
+          <blockquote class="review-quote">Was für ein wunderbares Café! Angefangen von dem schönen Ambiente, über das unglaublich leckere Essen bis zum wirklich sehr guten Service war unser Mädelsfrühstück ein voller Erfolg.</blockquote>
+          <footer class="review-meta">
+            <cite class="review-author">A.S.</cite>
+            <span class="review-date">März 2026</span>
+          </footer>
+        </article>
+        <article class="review-small reveal" style="--i:2">
+          <div class="review-stars" role="img" aria-label="Bewertung: 5 von 5 Sternen">
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+            <svg width="14" height="14"><use href="#icon-star"/></svg>
+          </div>
+          <blockquote class="review-quote">Endlich ein Kaffee in meiner Nähe. Und das Essen ist tatsächlich sehr lecker! Optisch super angerichtet. Die Räumlichkeiten sind clean gehalten, aber gemütlich.</blockquote>
+          <footer class="review-meta">
+            <cite class="review-author">Melanie S.</cite>
+            <span class="review-date">Oktober 2025</span>
+          </footer>
+        </article>
+      </div>
+    </div>
+    <div class="reviews-cta reveal">
+      <a class="btn-primary btn-sage" href="https://maps.app.goo.gl/7cNtLfxLy16KoQZ58" target="_blank" rel="noopener">Alle Bewertungen auf Google ansehen</a>
+    </div>
+    <p class="reviews-source">Quelle: Google Maps · gekürzte Namen aus DSGVO-Gründen</p>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section id="contact-cta">
+    <div class="cta-content">
+      <p class="section-label reveal">Reservierung</p>
+      <h2 class="section-title reveal" style="--i:1">Einfach<br/><em>anrufen</em></h2>
+      <p class="cta-body reveal" style="--i:2">Für einen Tisch oder eine Gruppenanfrage: ruf uns einfach an. Wir freuen uns auf deinen Besuch im Café Lou.</p>
+      <div class="reveal" style="--i:3">
+        <a href="tel:+494032848308" class="btn-phone">+49 40 328 483 08</a>
+        <p class="cta-note">Mo, Mi–Sa 9–17 Uhr · So 9:30–17 Uhr</p>
+      </div>
+      <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="cta-instagram reveal" style="--i:4">Uns auf Instagram folgen</a>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section id="contacts">
+    <div>
+      <div class="contact-logo">Café <em>Lou</em></div>
+      <p class="contact-desc">Dein Lieblingscafé in Hamburg-Meiendorf. Guter Kaffee, ehrliches Frühstück, warme Mittagessen. Jeden Morgen frisch.</p>
+    </div>
+    <div>
+      <p class="contact-block-title">Öffnungszeiten</p>
+      <div class="contact-block-main">
+        <div class="hours-row"><span class="hours-day">Montag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row closed"><span class="hours-day">Dienstag</span><span>Ruhetag</span></div>
+        <div class="hours-row"><span class="hours-day">Mittwoch</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Donnerstag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Freitag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Samstag</span><span>9:00 – 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">Sonntag</span><span>9:30 – 17:00</span></div>
+      </div>
+    </div>
+    <div>
+      <p class="contact-block-title">Adresse &amp; Kontakt</p>
+      <div class="contact-block-main">
+        Saseler Str. 1<br/>
+        Ecke Meiendorfer Str. 93<br/>
+        22145 Hamburg
+      </div>
+      <div class="contact-block-sub">
+        <a href="tel:+494032848308" class="contact-tel">+49 40 328 483 08</a>
+        <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener" class="contact-instagram">Instagram <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span class="footer-copy">© Café Lou 2026 · Alle Rechte vorbehalten</span>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/cafelou.hamburg/" target="_blank" rel="noopener">Instagram</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <!-- Vercel Web Analytics (cookieless, first-party proxy) -->
+  <script defer src="/_vercel/insights/script.js"></script>
+
+</body>
+</html>
